@@ -7,7 +7,7 @@ medicamentos
 inicializar el repo
 
 --
-colecciones
+colecciones:
 -users
 -medicamentos
 -citas
