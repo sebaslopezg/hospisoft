@@ -1,7 +1,7 @@
 import express from 'express'
-const router = express.Router()
-
 import * as medicamentos from '../controllers/medicamentos.js'
+
+const router = express.Router()
 
 router.get("/medicamento/view", medicamentos.view)
 router.get("/medicamento/getbyid/:id", medicamentos.getbyid)
