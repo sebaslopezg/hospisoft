@@ -1,20 +1,28 @@
-import { Schema, model, Collection } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 //Creamos el schema
 
 const medicamentoSchema = Schema({
     timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at' 
+        createdAt: {
+            required:false,
+            type: Date,
+            default: Date.now,
+        },
+        updatedAt: {
+            required:false,
+            type: Date,
+            default: Date.now,
+        }
     },
 
     createBy:{
         type: String,
-        required:true,
+        required:false,
     },
     updatedBy:{
         type: String,
-        required:true,
+        required:false,
     },
 
     nombre: {
@@ -33,10 +41,12 @@ const medicamentoSchema = Schema({
         type: Number,
         required: true,
         min: 0,
-        max: 255,
     },
 },
 {Collection:"medicamento"}
 )
 
-module.exports = model("medicamento", medicamentoSchema)
+const model = mongoose.model("medicamento", medicamentoSchema)
+
+export const schema = model.schema;
+export default model;
