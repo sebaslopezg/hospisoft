@@ -2,6 +2,19 @@ const { Schema, model } = require("mongoose");
 
 const userSchema = Schema(
   {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at' 
+    },
+
+    createBy:{
+        type: String,
+        required:true,
+    },
+    updatedBy:{
+        type: String,
+        required:true,
+    },
     nombre: {
       type: String,
       required: true,
@@ -18,23 +31,15 @@ const userSchema = Schema(
       type: String,
       required: true,
     },
-    esAdmin: {
-      type: Boolean,
-      default: false,
+    rol: {
+      type: String,
+      required: true,
     },
     direccion: {
       type: String,
       default: "",
     },
     numDoc: {
-      type: String,
-      default: "",
-    },
-    ciudad: {
-      type: String,
-      default: "",
-    },
-    pais: {
       type: String,
       default: "",
     },
