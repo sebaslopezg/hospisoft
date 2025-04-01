@@ -5,3 +5,9 @@ usuarios
 pacientes
 medicamentos
 inicializar el repo
+
+--
+colecciones
+-users
+-medicamentos
+-citas
