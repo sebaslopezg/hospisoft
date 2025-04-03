@@ -42,11 +42,11 @@ const create = async(req, res)=>{
 }
 
 const getbyid = async(req, res) =>{
-    //Recibimos el parametro por le cual debo buscar y eliminar
+
     let id = req.params.id
 
     try {
-        let consulta = await medicamento.findOneAndDelete({_id: id}).exec()
+        let consulta = await medicamento.find({_id: id}).exec()
         return res.send({
             status:true,
             msg:"Consulta exitosa",

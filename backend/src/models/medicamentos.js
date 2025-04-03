@@ -24,7 +24,12 @@ const medicamentoSchema = Schema({
         type: String,
         required:false,
     },
-
+    status:{
+        type:Number,
+        required:true,
+        min:0,
+        max:2,
+    },
     nombre: {
         type: String,
         required: true,
