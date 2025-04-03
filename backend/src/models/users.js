@@ -1,19 +1,32 @@
-const { Schema, model } = require("mongoose");
+import mongoose, { Schema } from 'mongoose'
 
-const userSchema = Schema(
-  {
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at' 
+const userSchema = Schema({
+  timestamps: {
+    createdAt: {
+        required:false,
+        type: Date,
+        default: Date.now,
+    },
+    updatedAt: {
+        required:false,
+        type: Date,
+        default: Date.now,
+      }
     },
 
     createBy:{
         type: String,
-        required:true,
+        required:false,
     },
     updatedBy:{
         type: String,
-        required:true,
+        required:false,
+    },
+    status:{
+      type:Number,
+      required:true,
+      min:0,
+      max:2,
     },
     nombre: {
       type: String,
@@ -48,10 +61,11 @@ const userSchema = Schema(
       default: "default.png",
     },
   },
-  { collection: "usuarios" }
-);
+  { collection: "user" });
 
 //cambio en el estilo de exportacion
 
-const Usuario = new model("Usuario", userSchema);
-module.exports = Usuario;
+const model = mongoose.model("user", userSchema)
+
+export const schema = model.schema;
+export default model;
