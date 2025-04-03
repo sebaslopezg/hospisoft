@@ -2,7 +2,7 @@ import cita from '../models/citas.js'
 
 const view = async(req, res)=>{
     try {
-        let listCitas = await cita.find().exec()
+        let listCitas = await cita.find({status:{$gt:0}}).exec()
         res.status(200).send({
             status:true,
             data:listCitas
@@ -20,6 +20,7 @@ const create = async(req, res)=>{
     let data = {
         createdBy:req.body.createdBy,
         updatedBy:req.body.updatedBy,
+        status:req.body.status,
         fecha:req.body.fecha,
         descripcion:req.body.descripcion,
         pacienteId:req.body.pacienteId
@@ -73,13 +74,13 @@ const updatebyid = async(req, res)=>{
         let consulta = await cita.findByIdAndUpdate(id, data).exec()
         return res.send({
             status:true,
-            msg:"Se ha actualizado el medicamento de manera exitosa",
+            msg:"Se ha actualizado la cita de manera exitosa",
             data:consulta
         })
     } catch (error) {
         return res.send({
             status:false,
-            msg:`Ha ocurrido un error el intentar actualizar el medicamento ${error}`
+            msg:`Ha ocurrido un error el intentar actualizar la cita ${error}`
         })
     }
 }
@@ -89,7 +90,7 @@ const deletebyid = async(req, res)=>{
     let id = req.params.id
 
     try {
-        let consulta = await cita.findByIdAndDelete(id).exec()
+        let consulta = await cita.findByIdAndUpdate(id, {status: 0}).exec()
         return res.send({
             status:true,
             msg:"Eliminación exitosa",

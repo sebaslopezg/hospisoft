@@ -68,6 +68,7 @@ const updatebyid = async(req, res)=>{
         descripcion: req.body.descripcion,
         imagen: req.body.imagen,
         existencia: req.body.existencia,
+        status: req.body.status,
     }
 
     try {
@@ -90,7 +91,7 @@ const deletebyid = async(req, res)=>{
     let id = req.params.id
 
     try {
-        let consulta = await medicamento.findByIdAndDelete(id).exec()
+        let consulta = await medicamento.findByIdAndUpdate(id, {status:0}).exec()
         return res.send({
             status:true,
             msg:"Eliminación exitosa",

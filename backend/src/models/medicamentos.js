@@ -15,7 +15,6 @@ const medicamentoSchema = Schema({
             default: Date.now,
         }
     },
-
     createBy:{
         type: String,
         required:false,
