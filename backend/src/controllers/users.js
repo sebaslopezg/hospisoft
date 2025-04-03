@@ -1,8 +1,10 @@
-import Usuario from "../models/users";
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import user from "../models/users.js";
 
 const view = async (req, res) => {
     try {
-      let listUsers = await Usuario.find().exec();
+      let listUsers = await user.find().exec();
       res.status(200).send({
         exito: true,
         listUsers,
@@ -26,7 +28,7 @@ const view = async (req, res) => {
       numDoc: req.body.zip,
     };
   
-    let usuarioExiste = await Usuarios.findOne({ email: req.body.email });
+    let usuarioExiste = await user.findOne({ email: req.body.email });
   
     if (usuarioExiste) {
       return res.send({
@@ -36,7 +38,7 @@ const view = async (req, res) => {
     }
   
     try {
-      let usuarioNuevo = new Usuario(data);
+      let usuarioNuevo = new user(data);
       usuarioNuevo.save();
       res.send({
         estado: true,
@@ -45,8 +47,7 @@ const view = async (req, res) => {
     } catch (error) {
       res.send({
         estado: false,
-        mensaje: "usuario No creado",
-        error,
+        mensaje: `usuario No creado ${error}`,
       });
     }
   };
@@ -64,7 +65,7 @@ const view = async (req, res) => {
       };
 
       try {
-        let query = await Usuario.findByIdAndUpdate(id, data).exec()
+        let query = await user.findByIdAndUpdate(id, data).exec()
         return res.send({
         status:true,
          msg:"Se ha actualizado el medicamento de manera exitosa",
@@ -82,7 +83,7 @@ const view = async (req, res) => {
   const deletebyid = async(req, res)=>{
     let id = req.params.id
       try {
-          let query = await Usuario.findByIdAndDelete(id).exec()
+          let query = await user.findByIdAndDelete(id).exec()
           return res.send({
               status:true,
               msg:"Eliminación exitosa",
@@ -99,7 +100,7 @@ const view = async (req, res) => {
 
   const login = async (req, res) => {
     let data = req.body.email;
-    let usuarioExiste = await Usuario.findOne({ email: data });
+    let usuarioExiste = await user.findOne({ email: data });
     if (!usuarioExiste) {
       return res.send({
         estado: false,
@@ -132,66 +133,12 @@ const view = async (req, res) => {
       });
     }
   };
-  
-  const uploadimg = async (req, res) => {
-    try {
-      // Validar si se subió un archivo
-      if (!req.file) {
-        return res.status(400).json({
-          estado: false,
-          mensaje: "No se ha subido ninguna imagen",
-        });
-      }
-      // validar la extension de la imagen
-      const { originalname, filename, path } = req.file;
-      const extension = originalname.split(".").pop().toLowerCase();
-      // Validar extensión de la imagen
-      const extensionesValidas = ["png", "jpg", "jpeg", "webp"];
-      if (!extensionesValidas.includes(extension)) {
-        await fs.unlink(path);
-        return res.status(400).json({
-          estado: false,
-          mensaje: "Extensión de archivo no permitida",
-        });
-      }
-  
-      const updateuserimg = await Usuario.findByIdAndUpdate(req.body.id, {
-        imagen: filename,
-      });
-  
-      return res.status(200).json({
-        estado: true,
-        user: usuarioActualizado,
-      });
-    } catch (error) {
-      return res.status(500).json({
-        estado: false,
-        nensaje: "Error al procesar la imagen",
-        error: error.message,
-      });
-    }
-  };
-  
-  const avatar = (req, res) => {
-    const file = req.params.file;
-    const filePath = "./backend/src/uploads/users/" + file;
-    fs.stat(filePath, (error, exists) => {
-      if (!exists) {
-        return res.status(404).send({
-          status: "error",
-          message: "No existe la imagen",
-        });
-      }
-      return res.sendFile(path.resolve(filePath));
-    });
-  };
-  module.exports = {
+
+  export {
     view,
     create,
     updatebyid,
     deletebyid,
     login,
-    uploadimg,
-    avatar,
   };
   
