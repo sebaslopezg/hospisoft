@@ -23,9 +23,10 @@ const view = async (req, res) => {
       email: req.body.email,
       passwordHash: bcrypt.hashSync(req.body.password, 10),
       telefono: req.body.telefono,
-      rol: req.body.esadmin,
+      rol: req.body.rol,
       direccion: req.body.direccion,
       numDoc: req.body.zip,
+      status: req.body.status
     };
   
     let usuarioExiste = await user.findOne({ email: req.body.email });
@@ -59,7 +60,7 @@ const view = async (req, res) => {
         email: req.body.email,
         passwordHash: bcrypt.hashSync(req.body.password, 10),
         telefono: req.body.telefono,
-        rol: req.body.esadmin,
+        rol: req.body.rol,
         direccion: req.body.direccion,
         numDoc: req.body.zip,
       };
@@ -68,13 +69,13 @@ const view = async (req, res) => {
         let query = await user.findByIdAndUpdate(id, data).exec()
         return res.send({
         status:true,
-         msg:"Se ha actualizado el medicamento de manera exitosa",
+         msg:"Se ha actualizado el usuario de manera exitosa",
         data:query
         })
           } catch (error) {
               return res.send({
                 status:false,
-                msg:`Ha ocurrido un error el intentar actualizar el medicamento ${error}`
+                msg:`Ha ocurrido un error el intentar actualizar el usuario ${error}`
               })
           }
 
@@ -115,7 +116,7 @@ const view = async (req, res) => {
       const token = jwt.sign(
         {
           userId: usuarioExiste.id,
-          isAdmin: usuarioExiste.esAdmin,
+          isAdmin: usuarioExiste.rol,
         },
         "seCreTo",
         { expiresIn: "4h" }

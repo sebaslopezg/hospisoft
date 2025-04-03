@@ -16,11 +16,11 @@ const userSchema = Schema({
 
     createBy:{
         type: String,
-        required:true,
+        required:false,
     },
     updatedBy:{
         type: String,
-        required:true,
+        required:false,
     },
     status:{
       type:Number,
