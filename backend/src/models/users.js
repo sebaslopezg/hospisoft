@@ -22,6 +22,12 @@ const userSchema = Schema({
         type: String,
         required:true,
     },
+    status:{
+      type:Number,
+      required:true,
+      min:0,
+      max:2,
+    },
     nombre: {
       type: String,
       required: true,
