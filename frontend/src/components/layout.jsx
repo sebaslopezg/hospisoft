@@ -18,13 +18,8 @@ const NAVIGATION = [
     title: 'Main items',
   },
   {
-<<<<<<< HEAD
-    segment: 'dashboard',
-    title: 'Dashboard',
-=======
     segment: 'home',
     title: 'Home',
->>>>>>> 1dbbe66b8f855ba508da2b136320632a95d1abd7
     icon: <DashboardIcon />,
   },
   {
