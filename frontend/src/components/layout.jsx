@@ -16,8 +16,8 @@ const NAVIGATION = [
     title: 'Main items',
   },
   {
-    segment: 'page',
-    title: 'Page',
+    segment: 'home',
+    title: 'Home',
     icon: <DashboardIcon />,
   },
   {

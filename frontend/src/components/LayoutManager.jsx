@@ -1,9 +1,11 @@
 import { Medicamentos } from "./medicamentos/medicamentos";
 import { Users } from "./users/Users";
+import { Home } from "./home/home";
 
 const pageContent = {
     usuarios:<><Users /></>,
-    medicamentos:<>< Medicamentos /></>
+    medicamentos:<>< Medicamentos /></>,
+    home:<><Home/></>
 }
 
 const RenderLayout = (renderName) => {
