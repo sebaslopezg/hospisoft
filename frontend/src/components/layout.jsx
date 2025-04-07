@@ -8,6 +8,7 @@ import TimelineIcon from '@mui/icons-material/Timeline';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { useDemoRouter } from '@toolpad/core/internal';
+import { LayoutManager } from './layoutManager';
 
 const NAVIGATION = [
   {
@@ -22,6 +23,16 @@ const NAVIGATION = [
   {
     segment: 'page-2',
     title: 'Page 2',
+    icon: <TimelineIcon />,
+  },
+  {
+    segment: 'usuarios',
+    title: 'Usuarios',
+    icon: <TimelineIcon />,
+  },
+  {
+    segment: 'medicamentos',
+    title: 'Medicamentos',
     icon: <TimelineIcon />,
   },
 ];
@@ -79,7 +90,7 @@ function AppProviderBasic(props) {
       window={demoWindow}
     >
       <DashboardLayout>
-        <DemoPageContent pathname={router.pathname} />
+        <LayoutManager pathname={router.pathname} />
       </DashboardLayout>
     </AppProvider>
     // preview-end
@@ -91,7 +102,7 @@ AppProviderBasic.propTypes = {
    * Injected by the documentation to work in an iframe.
    * Remove this when copying and pasting into your project.
    */
-  window: PropTypes.func,
+  //window: PropTypes.func,
 };
 
 export default AppProviderBasic;
