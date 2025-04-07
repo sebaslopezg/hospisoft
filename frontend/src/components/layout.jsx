@@ -4,11 +4,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { createTheme } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import TimelineIcon from '@mui/icons-material/Timeline';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { useDemoRouter } from '@toolpad/core/internal';
 import { LayoutManager } from './layoutManager';
+import SportsKabaddiRoundedIcon from '@mui/icons-material/SportsKabaddiRounded';
+import MedicationRoundedIcon from '@mui/icons-material/MedicationRounded';
+import InsertInvitationRoundedIcon from '@mui/icons-material/InsertInvitationRounded';
 
 const NAVIGATION = [
   {
@@ -16,24 +18,36 @@ const NAVIGATION = [
     title: 'Main items',
   },
   {
-    segment: 'page',
-    title: 'Page',
+    segment: 'dashboard',
+    title: 'Dashboard',
     icon: <DashboardIcon />,
-  },
-  {
-    segment: 'page-2',
-    title: 'Page 2',
-    icon: <TimelineIcon />,
   },
   {
     segment: 'usuarios',
     title: 'Usuarios',
-    icon: <TimelineIcon />,
+    icon: <SportsKabaddiRoundedIcon />,
+  },
+  {
+    segment: 'citas',
+    title: 'Gestion de citas',
+    icon: <InsertInvitationRoundedIcon />,
+    children:[
+      {
+        segment: 'sales',
+        title: 'Sales',
+        icon: <InsertInvitationRoundedIcon />,
+      },
+      {
+        segment: 'traffic',
+        title: 'Traffic',
+        icon: <InsertInvitationRoundedIcon />,
+      },
+    ]
   },
   {
     segment: 'medicamentos',
     title: 'Medicamentos',
-    icon: <TimelineIcon />,
+    icon: <MedicationRoundedIcon />,
   },
 ];
 
@@ -82,7 +96,6 @@ function AppProviderBasic(props) {
   const demoWindow = window !== undefined ? window() : undefined;
 
   return (
-    // preview-start
     <AppProvider
       navigation={NAVIGATION}
       router={router}
@@ -93,16 +106,7 @@ function AppProviderBasic(props) {
         <LayoutManager pathname={router.pathname} />
       </DashboardLayout>
     </AppProvider>
-    // preview-end
   );
 }
-
-AppProviderBasic.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  //window: PropTypes.func,
-};
 
 export default AppProviderBasic;

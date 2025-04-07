@@ -1,9 +1,10 @@
+import Container from '@mui/material/Container';
 import { Medicamentos } from "./medicamentos/medicamentos";
 import { Users } from "./users/Users";
 
 const pageContent = {
     usuarios:<><Users /></>,
-    medicamentos:<>< Medicamentos /></>
+    medicamentos:<>< Medicamentos /></>,
 }
 
 const RenderLayout = (renderName) => {
@@ -17,6 +18,9 @@ const RenderLayout = (renderName) => {
 
 export const LayoutManager = (pathname) => {
     return <>
+    <Container maxWidth="xl">
         <RenderLayout renderName={pathname}/>
+    </Container>
+
     </>;
 }
