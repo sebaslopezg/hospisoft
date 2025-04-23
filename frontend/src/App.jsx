@@ -1,4 +1,4 @@
-import AppProviderBasic from './components/layout'
+import AppProviderBasic from './layouts/layout'
 
 function App() {
 
