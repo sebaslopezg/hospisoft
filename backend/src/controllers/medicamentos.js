@@ -1,5 +1,9 @@
 import medicamento from '../models/medicamentos.js'
 
+/**
+ * Función para ver los medicamentos disponibles
+ * @constructor
+ */
 const view = async(req, res)=>{
     try {
         let listMedicamentos = await medicamento.find().exec()
@@ -15,6 +19,10 @@ const view = async(req, res)=>{
     }
 }
 
+/**
+ * Función para crear medicamentos
+ * @constructor
+ */
 //pendiente agregar usuario id
 const create = async(req, res)=>{
 
@@ -41,6 +49,10 @@ const create = async(req, res)=>{
     }
 }
 
+/**
+ * Función para obtener un medicamento por medio de su id
+ * @constructor
+ */
 const getbyid = async(req, res) =>{
 
     let id = req.params.id
@@ -60,6 +72,11 @@ const getbyid = async(req, res) =>{
     }
 }
 
+
+/**
+ * Función para editar un medicamento por medio de su id
+ * @constructor
+ */
 const updatebyid = async(req, res)=>{
     let id = req.params.id
 
@@ -86,6 +103,10 @@ const updatebyid = async(req, res)=>{
     }
 }
 
+/**
+ * Función para eliminar un medicamento por medio de su id
+ * @constructor
+ */
 const deletebyid = async(req, res)=>{
 
     let id = req.params.id

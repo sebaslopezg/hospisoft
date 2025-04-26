@@ -1,5 +1,9 @@
 import cita from '../models/citas.js'
 
+/**
+ * Función para ver los datos en la tabla a la que pertenece la función 
+ * @constructor
+ */
 const view = async(req, res)=>{
     try {
         let listCitas = await cita.find({status:{$gt:0}}).exec()
@@ -15,6 +19,10 @@ const view = async(req, res)=>{
     }
 }
 
+/**
+ * Función para insertar datos en la tabla correspondiente
+ * @constructor
+ */
 const create = async(req, res)=>{
 
     let data = {
@@ -42,6 +50,10 @@ const create = async(req, res)=>{
     }
 }
 
+/**
+ * Función para seleccionar un dato por medio de su id
+ * @constructor
+ */
 const getbyid = async(req, res) =>{
     let id = req.params.id
 
@@ -60,6 +72,10 @@ const getbyid = async(req, res) =>{
     }
 }
 
+/**
+ * Función para editar un dato por medio de su id
+ * @constructor
+ */
 const updatebyid = async(req, res)=>{
     let id = req.params.id
 
@@ -85,6 +101,10 @@ const updatebyid = async(req, res)=>{
     }
 }
 
+/**
+ * Función para eliminar un dato por medio de su id
+ * @constructor
+ */
 const deletebyid = async(req, res)=>{
 
     let id = req.params.id
