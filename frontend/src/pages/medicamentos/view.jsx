@@ -45,7 +45,7 @@ const columns = [
 
   axios({
     method: 'get',
-    url: 'http://localhost:4000/api/medicamento/view',
+    url: 'http://192.168.1.120:4000/api/medicamento/view',
     responseType: 'json'
   })
     .then(function (response) {

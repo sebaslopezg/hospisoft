@@ -19,7 +19,8 @@ import {
 
 export const notesDataSource = {
   fields: [
-    { field: 'nombre', headerName: 'Nombre', flex: 1 },
+    { field: '_id', headerName: 'ID', flex: 1 },
+    { field: 'nombre', headerName: 'gyujghujgjgh', flex: 1 },
     { field: 'descripcion', headerName: 'Descripcion', flex: 2 },
   ],
 
@@ -35,7 +36,7 @@ export const notesDataSource = {
       queryParams.append('filter', JSON.stringify(filterModel.items));
     }
     // Fetch data from server
-    const res = await fetch(`http://localhost:4000/api/notas/view`, {
+    const res = await fetch(`http://192.168.1.120:4000/api/notas/view`, {
       method: 'GET',
     });
     const resJson = await res.json();
@@ -155,7 +156,7 @@ export default function NotesPage() {
 
   return <>
   <PageContainer title={title}>
-    <CrudProvider dataSource={notesDataSource} dataSourceCache={null}>
+    <CrudProvider dataSource={notesDataSource} dataSourceCache={notesCache}>
     {router.pathname === listPath ? (
         <List
           initialPageSize={10}
