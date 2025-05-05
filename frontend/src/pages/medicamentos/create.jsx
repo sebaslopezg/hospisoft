@@ -1,0 +1,53 @@
+import { useState } from "react"
+import axios from "axios"
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import { useNotifications } from '@toolpad/core/useNotifications';
+
+export const MedicamentosCreate = () =>{ 
+
+  const notifications = useNotifications();
+
+const [myData, setData] = useState({})
+
+const getFromData = async(e) =>{
+  e.preventDefault()
+  let value = e.target
+
+  const formData = {
+    nombre: value.nombre.value,
+    descripcion: value.descripcion.value,
+    existencia: value.existencia.value,
+  }
+  setData(formData)
+  await axios.post('http://localhost:4000/api/medicamento/create',formData)
+  .then((res) =>{
+    console.log(res)
+    res.data.status ? (
+      notifications.show(res.data.msg, 
+        {severity: 'success',autoHideDuration: 3000,})
+      ) : (
+        notifications.show(res.data.msg, 
+          {severity: 'error',autoHideDuration: 3000,})
+      )
+  })
+  .catch((err) =>{
+    notifications.show('Error de conexión: ' + err.message, 
+      {severity: 'error',autoHideDuration: 3000,})
+  })
+}
+
+    return <>
+    <form action="" onSubmit={getFromData}>
+      <Box sx={{display: 'flex', flexDirection:'column'}}>
+        <TextField margin="dense" required name="nombre" label="Nombre" variant="outlined" />
+        <TextField multiline maxRows={4} margin="dense" required name="descripcion" label="Descripcion" variant="outlined" />
+        <TextField margin="dense" required type="number" name="existencia" label="Existencia" variant="outlined" />
+        <Box>
+          <Button type="submit" variant="contained">Guardar</Button>
+        </Box>
+      </Box>
+    </form>
+    </>;
+}

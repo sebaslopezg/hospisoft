@@ -1,69 +1,52 @@
-import { Outlet } from 'react-router';
+import * as React from 'react';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
+import { Outlet } from 'react-router';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import SportsKabaddiRoundedIcon from '@mui/icons-material/SportsKabaddiRounded';
-import MedicationRoundedIcon from '@mui/icons-material/MedicationRounded';
-import InsertInvitationRoundedIcon from '@mui/icons-material/InsertInvitationRounded';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import EditNoteIcon from '@mui/icons-material/EditNote';
+import MedicationIcon from '@mui/icons-material/Medication';
+
+const NAVIGATION = [
+/*   { // para darle un titulo a la barra
+    kind: 'header',
+    title: 'Main items',
+  }, */
+  {
+    title: 'Dashboard',
+    icon: <DashboardIcon />,
+  },
+  {
+    segment: 'orders',
+    title: 'Orders',
+    icon: <ShoppingCartIcon />,
+  },
+  {
+    segment: 'notes',
+    title: 'Noticas',
+    icon: <EditNoteIcon />,
+  },
+  {
+    segment: 'medicamentos',
+    title: 'Medicamentos',
+    icon: <MedicationIcon />,
+    pattern: 'medicamentos{/:crud}*',
+  },
+];
+
+const BRANDING = {
+  logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
+  title: 'como tas :3',
+  homeUrl: '/',
+};
 
 function App() {
-
-  const NAVIGATION = [
-    {
-      kind: 'header',
-      title: 'Main items',
-    },
-    {
-      segment: 'home',
-      title: 'Home',
-      icon: <DashboardIcon />,
-    },
-    {
-      segment: 'usuarios',
-      title: 'Usuarios',
-      icon: <SportsKabaddiRoundedIcon />,
-    },
-    {
-      segment: 'citas',
-      title: 'Gestion de citas',
-      icon: <InsertInvitationRoundedIcon />,
-      children:[
-        {
-          segment: 'sales',
-          title: 'Sales',
-          icon: <InsertInvitationRoundedIcon />,
-        },
-        {
-          segment: 'traffic',
-          title: 'Traffic',
-          icon: <InsertInvitationRoundedIcon />,
-        },
-      ]
-    },
-    {
-      segment: 'medicamentos',
-      title: 'Medicamentos',
-      icon: <MedicationRoundedIcon />,
-    },
-    {
-      segment: 'crudsito',
-      title: 'Crud basico Ejemplo',
-      icon: <MedicationRoundedIcon />,
-    },
-  ];
-  
-  const BRANDING = {
-    title: 'My Toolpad Core App',
-  };
-  
-
-  return (
+  return(
     <>
-    {/*<AppProviderBasic />*/}
     <ReactRouterAppProvider navigation={NAVIGATION} branding={BRANDING}>
       <Outlet />
     </ReactRouterAppProvider>
-    </>
+  </>
   )
 }
 
