@@ -4,6 +4,7 @@ import connection from './src/database/db.js'
 import medicamentoRoute from './src/routes/medicamentos.js'
 import usersRoute from './src/routes/users.js'
 import citaRoute from './src/routes/citas.js'
+import notaRoute from './src/routes/notas.js'
 
 const app = express()
 
@@ -14,6 +15,7 @@ connection()
 app.use('/api', medicamentoRoute)
 app.use('/api', usersRoute)
 app.use('/api', citaRoute)
+app.use('/api', notaRoute)
 
 const port = 4000
 app.listen(port,()=>(

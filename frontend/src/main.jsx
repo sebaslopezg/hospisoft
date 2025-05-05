@@ -4,6 +4,8 @@ import AppProviderBasic from './layouts/layout';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import { Users } from './layouts/users/Users.jsx';
+import { Medicamentos } from './layouts/medicamentos/Medicamentos.jsx'; 
+import { Crudsito } from './layouts/crud/crudsito.jsx';
 
 import App from './App.jsx'
 
@@ -16,14 +18,22 @@ const router = createBrowserRouter([
           Component: AppProviderBasic,
           children:[
             {
-                path: 'usuarios',
-                Component: Users,
+              path: 'usuarios',
+              Component: Users,
+            },
+            {
+              path: 'medicamentos',
+              Component: Medicamentos ,
+            },
+            {
+              path: 'crudsito',
+              Component: Crudsito ,
             },
           ]
         },
         //aquí se puede poner una landing
         {
-          path: 'usuarios',
+          path: 'usuarios', //path de ejemplo
           Component: Users,
         },
       ],
@@ -31,8 +41,5 @@ const router = createBrowserRouter([
   ]);
 
 createRoot(document.getElementById('root')).render(
-
-        <RouterProvider router={router} />
+  <RouterProvider router={router} />
 )
-
-        /*<App />*/

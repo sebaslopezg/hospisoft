@@ -10,3 +10,14 @@ router.put("/cita/updatebyid/:id", citas.updatebyid)
 router.delete("/cita/deletebyid/:id", citas.deletebyid)
 
 export default router
+
+
+/*
+
+/cita/view
+/cita/getbyid/:id
+/cita/create
+/cita/updatebyid/:id
+/cita/deletebyid/:id
+
+*/

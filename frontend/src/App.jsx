@@ -45,6 +45,11 @@ function App() {
       title: 'Medicamentos',
       icon: <MedicationRoundedIcon />,
     },
+    {
+      segment: 'crudsito',
+      title: 'Crud basico Ejemplo',
+      icon: <MedicationRoundedIcon />,
+    },
   ];
   
   const BRANDING = {

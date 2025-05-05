@@ -10,3 +10,11 @@ router.put("/users/updatebyid/:id", users.updatebyid)
 router.delete("/users/deletebyid/:id", users.deletebyid)
 
 export default router
+
+/*
+/users/view
+/users/create
+/users/updatebyid
+/users/deletebyid/:id
+
+*/

@@ -4,10 +4,10 @@ import user from "../models/users.js";
 
 const view = async (req, res) => {
     try {
-      let listUsers = await user.find().exec();
+      let data = await user.find().exec();
       res.status(200).send({
         exito: true,
-        listUsers,
+        data,
       });
     } catch (error) {
       res.status(500).send({
@@ -16,12 +16,12 @@ const view = async (req, res) => {
       });
     }
   };
-  
+        //passwordHash: bcrypt.hashSync(req.body.password, 10),
   const create = async (req, res) => {
     let data = {
       nombre: req.body.nombre,
       email: req.body.email,
-      passwordHash: bcrypt.hashSync(req.body.password, 10),
+      passwordHash: req.body.passwordHash,
       telefono: req.body.telefono,
       rol: req.body.rol,
       direccion: req.body.direccion,

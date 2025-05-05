@@ -28,6 +28,7 @@ const medicamentoSchema = Schema({
         required:true,
         min:0,
         max:2,
+        default: 1,
     },
     nombre: {
         type: String,
