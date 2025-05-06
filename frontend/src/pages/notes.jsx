@@ -19,22 +19,12 @@ import {
 
 export const notesDataSource = {
   fields: [
-    { field: '_id', headerName: 'ID', flex: 1 },
-    { field: 'nombre', headerName: 'gyujghujgjgh', flex: 1 },
+    { field: '_id', headerName: 'ID', flex: 1, type:'string' },
+    { field: 'nombre', headerName: 'Nombre', flex: 1 },
     { field: 'descripcion', headerName: 'Descripcion', flex: 2 },
   ],
 
-  getMany: async ({ paginationModel, filterModel, sortModel }) => {
-    const queryParams = new URLSearchParams();
-
-    queryParams.append('page', paginationModel.page.toString());
-    queryParams.append('pageSize', paginationModel.pageSize.toString());
-    if (sortModel?.length) {
-      queryParams.append('sort', JSON.stringify(sortModel));
-    }
-    if (filterModel?.items?.length) {
-      queryParams.append('filter', JSON.stringify(filterModel.items));
-    }
+  getMany: async () => {
     // Fetch data from server
     const res = await fetch(`http://192.168.1.120:4000/api/notas/view`, {
       method: 'GET',
@@ -45,7 +35,6 @@ export const notesDataSource = {
       throw new Error(resJson.error);
     }
 
-    console.log(resJson.data)
 //    return resJson.data;
     return {
       items: resJson.data,
@@ -59,13 +48,12 @@ export const notesDataSource = {
       method: 'GET',
     });
     const resJson = await res.json();
+    console.log(resJson.data[0])
 
     if (!res.ok) {
       throw new Error(resJson.error);
     }
-    console.log(id)
-    console.log(resJson)
-    return resJson;
+    return resJson.data[0]
   },
   
   createOne: async (data) => {
@@ -97,23 +85,25 @@ export default function NotesPage() {
   const rootPath = '/notes';
 
   const router = useDemoRouter(rootPath);
+ 
 
   const listPath = rootPath;
   const showPath = `${rootPath}/:noteId`;
   const createPath = `${rootPath}/new`;
   const editPath = `${rootPath}/:noteId/edit`;
-
   //...
 
   const title = React.useMemo(() => {
     if (router.pathname === createPath) {
-      return 'New Note';
+      return 'Nueva nota';
     }
     const editNoteId = matchPath(editPath, router.pathname);
+    console.log(editNoteId)
     if (editNoteId) {
       return `Note ${editNoteId} - Edit`;
     }
     const showNoteId = matchPath(showPath, router.pathname);
+    console.log(showNoteId)
     if (showNoteId) {
       return `Note ${showNoteId}`;
     }
@@ -153,20 +143,20 @@ export default function NotesPage() {
 
   const showNoteId = matchPath(showPath, router.pathname);
   const editNoteId = matchPath(editPath, router.pathname);
-
+console.log(router.pathname)
   return <>
   <PageContainer title={title}>
     <CrudProvider dataSource={notesDataSource} dataSourceCache={notesCache}>
     {router.pathname === listPath ? (
         <List
           initialPageSize={10}
-          onRowClick={handleRowClick}
-          onCreateClick={handleCreateClick}
-          onEditClick={handleEditClick}
           slots={{ dataGrid: DataGrid }}
           slotProps={{
             dataGrid: { getRowId: (row) => row._id },
           }}
+          onRowClick={handleRowClick}
+          onCreateClick={handleCreateClick}
+          onEditClick={handleEditClick}
         />
       ) : null}
       {router.pathname === createPath ? (

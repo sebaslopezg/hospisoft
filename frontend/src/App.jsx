@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
+import { AppProvider } from '@toolpad/core/AppProvider';
 import { Outlet } from 'react-router';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -25,6 +26,7 @@ const NAVIGATION = [
     segment: 'notes',
     title: 'Noticas',
     icon: <EditNoteIcon />,
+    pattern: 'notes{/:noteId}*',
   },
   {
     segment: 'medicamentos',
@@ -43,9 +45,9 @@ const BRANDING = {
 function App() {
   return(
     <>
-    <ReactRouterAppProvider navigation={NAVIGATION} branding={BRANDING}>
+    <AppProvider navigation={NAVIGATION} branding={BRANDING}>
       <Outlet />
-    </ReactRouterAppProvider>
+    </AppProvider>
   </>
   )
 }

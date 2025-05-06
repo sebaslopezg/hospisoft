@@ -30,7 +30,6 @@ const columns = [
     headerName: "Action",
     sortable: false,
     renderCell: (params) => {
-      console.log(params)
       return (
         <>
       <IconButton ><EditIcon /></IconButton>
