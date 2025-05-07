@@ -12,6 +12,7 @@ import MedicamentosLayout from './pages/medicamentos';
 import {MedicamentosCreate} from './pages/medicamentos/create';
 import MedicamentosView from './pages/medicamentos/view';
 
+
 const router = createBrowserRouter([
   {
     Component: App, // root layout route

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useMemo, useCallback } from 'react'; 
 import { DataGrid } from '@mui/x-data-grid';
 import { PageContainer } from '@toolpad/core/PageContainer';
 import { 
@@ -19,7 +19,6 @@ import {
 
 export const notesDataSource = {
   fields: [
-    { field: '_id', headerName: 'ID', flex: 1, type:'string' },
     { field: 'nombre', headerName: 'Nombre', flex: 1 },
     { field: 'descripcion', headerName: 'Descripcion', flex: 2 },
   ],
@@ -93,66 +92,67 @@ export default function NotesPage() {
   const editPath = `${rootPath}/:noteId/edit`;
   //...
 
-  const title = React.useMemo(() => {
+  const title = useMemo(() => {
     if (router.pathname === createPath) {
       return 'Nueva nota';
     }
     const editNoteId = matchPath(editPath, router.pathname);
-    console.log(editNoteId)
     if (editNoteId) {
-      return `Note ${editNoteId} - Edit`;
+      return `Nota ${editNoteId} - Editar`;
     }
     const showNoteId = matchPath(showPath, router.pathname);
-    console.log(showNoteId)
     if (showNoteId) {
-      return `Note ${showNoteId}`;
+      return `Nota ${showNoteId}`;
     }
 
     return undefined;
-  }, [createPath, editPath, router.pathname, showPath]);
+  }, [createPath, editPath, showPath,router.pathname]);
 
-  const handleRowClick = React.useCallback(
+  const handleRowClick = useCallback(
     (noteId) => {
+      console.log(noteId)
       router.navigate(`${rootPath}/${String(noteId)}`);
     },
     [router],
   );
 
-  const handleCreateClick = React.useCallback(() => {
+  const handleCreateClick = useCallback(() => {
     router.navigate(createPath);
   }, [createPath, router]);
 
-  const handleEditClick = React.useCallback(
+  const handleEditClick = useCallback(
     (noteId) => {
       router.navigate(`${rootPath}/${String(noteId)}/edit`);
     },
     [router],
   );
 
-  const handleCreate = React.useCallback(() => {
+  const handleCreate = useCallback(() => {
     router.navigate(listPath);
   }, [listPath, router]);
 
-  const handleEdit = React.useCallback(() => {
+  const handleEdit = useCallback(() => {
     router.navigate(listPath);
   }, [listPath, router]);
 
-  const handleDelete = React.useCallback(() => {
+  const handleDelete = useCallback(() => {
     router.navigate(listPath);
   }, [listPath, router]);
 
   const showNoteId = matchPath(showPath, router.pathname);
   const editNoteId = matchPath(editPath, router.pathname);
-console.log(router.pathname)
   return <>
   <PageContainer title={title}>
     <CrudProvider dataSource={notesDataSource} dataSourceCache={notesCache}>
     {router.pathname === listPath ? (
         <List
           initialPageSize={10}
-          slots={{ dataGrid: DataGrid }}
+          slots={{ 
+            dataGrid: DataGrid }}
           slotProps={{
-            dataGrid: { getRowId: (row) => row._id },
+            dataGrid: { 
+              getRowId: (row) => row._id,             
+            },
           }}
           onRowClick={handleRowClick}
           onCreateClick={handleCreateClick}

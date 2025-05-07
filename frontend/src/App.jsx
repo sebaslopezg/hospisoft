@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { ReactRouterAppProvider } from '@toolpad/core/react-router';
-import { AppProvider } from '@toolpad/core/AppProvider';
+import { createBrowserRouter } from 'react-router';
 import { Outlet } from 'react-router';
 
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import MedicationIcon from '@mui/icons-material/Medication';
+import Logo from './assets/img/logo.png'
 
-const NAVIGATION = [
-/*   { // para darle un titulo a la barra
+ const NAVIGATION = [
+   { // para darle un titulo a la barra
     kind: 'header',
     title: 'Main items',
-  }, */
+  }, 
   {
     title: 'Dashboard',
     icon: <DashboardIcon />,
@@ -34,20 +35,20 @@ const NAVIGATION = [
     icon: <MedicationIcon />,
     pattern: 'medicamentos{/:crud}*',
   },
-];
+]; 
 
 const BRANDING = {
-  logo: <img src="https://mui.com/static/logo.png" alt="MUI logo" />,
-  title: 'como tas :3',
+  logo: <img src={Logo} alt="MUI logo" />,
+  title: 'HospiSoft',
   homeUrl: '/',
 };
 
 function App() {
   return(
     <>
-    <AppProvider navigation={NAVIGATION} branding={BRANDING}>
+    <ReactRouterAppProvider branding={BRANDING} navigation={NAVIGATION}>
       <Outlet />
-    </AppProvider>
+    </ReactRouterAppProvider>
   </>
   )
 }

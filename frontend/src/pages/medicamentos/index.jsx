@@ -5,8 +5,8 @@ import { PageContainer } from '@toolpad/core/PageContainer';
 export default function MedicamentosLayout() {
 
   return <>
-  <PageContainer>
-    <Outlet />
+    <PageContainer>
+      <Outlet />
     </PageContainer>
   </>
 }
