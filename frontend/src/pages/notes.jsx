@@ -10,6 +10,7 @@ import {
     Show,
  } from '@toolpad/core/Crud';
  import { useDemoRouter } from '@toolpad/core/internal';
+ import Config from '../Config.jsx';
 
 //adaptando a ejemplos en documentacion, revisar muy bien
 /* let notesStore = [
@@ -25,7 +26,7 @@ export const notesDataSource = {
 
   getMany: async () => {
     // Fetch data from server
-    const res = await fetch(`http://192.168.1.120:4000/api/notas/view`, {
+    const res = await fetch(`${Config('urlRoot')}/notas/view`, {
       method: 'GET',
     });
     const resJson = await res.json();
@@ -43,7 +44,7 @@ export const notesDataSource = {
 
   getOne: async (id) => {
     // Fetch record from server
-    const res = await fetch(`http://localhost:4000/api/notas/getbyid/${id}`, {
+    const res = await fetch(`${Config('urlRoot')}/notas/getbyid/${id}`, {
       method: 'GET',
     });
     const resJson = await res.json();
@@ -57,7 +58,7 @@ export const notesDataSource = {
   
   createOne: async (data) => {
     // Create record in the server
-    const res = await fetch('http://localhost:4000/api/notas/create', {
+    const res = await fetch(`${Config('urlRoot')}/notas/create`, {
       method: 'POST',
       body: JSON.stringify(data),
       headers: { 'Content-Type': 'application/json' },

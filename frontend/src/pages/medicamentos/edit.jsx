@@ -3,6 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { data, useParams } from 'react-router';
 import axios from 'axios'
+import Config from '../../Config';
 
 
 export const MedicamentosEdit = () => {
@@ -13,17 +14,18 @@ export const MedicamentosEdit = () => {
     const getData = () =>{
         axios({
           method: 'get',
-          url: `http://192.168.1.120:4000/api/medicamento/getbyid/${params.id}`,
+          url: `${Config('urlRoot')}/medicamento/getbyid/${params.id}`,
           responseType: 'json'
         })
         .then((res) => {
             const data = res
             dataContent = data
-            console.log(data)
         })
       }
 
     getData()
+
+    console.log(dataContent)
 
     return <>
         <form action="" >
