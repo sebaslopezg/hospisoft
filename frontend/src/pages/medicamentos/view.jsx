@@ -6,6 +6,9 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { Navigate } from "react-router";
+import { useNavigate } from "react-router";
+
 
 const columns = [
 
@@ -41,32 +44,34 @@ const columns = [
   }
 ];
 
-const handleEditClick = (id) =>{
-  console.log(id)
-}
 const handleDelete = () =>{
 
 }
 
-  let dataList = []
+const handleEditClick = (id) =>{
+  let navigate = useNavigate();
+  console.log(id)
+  navigate(`/medicamentos/edit/${id}`)
+}
 
-  const getData = () =>{
-    axios({
-      method: 'get',
-      url: 'http://192.168.1.120:4000/api/medicamento/view',
-      responseType: 'json'
-    })
-      .then(function (response) {
-          const data = response.data.data
-          dataList = data
-      });
-  }
+let dataList = []
 
-  getData()
+const getData = () =>{
+  axios({
+    method: 'get',
+    url: 'http://192.168.1.120:4000/api/medicamento/view',
+    responseType: 'json'
+  })
+  .then(function (response) {
+      const data = response.data.data
+      dataList = data
+  });
+}
+
+getData()
 
 
 const medicamentoView = () => {
-
     return <>
 
     <Grid container direction="column" spacing={1}>

@@ -11,6 +11,7 @@ import NotesPage from './pages/notes.jsx';
 import MedicamentosLayout from './pages/medicamentos';
 import {MedicamentosCreate} from './pages/medicamentos/create';
 import MedicamentosView from './pages/medicamentos/view';
+import MedicamentosEdit from './pages/medicamentos/edit'
 
 
 const router = createBrowserRouter([
@@ -44,6 +45,11 @@ const router = createBrowserRouter([
               {
                 path:'create',
                 Component: MedicamentosCreate,
+              },
+              {
+                path:'edit/:id',
+                Component: MedicamentosEdit,
+                
               },
             ]
           },
