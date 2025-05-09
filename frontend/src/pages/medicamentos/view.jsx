@@ -1,4 +1,6 @@
-import { DataGrid } from '@mui/x-data-grid';
+import { 
+  DataGrid,
+} from '@mui/x-data-grid';
 import axios from 'axios'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -9,6 +11,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import Config from '../../Config';
+import { Link } from '@mui/material';
 
 
 const columns = [
@@ -30,27 +33,16 @@ const columns = [
     type:'number'
   },
   {
-    field: "action",
+    field: "actions",
     headerName: "Action",
-    sortable: false,
     renderCell: (params) => {
-      return (
-      <>
-        <IconButton onClick={handleEditClick(params.id)}><EditIcon /></IconButton>
-        <IconButton onClick={handleDelete}><DeleteIcon /></IconButton>
+      return <>
+        <IconButton href={`/medicamentos/edit/${params.id}`}><EditIcon /></IconButton>
+        <IconButton ><DeleteIcon /></IconButton>
       </>
-    );
     }
   }
 ];
-
-const handleDelete = () =>{
-}
-
-const handleEditClick = (id) =>{
-  let navigate = useNavigate();
-    navigate(`/medicamentos/edit/${id}`)
-}
 
 const medicamentoView = () => {
 
@@ -63,22 +55,6 @@ const medicamentoView = () => {
     })
     .catch(error => console.log(error))
   },[myData])
-  
-/*   let dataList = []
-  
-  const getData = () =>{
-    axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/medicamento/view`,
-      responseType: 'json'
-    })
-    .then(function (response) {
-        const data = response.data.data
-        dataList = data
-    });
-  }
-  
-  getData() */
 
   return <>
 
