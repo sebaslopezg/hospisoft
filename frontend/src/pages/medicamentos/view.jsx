@@ -8,10 +8,8 @@ import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import Config from '../../Config';
-import { Link } from '@mui/material';
 
 
 const columns = [
