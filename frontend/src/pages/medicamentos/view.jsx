@@ -10,6 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useState, useEffect } from "react";
 import Config from '../../Config';
+import {medicamentoDelete} from './delete'
 
 
 const columns = [
@@ -36,7 +37,7 @@ const columns = [
     renderCell: (params) => {
       return <>
         <IconButton href={`/medicamentos/edit/${params.id}`}><EditIcon /></IconButton>
-        <IconButton ><DeleteIcon /></IconButton>
+        <IconButton onClick={(e) => medicamentoDelete(e, params.id)}><DeleteIcon /></IconButton>
       </>
     }
   }
@@ -45,22 +46,30 @@ const columns = [
 const medicamentoView = () => {
 
   const [myData, setData] = useState([])
-  useEffect(()=>{
-    axios
-    .get(`${Config('urlRoot')}/medicamento/view`)
-    .then((res) => {
-      setData(res.data.data)
-    })
-    .catch(error => console.log(error))
-  },[myData])
 
+  useEffect(()=>{
+    loadData()
+  },[])
+
+  const loadData = () =>{
+    setData([])
+    myData.length === 0 ? (
+      console.log('carga desde el server'),
+      axios.get(`${Config('urlRoot')}/medicamento/view`)
+      .then((res) => {
+        setData(res.data.data)
+      })
+      .catch(error => console.log(error))
+    ) : ''
+  }
+  
   return <>
 
   <Grid container direction="column" spacing={1}>
   <Grid
     size={3}
   >
-    <IconButton aria-label="delete" size="large" onClick={setData}>
+    <IconButton aria-label="delete" size="large" onClick={loadData}>
       <RefreshIcon />
     </IconButton>
     <Button variant="contained" href="medicamentos/create">Nuevo</Button>

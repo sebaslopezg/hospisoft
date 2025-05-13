@@ -4,10 +4,13 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { useNotifications } from '@toolpad/core/useNotifications';
+import { useNavigate } from "react-router";
+import Config from '../../Config';
 
 export const MedicamentosCreate = () =>{ 
 
   const notifications = useNotifications();
+  const navigate = useNavigate();
 
 const [myData, setData] = useState({})
 
@@ -21,7 +24,7 @@ const getFromData = async(e) =>{
     existencia: value.existencia.value,
   }
   setData(formData)
-  await axios.post('http://localhost:4000/api/medicamento/create',formData)
+  await axios.post(`${Config('urlRoot')}/medicamento/create`,formData)
   .then((res) =>{
     console.log(res)
     res.data.status ? (
@@ -29,9 +32,10 @@ const getFromData = async(e) =>{
         {severity: 'success',autoHideDuration: 3000,})
       ) : (
         notifications.show(res.data.msg, 
-          {severity: 'error',autoHideDuration: 3000,})
+        {severity: 'error',autoHideDuration: 3000,})
       )
   })
+  .then(navigate('/medicamentos'))
   .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})

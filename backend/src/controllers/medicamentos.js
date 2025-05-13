@@ -6,7 +6,7 @@ import medicamento from '../models/medicamentos.js'
  */
 const view = async(req, res)=>{
     try {
-        let listMedicamentos = await medicamento.find().exec()
+        let listMedicamentos = await medicamento.find({status:{$gt:0}}).exec()
         res.status(200).send({
             status:true,
             data:listMedicamentos
