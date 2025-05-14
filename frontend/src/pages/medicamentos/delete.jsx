@@ -1,7 +1,8 @@
 import axios from 'axios'
+import Config from '../../Config';
 import { useNavigate } from "react-router";
 
-export const medicamentoDelete = (id) => {
+const setDelete = (id) => {
     const navigate = useNavigate();
 
     axios({
@@ -21,9 +22,9 @@ export const medicamentoDelete = (id) => {
     })
     .then(navigate('/medicamentos'))
     .catch((err) =>{
-    notifications.show('Error de conexión: ' + err.message, 
-    {severity: 'error',autoHideDuration: 3000,})
+        notifications.show('Error de conexión: ' + err.message, 
+        {severity: 'error',autoHideDuration: 3000,})
     })
-
-    deleteMedicamento()
 }
+
+export default {setDelete}

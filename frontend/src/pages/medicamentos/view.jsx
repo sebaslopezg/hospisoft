@@ -10,38 +10,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useState, useEffect } from "react";
 import Config from '../../Config';
-import {medicamentoDelete} from './delete'
-
-
-const columns = [
-  {
-    field: 'nombre',
-    headerName: 'Nombre',
-    type: 'text',
-    width: 110,
-    },
-  {
-    field: 'descripcion',
-    headerName: 'Descripción',
-    width: 300,
-  },
-  {
-    field: 'existencia',
-    headerName: 'Existencia',
-    width: 150,
-    type:'number'
-  },
-  {
-    field: "actions",
-    headerName: "Action",
-    renderCell: (params) => {
-      return <>
-        <IconButton href={`/medicamentos/edit/${params.id}`}><EditIcon /></IconButton>
-        <IconButton onClick={(e) => medicamentoDelete(e, params.id)}><DeleteIcon /></IconButton>
-      </>
-    }
-  }
-];
+import medicamentoDelete from './delete'
 
 const medicamentoView = () => {
 
@@ -62,6 +31,40 @@ const medicamentoView = () => {
       .catch(error => console.log(error))
     ) : ''
   }
+
+  const handleDelete = (id) => {
+    medicamentoDelete.setDelete(id)
+  }
+
+  const columns = [
+  {
+    field: 'nombre',
+    headerName: 'Nombre',
+    type: 'text',
+    width: 110,
+  },
+  {
+    field: 'descripcion',
+    headerName: 'Descripción',
+    width: 300,
+  },
+  {
+    field: 'existencia',
+    headerName: 'Existencia',
+    width: 150,
+    type:'number'
+  },
+  {
+    field: "actions",
+    headerName: "Action",
+    renderCell: (params) => {
+      return <>
+        <IconButton href={`/medicamentos/edit/${params.id}`}><EditIcon /></IconButton>
+        <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
+      </>
+    }
+  }
+];
   
   return <>
 
