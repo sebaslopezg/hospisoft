@@ -42,7 +42,7 @@ const getOne = async (req, res) => {
       telefono: req.body.telefono,
       rol: req.body.rol,
       direccion: req.body.direccion,
-      numDoc: req.body.zip,
+      numDoc: req.body.numDoc,
       status: req.body.status
     };
   
@@ -75,11 +75,12 @@ const getOne = async (req, res) => {
     let data = {
         nombre: req.body.nombre,
         email: req.body.email,
-        passwordHash: bcrypt.hashSync(req.body.password, 10),
+        //passwordHash: bcrypt.hashSync(req.body.password, 10),
+        passwordHash: req.body.passwordHash,
         telefono: req.body.telefono,
         rol: req.body.rol,
         direccion: req.body.direccion,
-        numDoc: req.body.zip,
+        numDoc: req.body.numDoc,
       };
 
       try {
