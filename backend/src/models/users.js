@@ -27,6 +27,7 @@ const userSchema = Schema({
       required:true,
       min:0,
       max:2,
+      default:1
     },
     nombre: {
       type: String,
@@ -38,7 +39,7 @@ const userSchema = Schema({
     },
     passwordHash: {
       type: String,
-      required: true,
+      required: false,
     },
     telefono: {
       type: String,
@@ -46,7 +47,7 @@ const userSchema = Schema({
     },
     rol: {
       type: String,
-      required: true,
+      required: false,
     },
     direccion: {
       type: String,

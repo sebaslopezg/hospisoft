@@ -12,9 +12,14 @@ import { useState, useEffect } from "react";
 import Config from '../../Config';
 import medicamentoDelete from './delete'
 
+import { useNotifications } from '@toolpad/core/useNotifications';
+import { useNavigate } from "react-router";
+
 const medicamentoView = () => {
 
+  const notifications = useNotifications();
   const [myData, setData] = useState([])
+
 
   useEffect(()=>{
     loadData()
@@ -33,7 +38,19 @@ const medicamentoView = () => {
   }
 
   const handleDelete = (id) => {
-    medicamentoDelete.setDelete(id)
+    const setDelete = medicamentoDelete.setDelete(id)
+    setDelete
+    .then((response) => {
+      console.log(response)
+      response.data.status ? (
+      notifications.show(response.data.msg, 
+        {severity: 'success',autoHideDuration: 3000,})
+      ) : (
+        notifications.show(response.data.msg, 
+        {severity: 'error',autoHideDuration: 3000,})
+      )
+    })
+    .then(loadData())
   }
 
   const columns = [
@@ -41,12 +58,12 @@ const medicamentoView = () => {
     field: 'nombre',
     headerName: 'Nombre',
     type: 'text',
-    width: 110,
+    width: 300,
   },
   {
     field: 'descripcion',
     headerName: 'Descripción',
-    width: 300,
+    width: 400,
   },
   {
     field: 'existencia',

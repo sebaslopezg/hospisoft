@@ -5,10 +5,18 @@ import Layout from './layouts/dashboard.jsx';
 import DashboardPage from './pages';
 import OrdersPage from './pages/orders.jsx';
 import NotesPage from './pages/notes.jsx';
+
+//medicamentos
 import MedicamentosLayout from './pages/medicamentos';
 import {MedicamentosCreate} from './pages/medicamentos/create';
 import MedicamentosView from './pages/medicamentos/view';
 import MedicamentosEdit from './pages/medicamentos/edit'
+
+//Usuarios
+import UsuariosLayout from './pages/usuarios/index.jsx';
+import { UsuariosView } from './pages/usuarios/view.jsx';
+import { UsuariosEdit } from './pages/usuarios/edit.jsx';
+import { UsuariosCreate } from './pages/usuarios/create.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +56,24 @@ const router = createBrowserRouter([
               },
             ]
           },
+          {
+            path: 'usuarios',
+            Component: UsuariosLayout,
+            children:[
+              {
+                path:'',
+                Component: UsuariosView
+              },
+              {
+                path:'create',
+                Component: UsuariosCreate
+              },
+              {
+                path:'edit/:id',
+                Component: UsuariosEdit
+              },
+            ]
+          }
         ],
       },
     ],

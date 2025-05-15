@@ -5,6 +5,7 @@ const router = express.Router()
 
 
 router.get("/users/view", users.view)
+router.get("/users/getbyid/:id", users.getOne)
 router.post("/users/create", users.create)
 router.put("/users/updatebyid/:id", users.updatebyid)
 router.delete("/users/deletebyid/:id", users.deletebyid)

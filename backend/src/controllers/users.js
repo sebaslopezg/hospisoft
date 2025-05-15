@@ -4,19 +4,36 @@ import user from "../models/users.js";
 
 const view = async (req, res) => {
     try {
-      let data = await user.find().exec();
+      let data = await user.find({status:{$gt:0}}).exec();
       res.status(200).send({
-        exito: true,
+        status: true,
         data,
       });
     } catch (error) {
       res.status(500).send({
-        exito: false,
+        status: false,
         mensaje: "Error en la consulta",
       });
     }
   };
-        //passwordHash: bcrypt.hashSync(req.body.password, 10),
+
+const getOne = async (req, res) => {
+  let id = req.params.id
+    try {
+      let data = await user.find({_id: id}).exec();
+      res.status(200).send({
+        status: true,
+        data,
+      });
+    } catch (error) {
+      res.status(500).send({
+        status: false,
+        mensaje: "Error en la consulta",
+      });
+    }
+  };
+
+  //passwordHash: bcrypt.hashSync(req.body.password, 10),
   const create = async (req, res) => {
     let data = {
       nombre: req.body.nombre,
@@ -33,8 +50,8 @@ const view = async (req, res) => {
   
     if (usuarioExiste) {
       return res.send({
-        estado: false,
-        mensaje: "el usuario ya esta registrado en el sistema",
+        status: false,
+        msg: "el usuario ya esta registrado en el sistema",
       });
     }
   
@@ -42,13 +59,13 @@ const view = async (req, res) => {
       let usuarioNuevo = new user(data);
       usuarioNuevo.save();
       res.send({
-        estado: true,
-        mensaje: "usuario creado",
+        status: true,
+        msg: "usuario creado",
       });
     } catch (error) {
       res.send({
-        estado: false,
-        mensaje: `usuario No creado ${error}`,
+        status: false,
+        msg: `usuario No creado ${error}`,
       });
     }
   };
@@ -104,8 +121,8 @@ const view = async (req, res) => {
     let usuarioExiste = await user.findOne({ email: data });
     if (!usuarioExiste) {
       return res.send({
-        estado: false,
-        mensaje: "usuario no existe en la Bd !",
+        status: false,
+        msg: "usuario no existe en la Bd !",
       });
     }
   
@@ -123,20 +140,21 @@ const view = async (req, res) => {
       );
   
       return res.send({
-        estado: true,
-        mensaje: "ingreso exitoso al sistema",
+        status: true,
+        msg: "ingreso exitoso al sistema",
         token,
       });
     } else {
       return res.send({
-        estado: false,
-        mensaje: "Credenciales erroneas, intente de nuevo !",
+        status: false,
+        msg: "Credenciales erroneas, intente de nuevo !",
       });
     }
   };
 
   export {
     view,
+    getOne,
     create,
     updatebyid,
     deletebyid,
