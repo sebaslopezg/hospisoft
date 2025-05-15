@@ -3,10 +3,7 @@ import Config from '../../Config';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import createHistory from 'history/createBrowserHistory'
 import { NavigationUtils } from '../../routes/navigationUtils';
-
-const history = createHistory();
 
   const columns = [
     {
@@ -68,6 +65,7 @@ const updateOne = (id, payload) => {
 }
 
 const deleteOne = async(id) => {
+  const {reloadPage} = NavigationUtils()
   await axios({
     method: 'delete',
     url: `${Config('urlRoot')}/cita/deletebyid/${id}`,
@@ -82,7 +80,7 @@ const deleteOne = async(id) => {
       {severity: 'error',autoHideDuration: 3000,})
     )
   })
-  .then(history.go(0))
+  .then(reloadPage())
   .catch((err) => console.log(err))
 }
 
