@@ -19,13 +19,14 @@ const citasSchema = Schema({
     },
     updatedBy:{
         type: String,
-        required:true,
+        required:false,
     },
     status:{
         type:Number,
-        required:true,
+        required:false,
         min:0,
         max:2,
+        default:1
     },
     fecha:{
         type:Date,

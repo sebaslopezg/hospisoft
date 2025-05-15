@@ -41,7 +41,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
     renderCell: (params) => {
       return <>
         <IconButton href={`/usuarios/edit/${params.id}`}><EditIcon /></IconButton>
-        <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
+        <IconButton onClick={(e) => deleteOne(params.id)}><DeleteIcon /></IconButton>
       </>
     }
   }
@@ -73,23 +73,38 @@ const createOne = (payload) => {
 }
 
 const updateOne = (id, payload) => {
-    return axios({
-        method: 'put',
-        url: `${Config('urlRoot')}/users/updatebyid/${id}`,
-        data: payload,
-        responseType: 'json'
-    })
+  return axios({
+      method: 'put',
+      url: `${Config('urlRoot')}/users/updatebyid/${id}`,
+      data: payload,
+      responseType: 'json'
+  })
 }
 
-const DeleteOne = (id) => {
-    console.log('DeleteOne')
+const deleteOne = async(id) => {
+  await axios({
+      method: 'delete',
+      url: `${Config('urlRoot')}/users/deletebyid/${id}`,
+      responseType: 'json'
+  })
+  .then((response) => {
+    console.log(response)
+    response.data.status ? (
+    notifications.show(response.data.msg, 
+      {severity: 'success',autoHideDuration: 3000,})
+    ) : (
+      notifications.show(response.data.msg, 
+      {severity: 'error',autoHideDuration: 3000,})
+    )
+  })
+  .then(location.reload())
+  .catch((err) => console.log(err))
 }
 
 export default {
-    columns,
-    getAll,
-    getOne,
-    createOne,
-    updateOne,
-    DeleteOne
+  columns,
+  getAll,
+  getOne,
+  createOne,
+  updateOne
 }

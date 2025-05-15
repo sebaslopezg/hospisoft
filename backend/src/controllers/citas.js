@@ -25,11 +25,13 @@ const view = async(req, res)=>{
  */
 const create = async(req, res)=>{
 
+    let formatDate = new Date(req.body.fecha)
+
     let data = {
         createdBy:req.body.createdBy,
         updatedBy:req.body.updatedBy,
         status:req.body.status,
-        fecha:req.body.fecha,
+        fecha:formatDate,
         descripcion:req.body.descripcion,
         pacienteId:req.body.pacienteId
     }
