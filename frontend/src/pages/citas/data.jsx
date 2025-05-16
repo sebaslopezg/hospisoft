@@ -1,34 +1,5 @@
 import axios from 'axios'
 import Config from '../../Config';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { NavigationUtils } from '../../routes/navigationUtils';
-
-  const columns = [
-    {
-      field: 'fecha',
-      headerName: 'Fecha',
-      type: 'text',
-      width: 300,
-    },
-    {
-      field: 'descripcion',
-      headerName: 'Descripcion',
-      type: 'text',
-      width: 300,
-    },
-    {
-    field: "actions",
-    headerName: "Action",
-    renderCell: (params) => {
-      return <>
-        <IconButton href={`/citas/edit/${params.id}`}><EditIcon /></IconButton>
-        <IconButton onClick={(e) => deleteOne(params.id)}><DeleteIcon /></IconButton>
-      </>
-    }
-  }
-];
 
 const getAll = () => {
     return axios({
@@ -64,30 +35,20 @@ const updateOne = (id, payload) => {
     })
 }
 
-const deleteOne = async(id) => {
-  const {reloadPage} = NavigationUtils()
-  await axios({
+const deleteOne = (id) => {
+  return axios({
     method: 'delete',
     url: `${Config('urlRoot')}/cita/deletebyid/${id}`,
     responseType: 'json'
   })
-  .then((response) => {
-    response.data.status ? (
-    notifications.show(response.data.msg, 
-      {severity: 'success',autoHideDuration: 3000,})
-    ) : (
-      notifications.show(response.data.msg, 
-      {severity: 'error',autoHideDuration: 3000,})
-    )
-  })
-  .then(reloadPage())
-  .catch((err) => console.log(err))
 }
 
+
+
 export default {
-    columns,
     getAll,
     getOne,
     createOne,
-    updateOne
+    updateOne,
+    deleteOne
 }

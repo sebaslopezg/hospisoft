@@ -1,8 +1,5 @@
 import axios from 'axios'
 import Config from '../../Config';
-import IconButton from '@mui/material/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
   const columns = [
   {
@@ -35,16 +32,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
     type: 'text',
     width: 200,
   },
-    {
-    field: "actions",
-    headerName: "Action",
-    renderCell: (params) => {
-      return <>
-        <IconButton href={`/usuarios/edit/${params.id}`}><EditIcon /></IconButton>
-        <IconButton onClick={(e) => deleteOne(params.id)}><DeleteIcon /></IconButton>
-      </>
-    }
-  }
 ];
 
 const getAll = () => {
@@ -81,24 +68,12 @@ const updateOne = (id, payload) => {
   })
 }
 
-const deleteOne = async(id) => {
-  await axios({
+const deleteOne = (id) => {
+  return axios({
       method: 'delete',
       url: `${Config('urlRoot')}/users/deletebyid/${id}`,
       responseType: 'json'
   })
-  .then((response) => {
-    console.log(response)
-    response.data.status ? (
-    notifications.show(response.data.msg, 
-      {severity: 'success',autoHideDuration: 3000,})
-    ) : (
-      notifications.show(response.data.msg, 
-      {severity: 'error',autoHideDuration: 3000,})
-    )
-  })
-  .then(location.reload())
-  .catch((err) => console.log(err))
 }
 
 export default {
@@ -106,5 +81,6 @@ export default {
   getAll,
   getOne,
   createOne,
-  updateOne
+  updateOne,
+  deleteOne
 }
