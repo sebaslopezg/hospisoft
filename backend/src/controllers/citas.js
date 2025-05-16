@@ -60,7 +60,7 @@ const getbyid = async(req, res) =>{
     let id = req.params.id
 
     try {
-        let consulta = await cita.findOneAndDelete({_id: id}).exec()
+        let consulta = await cita.findOne({_id: id}).exec()
         return res.send({
             status:true,
             msg:"Consulta exitosa",

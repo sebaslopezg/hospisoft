@@ -26,7 +26,6 @@ const getFromData = async(e) =>{
   setData(formData)
   await axios.post(`${Config('urlRoot')}/medicamento/create`,formData)
   .then((res) =>{
-    console.log(res)
     res.data.status ? (
       notifications.show(res.data.msg, 
         {severity: 'success',autoHideDuration: 3000,})

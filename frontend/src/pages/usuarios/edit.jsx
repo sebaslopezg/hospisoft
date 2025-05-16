@@ -48,7 +48,6 @@ export const UsuariosEdit = () => {
         const response = data.updateOne(params.id, payload)
         response
         .then((res) => {
-            console.log(res)
             res.data.status ? (
             notifications.show(res.data.msg, 
               {severity: 'success',autoHideDuration: 3000,})

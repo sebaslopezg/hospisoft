@@ -12,7 +12,7 @@ const getAll = () => {
 const getOne = (id) => {
     return axios({
         method: 'get',
-        url: `${Config('urlRoot')}//${id}`,
+        url: `${Config('urlRoot')}/cita/getbyid/${id}`,
         responseType: 'json'
     })
 }

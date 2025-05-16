@@ -7,6 +7,12 @@ import { useNavigate } from "react-router";
 import { useParams } from 'react-router';
 import { useState, useEffect } from "react";
 
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+
 export const CitasEdit = () => {
 
     const notifications = useNotifications();
@@ -14,20 +20,21 @@ export const CitasEdit = () => {
     const params = useParams()
 
     const dataPlaceholder = {
-        nombre: null,
+        descripcion: null,
     }
 
-    const [dataUser, setData] = useState("")
+    const [dataCitas, setData] = useState("")
     useEffect(()=>{
-        !dataUser ? (
+        !dataCitas ? (
         data.getOne(params.id)
         .then((res) => {
-          const dataSource = res.data.data[0]
+          const dataSource = res.data.data
+          console.log(dataSource)
           dataSource ? setData(dataSource) : setData(dataPlaceholder)
         })
         .catch(error => console.log(error))
         ) : ''      
-    },[dataUser])
+    },[dataCitas])
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -59,7 +66,12 @@ export const CitasEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField defaultValue={dataUser.nombre} multiline maxRows={4} margin="dense" required name="nombre" label="Nombre" variant="outlined" />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={['DatePicker']}>
+                <DatePicker defaultValue={dayjs(dataCitas.fecha)} label="Fecha de la cita" name='fecha' />
+              </DemoContainer>
+            </LocalizationProvider>
+            <TextField defaultValue={dataCitas.descripcion} multiline maxRows={4} margin="dense" required name="descripcion" label="Descripcion" variant="outlined" />
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

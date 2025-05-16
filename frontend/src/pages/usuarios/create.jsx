@@ -25,7 +25,6 @@ export const UsuariosCreate = () => {
         const response = data.createOne(payload)
         response
         .then((res) => {
-            console.log(res)
             res.data.status ? (
             notifications.show(res.data.msg, 
               {severity: 'success',autoHideDuration: 3000,})
