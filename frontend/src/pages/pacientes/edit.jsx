@@ -3,8 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { useNavigate } from "react-router";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from "react-router";
 import { useState, useEffect } from "react";
 
 export const PacientesEdit = () => {
@@ -17,17 +16,17 @@ export const PacientesEdit = () => {
         numDoc: null,
     }
 
-    const [dataUser, setData] = useState("")
+    const [datadefaultValue, setData] = useState("")
     useEffect(()=>{
-        !dataUser ? (
+        !datadefaultValue ? (
         data.getOne(params.id)
         .then((res) => {
-          const dataSource = res.data.data[0]
+          const dataSource = res.data.data
           dataSource ? setData(dataSource) : setData(dataPlaceholder)
         })
         .catch(error => console.log(error))
         ) : ''      
-    },[dataUser])
+    },[datadefaultValue])
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -58,7 +57,9 @@ export const PacientesEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField defaultValue={dataUser.numDoc} margin="dense" required name="numDoc" label="Numero de Documento" variant="outlined" />
+            <TextField margin="dense" defaultValue={datadefaultValue.documento} required name="documento" label="Numero de Documento" variant="outlined" />
+            <TextField margin="dense" defaultValue={datadefaultValue.nombre} required name="nombre" label="Nombre" variant="outlined" />
+            <TextField margin="dense" defaultValue={datadefaultValue.edad} required name="edad" label="Edad" type='number' variant="outlined" />
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

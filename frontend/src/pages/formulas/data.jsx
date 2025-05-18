@@ -3,17 +3,35 @@ import Config from '../../Config';
 
   const columns = [
   {
-    field: 'nombre',
-    headerName: 'Nombre',
+    field: 'numeroFormula',
+    headerName: 'Numero',
     type: 'text',
-    width: 300,
+    width: 100,
+  },
+  {
+    field: 'pacienteId',
+    headerName: 'Paciente',
+    type: 'text',
+    width: 250,
+  },
+  {
+    field: 'medicoId',
+    headerName: 'Medico',
+    type: 'text',
+    width: 250,
+  },
+  {
+    field: 'descripcion',
+    headerName: 'Descripcion',
+    type: 'text',
+    width: 350,
   },
 ];
 
 const getAll = () => {
     return axios({
         method: 'get',
-        url: `${Config('urlRoot')}//view`,
+        url: `${Config('urlRoot')}/formula_m/getall`,
         responseType: 'json'
     })
 }
@@ -21,7 +39,7 @@ const getAll = () => {
 const getOne = (id) => {
     return axios({
         method: 'get',
-        url: `${Config('urlRoot')}//getbyid/${id}`,
+        url: `${Config('urlRoot')}/formula_m/getbyid/${id}`,
         responseType: 'json'
     })
 }
@@ -29,7 +47,7 @@ const getOne = (id) => {
 const createOne = (payload) => {
     return axios({
         method: 'post',
-        url: `${Config('urlRoot')}//create`,
+        url: `${Config('urlRoot')}/formula_m/create`,
         data: payload,
         responseType: 'json'
     })
@@ -38,7 +56,7 @@ const createOne = (payload) => {
 const updateOne = (id, payload) => {
   return axios({
       method: 'put',
-      url: `${Config('urlRoot')}//updatebyid/${id}`,
+      url: `${Config('urlRoot')}/formula_m/updatebyid/${id}`,
       data: payload,
       responseType: 'json'
   })
@@ -47,7 +65,7 @@ const updateOne = (id, payload) => {
 const deleteOne = (id) => {
   return axios({
       method: 'delete',
-      url: `${Config('urlRoot')}//deletebyid/${id}`,
+      url: `${Config('urlRoot')}/formula_m/deletebyid/${id}`,
       responseType: 'json'
   })
 }
