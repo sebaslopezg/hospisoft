@@ -1,7 +1,9 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MedicationIcon from '@mui/icons-material/Medication';
+import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
 import GroupIcon from '@mui/icons-material/Group';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 const NAVIGATION = [
    { // para darle un titulo a la barra
@@ -25,10 +27,22 @@ const NAVIGATION = [
     pattern: 'usuarios{/:crud}*',
   },
   {
+    segment: 'pacientes',
+    title: 'Pacientes',
+    icon: <SportsKabaddiIcon />,
+    pattern: 'Pacientes{/:crud}*',
+  },
+  {
     segment: 'citas',
     title: 'Citas',
     icon: <EventAvailableIcon />,
     pattern: 'citas{/:crud}*',
+  },
+  {
+    segment: 'formulas',
+    title: 'Formulas',
+    icon: <DescriptionIcon />,
+    pattern: 'formulas{/:crud}*',
   },
   {
     segment: 'medicamentos',

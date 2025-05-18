@@ -23,6 +23,18 @@ import { CitasView } from '../pages/citas/view.jsx';
 import { CitasCreate } from '../pages/citas/create.jsx';
 import { CitasEdit } from '../pages/citas/edit.jsx';
 
+//pacientes
+import PacientesLayout from '../pages/pacientes/index.jsx';
+import { PacientesView } from '../pages/pacientes/view.jsx';
+import { PacientesEdit } from '../pages/pacientes/edit.jsx';
+import { PacientesCreate } from '../pages/pacientes/create.jsx';
+
+//formulas
+import FormulasLayout from '../pages/formulas/index.jsx';
+import { FormulasView } from '../pages/formulas/view.jsx';
+import { FormulasEdit } from '../pages/formulas/edit.jsx';
+import { FormulasCreate } from '../pages/formulas/create.jsx';
+
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
@@ -92,7 +104,43 @@ const router = createBrowserRouter([
                 Component: CitasEdit
               },
             ]
-          }
+          },
+          {
+            path:'pacientes',
+            Component:PacientesLayout,
+            children:[
+              {
+                path:'',
+                Component: PacientesView
+              },
+              {
+                path:'create',
+                Component: PacientesCreate
+              },
+              {
+                path:'edit/:id',
+                Component: PacientesEdit
+              },
+            ]
+          },
+          {
+            path:'formulas',
+            Component:FormulasLayout,
+            children:[
+              {
+                path:'',
+                Component: FormulasView
+              },
+              {
+                path:'create',
+                Component: FormulasCreate
+              },
+              {
+                path:'edit/:id',
+                Component: FormulasEdit
+              },
+            ]
+          },
         ],
       },
     ],
