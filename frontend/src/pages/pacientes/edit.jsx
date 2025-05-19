@@ -16,9 +16,9 @@ export const PacientesEdit = () => {
         numDoc: null,
     }
 
-    const [datadefaultValue, setData] = useState("")
+    const [dataDefaultValue, setData] = useState("")
     useEffect(()=>{
-        !datadefaultValue ? (
+        !dataDefaultValue ? (
         data.getOne(params.id)
         .then((res) => {
           const dataSource = res.data.data
@@ -26,7 +26,7 @@ export const PacientesEdit = () => {
         })
         .catch(error => console.log(error))
         ) : ''      
-    },[datadefaultValue])
+    },[dataDefaultValue])
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -57,9 +57,9 @@ export const PacientesEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField margin="dense" defaultValue={datadefaultValue.documento} required name="documento" label="Numero de Documento" variant="outlined" />
-            <TextField margin="dense" defaultValue={datadefaultValue.nombre} required name="nombre" label="Nombre" variant="outlined" />
-            <TextField margin="dense" defaultValue={datadefaultValue.edad} required name="edad" label="Edad" type='number' variant="outlined" />
+            <TextField margin="dense" defaultValue={dataDefaultValue.documento} required name="documento" label="Numero de Documento" variant="outlined" />
+            <TextField margin="dense" defaultValue={dataDefaultValue.nombre} required name="nombre" label="Nombre" variant="outlined" />
+            <TextField margin="dense" defaultValue={dataDefaultValue.edad} required name="edad" label="Edad" type='number' variant="outlined" />
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

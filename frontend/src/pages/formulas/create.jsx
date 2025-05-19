@@ -2,13 +2,41 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import data from './data'
+import { useEffect, useState } from 'react';
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
+
+import InputLabel from '@mui/material/InputLabel';
+import Stack from '@mui/material/Stack';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl'; 
 
 export const FormulasCreate = () => {
 
     const notifications = useNotifications();
     const navigate = useNavigate();
+    const [age, setAge] = useState('');
+    const [medicos, setMedicos] = useState([]);
+
+    useEffect(()=>{
+      getAllMedicos()
+    },[medicos])
+
+    const getAllMedicos = () =>{
+      const response = data.getMedicos()
+      response.then((res) => {
+        setMedicos(res.data.data)
+      })
+    }
+
+    const handleChange = (e) => {
+      setAge(e.target.value);
+    };
+
+    const handleAdd = () => {
+
+    }
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -41,12 +69,43 @@ export const FormulasCreate = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField margin="dense" required name="pacienteId" label="Documento de identidad del paciente" variant="outlined" />
-            <TextField margin="dense" required name="medicoId" label="Medico" variant="outlined" />
-            <TextField margin="dense" required name="descripcion" label="Descripción General" variant="outlined" />
-            <Box sx={{mt:1}}>
-            <Button type="submit" variant="contained">Guardar</Button>
+          <Stack spacing={2}>
+            <TextField 
+              margin="dense" 
+              required name="pacienteId" 
+              label="Documento de identidad del paciente" 
+              variant="outlined" 
+            />
+            <FormControl>
+            <InputLabel id="ageLabel">Medico</InputLabel>
+            <Select
+              labelId="ageLabel"
+              value={age}
+              label="medico"
+              name='medicoId'
+              onChange={handleChange}
+            >
+              {
+                medicos ? (
+                  medicos.map((medico) => {
+                    return(
+                      <MenuItem value={medico._id}>{medico.nombre}</MenuItem>
+                    )
+                  })
+                ) : ''
+              }
+            </Select>
+            </FormControl>
+            <TextField 
+              margin="dense" 
+              required name="descripcion" 
+              label="Descripción General" 
+              variant="outlined" 
+            />
+            <Box>
+              <Button type="submit" variant="contained">Guardar</Button>
             </Box>
+          </Stack>
         </Box>
         </form>
     </>;

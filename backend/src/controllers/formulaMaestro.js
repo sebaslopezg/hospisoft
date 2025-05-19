@@ -1,8 +1,24 @@
 import formulaMaestro from '../models/formulaMaestro.js'
+import medicos from '../models/users.js'
 
 const getAll = async(req, res)=>{
     try {
         let dataPayload = await formulaMaestro.find({status:{$gt:0}}).exec()
+        res.status(200).send({
+            status:true,
+            data:dataPayload
+        })
+    } catch (error) {
+        res.status(500).send({
+            status:false,
+            msg:"Error en la consulta"
+        })
+    }
+}
+
+const getMedicos = async(req, res)=>{
+    try {
+        let dataPayload = await medicos.find({status:{$gt:0}, rol:2}).select('nombre').exec()
         res.status(200).send({
             status:true,
             data:dataPayload
@@ -113,4 +129,5 @@ export {
     getbyid,
     updatebyid,
     deletebyid,
+    getMedicos,
 }

@@ -36,11 +36,19 @@ const getAll = () => {
     })
 }
 
+const getMedicos = () => {
+    return axios({
+      method: 'get',
+      url: `${Config('urlRoot')}/formula_m/getmedicos`,
+      responseType: 'json'
+    })
+}
+
 const getOne = (id) => {
     return axios({
-        method: 'get',
-        url: `${Config('urlRoot')}/formula_m/getbyid/${id}`,
-        responseType: 'json'
+      method: 'get',
+      url: `${Config('urlRoot')}/formula_m/getbyid/${id}`,
+      responseType: 'json'
     })
 }
 
@@ -76,5 +84,6 @@ export default {
   getOne,
   createOne,
   updateOne,
-  deleteOne
+  deleteOne,
+  getMedicos
 }

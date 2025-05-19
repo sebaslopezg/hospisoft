@@ -1,5 +1,14 @@
 import axios from 'axios'
 import Config from '../../Config';
+import Chip from '@mui/material/Chip';
+
+const roles = [
+  {name:'sin rol', color:''},
+  {name:'Administrador', color:'primary'},
+  {name:'Medico', color:'success'},
+  {name:'Secretario', color:'warning'},
+  {name:'Visitante', color:''},
+]
 
   const columns = [
   {
@@ -27,10 +36,16 @@ import Config from '../../Config';
     width: 100,
   },
   {
-    field: 'direccion',
-    headerName: 'Direccion',
+    field: 'rol',
+    headerName: 'Rol',
     type: 'text',
     width: 200,
+    renderCell: (params) => {
+      console.log(params.row)
+      return <>
+        <Chip label={roles[params.row.rol].name} color={roles[params.row.rol].color} variant="outlined" />
+      </>
+    }
   },
 ];
 

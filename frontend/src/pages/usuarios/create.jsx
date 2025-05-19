@@ -4,11 +4,22 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
+import { useState } from 'react';
 
 export const UsuariosCreate = () => {
 
-    const notifications = useNotifications();
-    const navigate = useNavigate();
+    const notifications = useNotifications()
+    const navigate = useNavigate()
+    const [rol, setRol] = useState('')
+
+    const handleChange = (e) => {
+      setRol(e.target.value);
+    };
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -20,6 +31,7 @@ export const UsuariosCreate = () => {
             email: fields.email.value,
             telefono: fields.telefono.value,
             direccion: fields.direccion.value,
+            rol: fields.rol.value,
         }
 
         const response = data.createOne(payload)
@@ -43,14 +55,31 @@ export const UsuariosCreate = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
+          <Stack spacing={2}>
             <TextField margin="dense" required name="numDoc" label="Numero de Documento" variant="outlined" />
             <TextField multiline maxRows={4} margin="dense" required name="nombre" label="Nombre" variant="outlined" />
             <TextField margin="dense" required name="email" label="Email" variant="outlined" />
             <TextField margin="dense" required type="number" name="telefono" label="Telefono" variant="outlined" />
             <TextField margin="dense" required name="direccion" label="Direccion" variant="outlined" />
+            <FormControl>
+            <InputLabel id="rolLabel">Rol</InputLabel>
+            <Select
+              labelId="rolLabel"
+              value={rol}
+              label="Rol"
+              name='rol'
+              onChange={handleChange}
+            >
+              <MenuItem value={1}>Administrador</MenuItem>
+              <MenuItem value={2}>Medico</MenuItem>
+              <MenuItem value={3}>Secretario</MenuItem>
+              <MenuItem value={4}>Visitante</MenuItem>
+            </Select>
+            </FormControl>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>
+          </Stack>
         </Box>
         </form>
     </>;

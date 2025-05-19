@@ -34,6 +34,7 @@ import FormulasLayout from '../pages/formulas/index.jsx';
 import { FormulasView } from '../pages/formulas/view.jsx';
 import { FormulasEdit } from '../pages/formulas/edit.jsx';
 import { FormulasCreate } from '../pages/formulas/create.jsx';
+import { FormulasDetails } from '../pages/formulas/details.jsx';
 
 const router = createBrowserRouter([
   {
@@ -138,6 +139,10 @@ const router = createBrowserRouter([
               {
                 path:'edit/:id',
                 Component: FormulasEdit
+              },
+              {
+                path:'details/:id',
+                Component: FormulasDetails
               },
             ]
           },

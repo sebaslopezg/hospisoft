@@ -46,8 +46,11 @@ const userSchema = Schema({
       required: true,
     },
     rol: {
-      type: String,
-      required: false,
+      type: Number,
+      required: true,
+      default:4,
+      min:1,
+      max:4,
     },
     direccion: {
       type: String,

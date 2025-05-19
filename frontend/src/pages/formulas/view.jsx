@@ -5,6 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import InfoIcon from '@mui/icons-material/Info';
+import Tooltip from '@mui/material/Tooltip';
 import { useState, useEffect } from "react";
 import Button from '@mui/material/Button';
 import data from './data'
@@ -21,9 +22,21 @@ export const FormulasView = () => {
             width: 200,
             renderCell: (params) => {
                 return <>
-                    <IconButton href={`/formulas/details/${params.id}`}><InfoIcon /></IconButton>
-                    <IconButton href={`/formulas/edit/${params.id}`}><EditIcon /></IconButton>
-                    <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
+                    <Tooltip title="Ver detalles">
+                        <IconButton href={`/formulas/details/${params.id}`}>
+                            <InfoIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Editar">
+                        <IconButton href={`/formulas/edit/${params.id}`}>
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Eliminar">
+                        <IconButton onClick={(e) => handleDelete(params.id)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
                 </>
             }
         }
