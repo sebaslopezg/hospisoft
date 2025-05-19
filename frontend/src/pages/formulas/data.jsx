@@ -37,11 +37,11 @@ const getAll = () => {
 }
 
 const getMedicos = () => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/formula_m/getmedicos`,
-      responseType: 'json'
-    })
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/formula_m/getmedicos`,
+    responseType: 'json'
+  })
 }
 
 const getOne = (id) => {

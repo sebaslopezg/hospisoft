@@ -20,7 +20,7 @@ const view = async (req, res) => {
 const getOne = async (req, res) => {
   let id = req.params.id
     try {
-      let data = await user.find({_id: id}).exec();
+      let data = await user.findOne({_id: id}).exec();
       res.status(200).send({
         status: true,
         data,

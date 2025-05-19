@@ -53,6 +53,7 @@ export const FormulasView = () => {
     const getRows = () =>{
         const response = data.getAll()
         response.then((data) => {
+            console.log(data)
             setRows(data.data.data)
         })
     }

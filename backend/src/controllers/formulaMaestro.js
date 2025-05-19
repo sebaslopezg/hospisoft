@@ -3,7 +3,9 @@ import medicos from '../models/users.js'
 
 const getAll = async(req, res)=>{
     try {
-        let dataPayload = await formulaMaestro.find({status:{$gt:0}}).exec()
+        let dataPayload = await formulaMaestro.find({status:{$gt:0}})
+        .populate('medico', 'nombre')
+        .exec()
         res.status(200).send({
             status:true,
             data:dataPayload

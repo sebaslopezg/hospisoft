@@ -26,7 +26,7 @@ export const UsuariosEdit = () => {
         !dataUser ? (
         data.getOne(params.id)
         .then((res) => {
-          const dataSource = res.data.data[0]
+          const dataSource = res.data.data
           dataSource ? setData(dataSource) : setData(dataPlaceholder)
         })
         .catch(error => console.log(error))

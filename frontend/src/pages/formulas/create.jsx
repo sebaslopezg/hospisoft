@@ -16,7 +16,7 @@ export const FormulasCreate = () => {
 
     const notifications = useNotifications();
     const navigate = useNavigate();
-    const [age, setAge] = useState('');
+    const [medicoValue, setMedicoValue] = useState('');
     const [medicos, setMedicos] = useState([]);
 
     useEffect(()=>{
@@ -31,7 +31,7 @@ export const FormulasCreate = () => {
     }
 
     const handleChange = (e) => {
-      setAge(e.target.value);
+      setMedicoValue(e.target.value);
     };
 
     const handleAdd = () => {
@@ -45,6 +45,7 @@ export const FormulasCreate = () => {
         const payload = {
           pacienteId: fields.pacienteId.value,
           medicoId: fields.medicoId.value,
+          medico: fields.medicoId.value,
           descripcion: fields.descripcion.value,
         }
 
@@ -80,7 +81,7 @@ export const FormulasCreate = () => {
             <InputLabel id="ageLabel">Medico</InputLabel>
             <Select
               labelId="ageLabel"
-              value={age}
+              value={medicoValue}
               label="medico"
               name='medicoId'
               onChange={handleChange}
