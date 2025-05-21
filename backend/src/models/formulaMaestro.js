@@ -30,13 +30,9 @@ const formulaMaestroSchema = Schema({
         type: String,
         required: true,
     },
-    medicoId:{
-        type:String,
-        required:true
-    },
     medico:{
         type:Schema.Types.ObjectId,
-        ref:'users'
+        ref:'user'
     },
     descripcion:{
         type:String,

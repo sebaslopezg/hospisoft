@@ -15,10 +15,11 @@ import Config from '../../Config';
     width: 250,
   },
   {
-    field: 'medicoId',
+    field: 'medico',
     headerName: 'Medico',
     type: 'text',
     width: 250,
+    valueGetter: (row) => {return row.nombre}
   },
   {
     field: 'descripcion',
@@ -29,11 +30,11 @@ import Config from '../../Config';
 ];
 
 const getAll = () => {
-    return axios({
-        method: 'get',
-        url: `${Config('urlRoot')}/formula_m/getall`,
-        responseType: 'json'
-    })
+  return axios({
+      method: 'get',
+      url: `${Config('urlRoot')}/formula_m/getall`,
+      responseType: 'json'
+  })
 }
 
 const getMedicos = () => {
@@ -44,21 +45,38 @@ const getMedicos = () => {
   })
 }
 
+const getMedicamentos = () => {
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/medicamento/getlist`,
+    responseType: 'json'
+  })
+}
+
 const getOne = (id) => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/formula_m/getbyid/${id}`,
-      responseType: 'json'
-    })
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/formula_m/getbyid/${id}`,
+    responseType: 'json'
+  })
 }
 
 const createOne = (payload) => {
-    return axios({
-        method: 'post',
-        url: `${Config('urlRoot')}/formula_m/create`,
-        data: payload,
-        responseType: 'json'
-    })
+  return axios({
+      method: 'post',
+      url: `${Config('urlRoot')}/formula_m/create`,
+      data: payload,
+      responseType: 'json'
+  })
+}
+
+const createMedicamento = (payload) => {
+  return axios({
+      method: 'post',
+      url: `${Config('urlRoot')}/formula_d/create`,
+      data: payload,
+      responseType: 'json'
+  })
 }
 
 const updateOne = (id, payload) => {
@@ -85,5 +103,7 @@ export default {
   createOne,
   updateOne,
   deleteOne,
-  getMedicos
+  getMedicos,
+  getMedicamentos,
+  createMedicamento
 }

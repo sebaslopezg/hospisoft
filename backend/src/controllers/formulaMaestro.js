@@ -41,7 +41,7 @@ const create = async(req, res)=>{
 
     let data = {
         pacienteId: req.body.pacienteId,
-        medicoId: req.body.medicoId,
+        medico: req.body.medicoId,
         descripcion: req.body.descripcion,
         numeroFormula: counter + 1,
     }

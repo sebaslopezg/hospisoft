@@ -33,7 +33,8 @@ export const PacientesEdit = () => {
         let fields = e.target
     
         const payload = {
-            numDoc: fields.numDoc.value,
+            nombre: fields.nombre.value,
+            edad: fields.edad.value,
         }
     
         const response = data.updateOne(params.id, payload)

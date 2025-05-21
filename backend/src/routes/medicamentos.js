@@ -4,6 +4,7 @@ import * as medicamentos from '../controllers/medicamentos.js'
 const router = express.Router()
 
 router.get("/medicamento/view", medicamentos.view)
+router.get("/medicamento/getlist", medicamentos.getList)
 router.get("/medicamento/getbyid/:id", medicamentos.getbyid)
 router.post("/medicamento/create", medicamentos.create)
 router.put("/medicamento/updatebyid/:id", medicamentos.updatebyid)

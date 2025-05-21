@@ -19,6 +19,23 @@ const view = async(req, res)=>{
     }
 }
 
+const getList = async(req, res)=>{
+    try {
+        let listMedicamentos = await medicamento.find({status:{$gt:0}})
+        .select('_id, nombre')
+        .exec()
+        res.status(200).send({
+            status:true,
+            data:listMedicamentos
+        })
+    } catch (error) {
+        res.status(500).send({
+            status:false,
+            msg:"Error en la consulta"
+        })
+    }
+}
+
 /**
  * Función para crear medicamentos
  * @constructor
@@ -133,4 +150,5 @@ export {
     getbyid,
     updatebyid,
     deletebyid,
+    getList
 }
