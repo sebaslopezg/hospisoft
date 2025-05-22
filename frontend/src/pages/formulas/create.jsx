@@ -108,6 +108,12 @@ export const FormulasCreate = () => {
       let fields = e.target
 
       console.log(medicamentosInputs)
+      medicamentosInputs ? (
+        medicamentosInputs.map(element => {
+          let input = element.component
+          console.log(input)
+        })
+      ) : ''
 
       /*
       const payload = {
