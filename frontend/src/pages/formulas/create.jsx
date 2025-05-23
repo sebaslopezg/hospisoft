@@ -27,6 +27,8 @@ export const FormulasCreate = () => {
     const [medicamentos, setMedicamentos] = useState([]);
     const [medicamentosInputs, setMedicamentosInputs] = useState([]);
 
+    const [medicamentoValues, setMedicamentoValues] = useState([]);
+
     useEffect(()=>{
       getAllMedicos()
       getMedicamentos()
@@ -53,19 +55,26 @@ export const FormulasCreate = () => {
 
     const handleMedicamentosInputs = () =>{
       let theKey = Date.now()
+      let index = 0
+      index++
+
       const element = {
         id:theKey,
         component:<>
           <Stack direction="row" spacing={2} key={theKey} className='medicamentoInputs'>
             <Autocomplete
-              name='medicamento'
+              name={`medicamento_${theKey}`}
+              className="medicamentosInputs"
               disablePortal
               options={medicamentos}
+                  onChange={(e, value) => {
+                  handlerSetMedicamentoValues(value, index);
+                }}
               sx={{ width: 300 }}
               renderInput={(params) => <TextField {...params} label="Medicamento" />}
             />
             <TextField 
-              name='medicamentoDescripcion'
+              name={`medicamentoDescripcion_${theKey}`}
               margin="dense" 
               label="Descripcion"
               variant="outlined" 
@@ -95,25 +104,22 @@ export const FormulasCreate = () => {
       setMedicamentosInputs(inputs)
     }
 
+    const handlerSetMedicamentoValues = (value, slot) => {
+
+      let currentValue = medicamentoValues
+      currentValue[slot] = value
+      setMedicamentoValues(currentValue)
+      console.log(medicamentoValues)
+    }
+
     const handleChange = (e) => {
       setMedicoValue(e.target.value);
     }
 
-    const handleAdd = () => {
-
-    }
-
     const setSubmit = (e) => {
       e.preventDefault()
-      let fields = e.target
 
-      console.log(medicamentosInputs)
-      medicamentosInputs ? (
-        medicamentosInputs.map(element => {
-          let input = element.component
-          console.log(input)
-        })
-      ) : ''
+      let fields = e.target
 
       /*
       const payload = {
@@ -181,7 +187,10 @@ export const FormulasCreate = () => {
             />
             <Stack direction="row" spacing={2}>
               <Autocomplete
-                className='medicamentos'
+                name='medicamentico'
+                onChange={(e, value) => {
+                  handlerSetMedicamentoValues(value, 0);
+                }}
                 disablePortal
                 options={medicamentos}
                 sx={{ width: 300 }}
