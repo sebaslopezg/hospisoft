@@ -70,7 +70,7 @@ const createOne = (payload) => {
   })
 }
 
-const createMedicamento = (payload) => {
+const createFormulaDetalle = (payload) => {
   return axios({
       method: 'post',
       url: `${Config('urlRoot')}/formula_d/create`,
@@ -105,5 +105,5 @@ export default {
   deleteOne,
   getMedicos,
   getMedicamentos,
-  createMedicamento
+  createFormulaDetalle
 }

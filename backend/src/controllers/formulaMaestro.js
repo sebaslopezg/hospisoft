@@ -52,7 +52,8 @@ const create = async(req, res)=>{
 
         return res.send({
             status:true,
-            msg:"Paciente creado"
+            data:newData,
+            msg:"Registro creado"
         })
     } catch (error) {
         return res.send({

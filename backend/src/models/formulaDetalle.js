@@ -22,7 +22,7 @@ const formulaDetalleSchema = Schema({
         required:false,
     },
     formulaId: {
-        type: Number,
+        type:Schema.Types.ObjectId,
         required: false,
         default:0
     },

@@ -29,12 +29,12 @@ const create = async(req, res)=>{
 
         return res.send({
             status:true,
-            msg:"Registro agregado"
+            msg:"Medicamento registrado"
         })
     } catch (error) {
         return res.send({
             status:false,
-            msg:`Ha ocurrido un error al intentar crear: ${error}`
+            msg:`Ha ocurrido un error al intentar registrar un medicamento: ${error}`
         }) 
     }
 }
