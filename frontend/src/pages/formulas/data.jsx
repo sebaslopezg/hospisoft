@@ -53,6 +53,14 @@ const getMedicamentos = () => {
   })
 }
 
+const setMedicamentos = (id) => {
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/formula_m/setmedicamento/${id}`,
+    responseType: 'json'
+  })
+}
+
 const getOne = (id) => {
   return axios({
     method: 'get',
@@ -105,5 +113,6 @@ export default {
   deleteOne,
   getMedicos,
   getMedicamentos,
-  createFormulaDetalle
+  createFormulaDetalle,
+  setMedicamentos
 }

@@ -34,6 +34,11 @@ const formulaMaestroSchema = Schema({
         type:Schema.Types.ObjectId,
         ref:'user'
     },
+    medicamentos:[{
+        type:Schema.Types.ObjectId,
+        ref:'medicamento',
+        required: false,
+    }],
     descripcion:{
         type:String,
         required:false

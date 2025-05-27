@@ -26,19 +26,15 @@ export const FormulasDetails = () => {
         ) : ''      
     },[dataDefaultValue])
 
+    console.log(dataDefaultValue)
+
     return <>
         <form action="">
-        <Box 
-            sx={{
-                display: 'flex', 
-                flexDirection:'column',
-                '& .MuiTextField-root': { width: '20ch' }
-            }}
-        >
+        <Stack spacing={2}>
             <TextField 
-                defaultValue={dataDefaultValue.numeroFormula} 
+                //defaultValue={dataDefaultValue.numeroFormula} 
                 margin="dense" 
-                label="Numero de Formula" 
+                label="Paciente" 
                 variant="outlined" 
                 slotProps={{
                     input:{
@@ -46,13 +42,59 @@ export const FormulasDetails = () => {
                     }
                 }}
             />
-            <Box sx={{mt:1}}>
-                <Stack spacing={2} direction="row">
-                    <Button variant="contained">Editar</Button>
-                    <Button variant="contained">Eliminar</Button>
-                </Stack>
-            </Box>
-        </Box>
+            <Stack spacing={2} direction="row">
+                <TextField 
+                    defaultValue={dataDefaultValue.numeroFormula} 
+                    margin="dense" 
+                    label="Numero de Formula" 
+                    variant="outlined" 
+                    slotProps={{
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
+                <TextField 
+                    //defaultValue={dataDefaultValue.numeroFormula} 
+                    margin="dense" 
+                    label="Documento de identidad" 
+                    variant="outlined" 
+                    slotProps={{
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
+            </Stack>
+
+            <TextField 
+                //defaultValue={dataDefaultValue.numeroFormula} 
+                margin="dense" 
+                label="Medico" 
+                variant="outlined" 
+                slotProps={{
+                    input:{
+                        readOnly:true
+                    }
+                }}
+            />
+            <TextField 
+                defaultValue={dataDefaultValue.descripcion} 
+                margin="dense" 
+                label="Detalles" 
+                variant="outlined" 
+                slotProps={{
+                    input:{
+                        readOnly:true
+                    }
+                }}
+            />
+
+            <Stack spacing={2} direction="row">
+                <Button variant="contained">Editar</Button>
+                <Button variant="contained">Eliminar</Button>
+            </Stack>
+        </Stack>        
         </form>
     </>;
 }

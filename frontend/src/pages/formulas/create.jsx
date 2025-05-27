@@ -133,11 +133,11 @@ export const FormulasCreate = () => {
     }
 
     const response = data.createOne(payload)
-    response
-    .then((res) => {
+    let saveMedicamentoStatus
+    response.then((res) => {
       res.data.status ? (
-      saveMedicamentos(res.data.data._id),
-      notifications.show(res.data.msg, 
+        saveMedicamentoStatus = saveMedicamentos(res.data.data._id),
+        notifications.show(res.data.msg, 
         {severity: 'success',autoHideDuration: 3000,})
       ) : (
         notifications.show(res.data.msg, 
@@ -152,19 +152,17 @@ export const FormulasCreate = () => {
   }
 
   const saveMedicamentos = (id) => {
-
-    console.log(medicamentoDescripcionValues)
-
+    let responseStatus = false
       medicamentoValues.map((value, index) => {
       const payload = {
       formulaId: id,
       medicamentoId: value._id,
       descripcion: medicamentoDescripcionValues[index]
       }
-      console.log(id)
       const response = data.createFormulaDetalle(payload)
       response.then((res) =>{
         res.data.status ? (
+          responseStatus = true,
           notifications.show(res.data.msg, 
           {severity: 'success',autoHideDuration: 3000,})
         ) : (
@@ -177,6 +175,7 @@ export const FormulasCreate = () => {
         {severity: 'error',autoHideDuration: 3000,})
       })
     })
+    return responseStatus
   }
 
   return <>
