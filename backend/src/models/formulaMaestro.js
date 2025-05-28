@@ -27,8 +27,9 @@ const formulaMaestroSchema = Schema({
         default:0
     },
     pacienteId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
+        ref:'pacientes'
     },
     medico:{
         type:Schema.Types.ObjectId,

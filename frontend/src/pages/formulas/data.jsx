@@ -13,6 +13,7 @@ import Config from '../../Config';
     headerName: 'Paciente',
     type: 'text',
     width: 250,
+    valueGetter: (row) => {return row.nombre}
   },
   {
     field: 'medico',
@@ -29,10 +30,23 @@ import Config from '../../Config';
   },
 ];
 
+const MedicamentosDetails = [
+  { field: 'nombre', headerName: 'Medicamento', width: 200 },
+  { field: 'descripcion', headerName: 'Descripcion', width: 200 },
+];
+
 const getAll = () => {
   return axios({
       method: 'get',
       url: `${Config('urlRoot')}/formula_m/getall`,
+      responseType: 'json'
+  })
+}
+
+const getPacienteByDocument = (document) => {
+  return axios({
+      method: 'get',
+      url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
       responseType: 'json'
   })
 }
@@ -87,6 +101,14 @@ const createFormulaDetalle = (payload) => {
   })
 }
 
+const getFormulaDetalle = (id) => {
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/formula_d/getByFormula/${id}`,
+    responseType: 'json'
+  })
+}
+
 const updateOne = (id, payload) => {
   return axios({
       method: 'put',
@@ -106,6 +128,7 @@ const deleteOne = (id) => {
 
 export default {
   columns,
+  MedicamentosDetails,
   getAll,
   getOne,
   createOne,
@@ -114,5 +137,7 @@ export default {
   getMedicos,
   getMedicamentos,
   createFormulaDetalle,
-  setMedicamentos
+  setMedicamentos,
+  getPacienteByDocument,
+  getFormulaDetalle,
 }

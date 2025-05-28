@@ -27,11 +27,6 @@ export const FormulasView = () => {
                             <InfoIcon />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Editar">
-                        <IconButton href={`/formulas/edit/${params.id}`}>
-                            <EditIcon />
-                        </IconButton>
-                    </Tooltip>
                     <Tooltip title="Eliminar">
                         <IconButton onClick={(e) => handleDelete(params.id)}>
                             <DeleteIcon />

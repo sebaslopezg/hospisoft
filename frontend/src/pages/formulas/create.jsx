@@ -17,6 +17,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 
 export const FormulasCreate = () => {
 
@@ -26,6 +27,8 @@ export const FormulasCreate = () => {
   const [medicos, setMedicos] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
   const [medicamentosInputs, setMedicamentosInputs] = useState([]);
+  const [documentoPacienteValue, setdocumentoPaciente] = useState([]);
+  const [PacienteDataValue, setPacienteData] = useState([]);
 
   const [medicamentoValues, setMedicamentoValues] = useState([]);
   const [medicamentoDescripcionValues, setMedicamentoDescripcionValues] = useState([]);
@@ -116,6 +119,29 @@ export const FormulasCreate = () => {
     setMedicamentoDescripcionValues(currentValue)
   }
 
+  const handleDocumentoPacienteValue = (value) =>{
+    setdocumentoPaciente(value)
+  }
+
+  const handleSearchPerson = () => {
+    const response = data.getPacienteByDocument(documentoPacienteValue)
+    response.then((res) => {
+      console.log(res.data)
+      res.data.status ? (
+        setPacienteData(res.data.data),
+        notifications.show(res.data.msg, 
+        {severity: 'success',autoHideDuration: 3000,})
+      ) : (
+        notifications.show(res.data.msg, 
+        {severity: 'error',autoHideDuration: 3000,})
+      )
+    })
+    .catch((err) =>{
+    notifications.show('Error de conexión: ' + err.message, 
+      {severity: 'error',autoHideDuration: 3000,})
+    })
+  }
+
   const handleChange = (e) => {
     setMedicoValue(e.target.value);
   }
@@ -126,12 +152,14 @@ export const FormulasCreate = () => {
     let fields = e.target
 
     const payload = {
-      pacienteId: fields.pacienteId.value,
+      pacienteId: PacienteDataValue._id,
       medicoId: fields.medicoId.value,
       medico: fields.medicoId.value,
       descripcion: fields.descripcion.value,
     }
 
+    console.log(PacienteDataValue);
+    
     const response = data.createOne(payload)
     let saveMedicamentoStatus
     response.then((res) => {
@@ -182,12 +210,21 @@ export const FormulasCreate = () => {
     <form action="" onSubmit={setSubmit}>
     <Box sx={{display: 'flex', flexDirection:'column'}}>
       <Stack spacing={2}>
-        <TextField
-          margin="dense" 
-          required name="pacienteId" 
-          label="Documento de identidad del paciente" 
-          variant="outlined" 
-        />
+        <Stack spacing={2} direction='row'>
+          <TextField
+            margin="dense" 
+            required 
+            name="pacienteId" 
+            label="Documento de identidad del paciente" 
+            variant="outlined"
+            onChange={(e) => handleDocumentoPacienteValue(e.target.value)}
+          />
+          <Tooltip title="Buscar Usuario">
+            <IconButton onClick={(e) => handleSearchPerson()} aria-label="delete" size="large">
+              <SearchIcon fontSize="inherit" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
         <FormControl>
         <InputLabel id="ageLabel">Medico</InputLabel>
         <Select

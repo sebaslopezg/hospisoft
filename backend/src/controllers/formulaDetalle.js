@@ -15,6 +15,23 @@ const getAll = async(req, res)=>{
     }
 }
 
+const getByFormula = async(req, res)=>{
+    let idFormula = req.params.formula
+    try {
+        let query = await formulaDetalle.find({formulaId: idFormula, status:{$gt:0}}).exec()
+        return res.send({
+            status:true,
+            msg:"Consulta exitosa",
+            data:query
+        })
+    } catch (error) {
+        return res.send({
+            status:false,
+            msg:`Ha ocurrido un error en la consulta: ${error}`
+        }) 
+    }
+}
+
 const create = async(req, res)=>{
 
     let data = {
@@ -107,4 +124,5 @@ export {
     getbyid,
     updatebyid,
     deletebyid,
+    getByFormula,
 }

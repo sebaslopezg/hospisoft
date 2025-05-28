@@ -59,6 +59,32 @@ const getbyid = async(req, res) =>{
     }
 }
 
+const getbyDocument = async(req, res) =>{
+
+    let document = req.params.document
+
+    try {
+        let query = await pacientes.findOne({documento: document, status:{$gt:0}}).exec()
+        if (query) {
+            return res.send({
+                status:true,
+                msg:"Paciente encontrado",
+                data:query
+            })
+        }else{
+            return res.send({
+                status:false,
+                msg:"No se pudo encontrar el paciente",
+            })
+        }
+    } catch (error) {
+        return res.send({
+            status:false,
+            msg:`Ha ocurrido un error en la consulta: ${error}`
+        }) 
+    }
+}
+
 const updatebyid = async(req, res)=>{
     let id = req.params.id
 
@@ -109,4 +135,5 @@ export {
     getbyid,
     updatebyid,
     deletebyid,
+    getbyDocument,
 }

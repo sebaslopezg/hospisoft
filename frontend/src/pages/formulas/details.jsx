@@ -5,6 +5,7 @@ import data from './data'
 import Stack from '@mui/material/Stack';
 import { useParams } from 'react-router';
 import { useState, useEffect } from "react";
+import { DataGrid } from '@mui/x-data-grid';
 
 export const FormulasDetails = () => {
 
@@ -15,24 +16,38 @@ export const FormulasDetails = () => {
     }
 
     const [dataDefaultValue, setData] = useState("")
+    const [pacienteValue, setPaciente] = useState()
+    const [documentoValue, setDocumento] = useState()
+    const [medicoValue, setMedico] = useState()
+    const [rows, setRows] = useState()
+
     useEffect(()=>{
         !dataDefaultValue ? (
+        getFormulaDetails(params.id),
         data.getOne(params.id)
         .then((res) => {
           const dataSource = res.data.data
-          dataSource ? setData(dataSource) : setData(dataPlaceholder)
+          dataSource ? (
+            setData(dataSource),
+            setPaciente(dataSource.pacienteId.nombre),
+            setDocumento(dataSource.pacienteId.documento),
+            setMedico(dataSource.medico.nombre)
+        ) : setData(dataPlaceholder)
         })
         .catch(error => console.log(error))
         ) : ''      
     },[dataDefaultValue])
 
-    console.log(dataDefaultValue)
+    const getFormulaDetails = (id) => {
+        const response = data.getFormulaDetalle(id)
+        response.then((res) => setRows(res.data.data))
+    }
 
     return <>
         <form action="">
         <Stack spacing={2}>
             <TextField 
-                //defaultValue={dataDefaultValue.numeroFormula} 
+                defaultValue={pacienteValue}
                 margin="dense" 
                 label="Paciente" 
                 variant="outlined" 
@@ -55,7 +70,7 @@ export const FormulasDetails = () => {
                     }}
                 />
                 <TextField 
-                    //defaultValue={dataDefaultValue.numeroFormula} 
+                    defaultValue={documentoValue} 
                     margin="dense" 
                     label="Documento de identidad" 
                     variant="outlined" 
@@ -68,7 +83,7 @@ export const FormulasDetails = () => {
             </Stack>
 
             <TextField 
-                //defaultValue={dataDefaultValue.numeroFormula} 
+                defaultValue={medicoValue} 
                 margin="dense" 
                 label="Medico" 
                 variant="outlined" 
@@ -89,11 +104,11 @@ export const FormulasDetails = () => {
                     }
                 }}
             />
-
-            <Stack spacing={2} direction="row">
-                <Button variant="contained">Editar</Button>
-                <Button variant="contained">Eliminar</Button>
-            </Stack>
+            <DataGrid
+                rows={rows} 
+                columns={data.MedicamentosDetails} 
+                getRowId={(dataList) => dataList._id}
+            />
         </Stack>        
         </form>
     </>;
