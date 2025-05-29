@@ -40,7 +40,10 @@ export const FormulasDetails = () => {
 
     const getFormulaDetails = (id) => {
         const response = data.getFormulaDetalle(id)
-        response.then((res) => setRows(res.data.data))
+        response.then((res) => {setRows(res.data.data)
+            console.log(res.data.data);
+            
+        })
     }
 
     return <>

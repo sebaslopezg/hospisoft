@@ -18,7 +18,12 @@ const getAll = async(req, res)=>{
 const getByFormula = async(req, res)=>{
     let idFormula = req.params.formula
     try {
-        let query = await formulaDetalle.find({formulaId: idFormula, status:{$gt:0}}).exec()
+        let query = await formulaDetalle.find({formulaId: idFormula, status:{$gt:0}})
+        .populate({
+            path:'medicamentoId',
+            select:'nombre'
+        })
+        .exec()
         return res.send({
             status:true,
             msg:"Consulta exitosa",

@@ -27,8 +27,9 @@ const formulaDetalleSchema = Schema({
         default:0
     },
     medicamentoId:{
-        type:String,
-        required:true
+        type:Schema.Types.ObjectId,
+        required:true,
+        ref:'medicamento'
     },
     descripcion:{
         type:String,

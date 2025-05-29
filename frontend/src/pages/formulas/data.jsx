@@ -31,8 +31,17 @@ import Config from '../../Config';
 ];
 
 const MedicamentosDetails = [
-  { field: 'nombre', headerName: 'Medicamento', width: 200 },
-  { field: 'descripcion', headerName: 'Descripcion', width: 200 },
+  { 
+    field: 'medicamentoId', 
+    headerName: 'Medicamento', 
+    width: 250,
+    valueGetter: (row) => {return row.nombre}
+  },
+  { 
+    field: 'descripcion', 
+    headerName: 'Descripcion', 
+    width: 400 
+  },
 ];
 
 const getAll = () => {
