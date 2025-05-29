@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import fs from 'fs'
+import path from 'path';
 import user from "../models/users.js";
 
 const view = async (req, res) => {
