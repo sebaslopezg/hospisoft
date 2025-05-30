@@ -5,6 +5,9 @@ import Layout from '../layouts/dashboard.jsx';
 import DashboardPage from '../pages/index.jsx';
 import NotesPage from '../pages/test/notes.jsx';
 
+//auth
+import CredentialsSignInPage from '../pages/auth/index.jsx'
+
 //medicamentos
 import MedicamentosLayout from '../pages/medicamentos/index.jsx';
 import {MedicamentosCreate} from '../pages/medicamentos/create.jsx';
@@ -148,6 +151,10 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path:'/login',
+        Component:CredentialsSignInPage
+      }
     ],
   },
 ]);
