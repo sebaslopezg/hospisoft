@@ -3,8 +3,8 @@ import Config from '../../Config';
 
 const login = () => {
     return axios({
-        method: 'get',
-        url: `${Config('urlRoot')}/`,
+        method: 'post',
+        url: `${Config('urlRoot')}/users/login`,
         responseType: 'json'
     })
 }

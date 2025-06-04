@@ -26,12 +26,13 @@ export const UsuariosCreate = () => {
         let fields = e.target
 
         const payload = {
-            numDoc: fields.numDoc.value,
-            nombre: fields.nombre.value,
-            email: fields.email.value,
-            telefono: fields.telefono.value,
-            direccion: fields.direccion.value,
-            rol: fields.rol.value,
+          numDoc: fields.numDoc.value,
+          nombre: fields.nombre.value,
+          email: fields.email.value,
+          password: fields.telefono.password,
+          telefono: fields.telefono.value,
+          direccion: fields.direccion.value,
+          rol: fields.rol.value,
         }
 
         const response = data.createOne(payload)
@@ -59,6 +60,7 @@ export const UsuariosCreate = () => {
             <TextField margin="dense" required name="numDoc" label="Numero de Documento" variant="outlined" />
             <TextField multiline maxRows={4} margin="dense" required name="nombre" label="Nombre" variant="outlined" />
             <TextField margin="dense" required name="email" label="Email" variant="outlined" />
+            <TextField margin="dense" type='password' required name="password" label="Contraseña" variant="outlined" />
             <TextField margin="dense" required type="number" name="telefono" label="Telefono" variant="outlined" />
             <TextField margin="dense" required name="direccion" label="Direccion" variant="outlined" />
             <FormControl>
