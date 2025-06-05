@@ -52,8 +52,8 @@ export const CitasCreate = () => {
                 <DatePicker label="Fecha de la cita" name='fecha' />
               </DemoContainer>
             </LocalizationProvider>
-            <TextField multiline maxRows={4} margin="dense" required name="descripcion" label="Descripcion" variant="outlined" />
-            <TextField multiline maxRows={4} margin="dense" required name="pacienteId" label="Paciente" variant="outlined" />
+            <TextField multiline maxRows={4} required name="descripcion" label="Descripcion"/>
+            <TextField multiline maxRows={4} required name="pacienteId" label="Paciente"/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

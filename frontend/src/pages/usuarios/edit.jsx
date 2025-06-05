@@ -66,11 +66,11 @@ export const UsuariosEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField defaultValue={dataUser.numDoc} margin="dense" required name="numDoc" label="Numero de Documento" variant="outlined" />
-            <TextField defaultValue={dataUser.nombre} multiline maxRows={4} margin="dense" required name="nombre" label="Nombre" variant="outlined" />
-            <TextField defaultValue={dataUser.email} margin="dense" required name="email" label="Email" variant="outlined" />
-            <TextField defaultValue={dataUser.telefono} margin="dense" required type="number" name="telefono" label="Telefono" variant="outlined" />
-            <TextField defaultValue={dataUser.direccion} margin="dense" required name="direccion" label="Direccion" variant="outlined" />
+            <TextField defaultValue={dataUser.numDoc} required name="numDoc" label="Numero de Documento" />
+            <TextField defaultValue={dataUser.nombre} multiline maxRows={4} required name="nombre" label="Nombre"/>
+            <TextField defaultValue={dataUser.email} required name="email" label="Email"/>
+            <TextField defaultValue={dataUser.telefono} required type="number" name="telefono" label="Telefono"/>
+            <TextField defaultValue={dataUser.direccion} required name="direccion" label="Direccion"/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

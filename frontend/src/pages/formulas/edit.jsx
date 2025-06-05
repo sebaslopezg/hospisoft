@@ -58,7 +58,7 @@ export const FormulasEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField defaultValue={dataUser.numDoc} margin="dense" required name="numDoc" label="Numero de Documento" variant="outlined" />
+            <TextField defaultValue={dataUser.numDoc} required name="numDoc" label="Numero de Documento"/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

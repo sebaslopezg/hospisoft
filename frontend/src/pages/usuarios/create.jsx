@@ -57,12 +57,12 @@ export const UsuariosCreate = () => {
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
           <Stack spacing={2}>
-            <TextField margin="dense" required name="numDoc" label="Numero de Documento" variant="outlined" />
-            <TextField multiline maxRows={4} margin="dense" required name="nombre" label="Nombre" variant="outlined" />
-            <TextField margin="dense" required name="email" label="Email" variant="outlined" />
-            <TextField margin="dense" type='password' required name="password" label="Contraseña" variant="outlined" />
-            <TextField margin="dense" required type="number" name="telefono" label="Telefono" variant="outlined" />
-            <TextField margin="dense" required name="direccion" label="Direccion" variant="outlined" />
+            <TextField required name="numDoc" label="Numero de Documento"/>
+            <TextField maxRows={4} required name="nombre" label="Nombre"/>
+            <TextField required name="email" label="Email"/>
+            <TextField type='password' required name="password" label="Contraseña"/>
+            <TextField required type="number" name="telefono" label="Telefono"/>
+            <TextField required name="direccion" label="Direccion"/>
             <FormControl>
             <InputLabel id="rolLabel">Rol</InputLabel>
             <Select

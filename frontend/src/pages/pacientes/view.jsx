@@ -9,6 +9,8 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useDialogs } from '@toolpad/core/useDialogs';
+import { Card } from '@mui/material';
+
 
 export const PacientesView = () => {
 
@@ -64,6 +66,7 @@ export const PacientesView = () => {
     }
 
     return <>
+    <Card>
         <Grid container direction="column" spacing={1}>
         <Grid size={3}>
             <IconButton size="large" onClick={getRows}>
@@ -78,7 +81,7 @@ export const PacientesView = () => {
             initialState={{
                 pagination: {
                 paginationModel: {
-                    pageSize: 8,
+                    pageSize: 4,
                 },
                 },
             }}
@@ -86,5 +89,6 @@ export const PacientesView = () => {
             disableRowSelectionOnClick
             />
         </Grid>
+        </Card>
     </>;
 }

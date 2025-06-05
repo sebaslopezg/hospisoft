@@ -80,9 +80,7 @@ export const FormulasCreate = () => {
             onChange={(e) => {
               handlerSetMedicamentoDescripcionValues(e.target.value, index);
             }}
-            margin="dense" 
             label="Descripcion"
-            variant="outlined" 
           />
           <Tooltip title="Eliminar Medicamento">
             <IconButton data-key={theKey} onClick={handleDeleteInput} aria-label="delete" size="large">
@@ -212,11 +210,9 @@ export const FormulasCreate = () => {
       <Stack spacing={2}>
         <Stack spacing={2} direction='row'>
           <TextField
-            margin="dense" 
             required 
             name="pacienteId" 
             label="Documento de identidad del paciente" 
-            variant="outlined"
             onChange={(e) => handleDocumentoPacienteValue(e.target.value)}
           />
           <Tooltip title="Buscar Usuario">
@@ -246,10 +242,8 @@ export const FormulasCreate = () => {
         </Select>
         </FormControl>
         <TextField 
-          margin="dense" 
           required name="descripcion" 
-          label="Descripción General" 
-          variant="outlined" 
+          label="Descripción General"  
         />
         <Stack direction="row" spacing={2}>
           <Autocomplete
@@ -266,9 +260,7 @@ export const FormulasCreate = () => {
           onChange={(e) => {
             handlerSetMedicamentoDescripcionValues(e.target.value, 0)
           }}
-            margin="dense" 
-            label="Descripcion"
-            variant="outlined" 
+            label="Descripcion" 
           />
           <Tooltip title="Agregar Medicamento">
             <IconButton onClick={handleMedicamentosInputs} aria-label="delete" size="large">

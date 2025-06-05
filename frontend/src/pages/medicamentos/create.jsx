@@ -44,9 +44,9 @@ const getFromData = async(e) =>{
     return <>
     <form action="" onSubmit={getFromData}>
       <Box sx={{display: 'flex', flexDirection:'column'}}>
-        <TextField margin="dense" required name="nombre" label="Nombre" variant="outlined" />
-        <TextField multiline maxRows={4} margin="dense" required name="descripcion" label="Descripcion" variant="outlined" />
-        <TextField margin="dense" required type="number" name="existencia" label="Existencia" variant="outlined" />
+        <TextField required name="nombre" label="Nombre"/>
+        <TextField multiline maxRows={4} required name="descripcion" label="Descripcion"/>
+        <TextField required type="number" name="existencia" label="Existencia"/>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>

@@ -58,9 +58,9 @@ export const PacientesEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField margin="dense" defaultValue={dataDefaultValue.documento} required name="documento" label="Numero de Documento" variant="outlined" />
-            <TextField margin="dense" defaultValue={dataDefaultValue.nombre} required name="nombre" label="Nombre" variant="outlined" />
-            <TextField margin="dense" defaultValue={dataDefaultValue.edad} required name="edad" label="Edad" type='number' variant="outlined" />
+            <TextField defaultValue={dataDefaultValue.documento} required name="documento" label="Numero de Documento"/>
+            <TextField defaultValue={dataDefaultValue.nombre} required name="nombre" label="Nombre"/>
+            <TextField defaultValue={dataDefaultValue.edad} required name="edad" label="Edad" type='number'/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

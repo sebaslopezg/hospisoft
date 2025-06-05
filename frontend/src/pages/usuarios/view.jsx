@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useDialogs } from '@toolpad/core/useDialogs';
+import { Card } from '@mui/material';
 
 export const UsuariosView = () => {
 
