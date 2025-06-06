@@ -10,6 +10,7 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDialogs } from '@toolpad/core/useDialogs';
+import { Calendario } from './calendario';
 
 export const CitasView = () => {
 
@@ -100,6 +101,10 @@ export const CitasView = () => {
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
             />
+        
+        <Grid>
+            <Calendario/>
+        </Grid>
         </Grid>
     </>;
 }
