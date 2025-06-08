@@ -124,13 +124,13 @@ const uploadImage = async (req, res) => {
       })
     } 
 
-    const { originalName, filename, path } = req.file;
-    const extension = originalName.split(".").pop().toLowerCase();
+    const { originalname, filename, path: filePath } = req.file;
+    const extension = originalname.split(".").pop().toLowerCase();
 
     const validExtensions = ["png", "jpg", "jpeg", "gif"];
 
     if (!validExtensions.includes(extension)) {
-      fs.unlink(path)
+      await fs.promises.unlink(filePath)
       return res.status(400).json({
         estado: false,
         mensaje: "Extensión de archivo no permitida",
@@ -192,7 +192,7 @@ const login = async (req, res) => {
 
 const avatar = (req, res) => {
   const file = req.params.file;
-  const filePath = "./uploads/usuarios/" + file;
+  const filePath = "./src/uploads/usuarios/" + file;
 
   fs.stat(filePath, (error, exists) => {
     if (!exists) {

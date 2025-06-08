@@ -1,15 +1,15 @@
 import express from 'express'
-import * as users from '../controllers/users.js'
 import multer from 'multer'
+import * as users from '../controllers/users.js'
 
 const router = express.Router()
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./uploads/usuarios/");
+    cb(null, "./src/uploads/usuarios/")
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    cb(null, `${Date.now()}-${file.originalname}`);
   },
 })
 
@@ -20,7 +20,7 @@ router.get("/users/getbyid/:id", users.getOne)
 router.post("/users/create", users.create)
 router.post("/users/login", users.login)
 router.post(
-  "/users/updateImage/",
+  "/users/updateimage",
   uploads.single("file0"),
   users.uploadImage
 )
