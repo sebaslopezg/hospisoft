@@ -134,7 +134,7 @@ const login = async (req, res) => {
         isAdmin: usuarioExiste.rol,
       },
       "seCreTo",
-      { expiresIn: "4h" }
+      { expiresIn: "4h" } 
     )
     return res.send({
       status: true,
