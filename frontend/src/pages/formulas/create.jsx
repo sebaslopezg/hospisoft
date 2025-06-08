@@ -245,7 +245,12 @@ export const FormulasCreate = () => {
           required name="descripcion" 
           label="Descripción General"  
         />
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row"
+          spacing={2}
+          sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}>
           <Autocomplete
             name='medicamentico'
             onChange={(e, value) => {

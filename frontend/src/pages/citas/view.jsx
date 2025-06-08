@@ -79,7 +79,7 @@ export const CitasView = () => {
 
     return <>
         <Grid container direction="column" spacing={1}>
-        <Grid
+       {/* <Grid
             size={3}
         >
             <IconButton size="large" onClick={getRows}>
@@ -87,7 +87,7 @@ export const CitasView = () => {
             </IconButton>
             <Button variant="contained" href="/citas/create">Nuevo</Button>
         </Grid>
-            <DataGrid
+             <DataGrid
             getRowId={(dataList) => dataList._id}
             rows={rows}
             columns={columns}
@@ -100,7 +100,7 @@ export const CitasView = () => {
             }}
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
-            />
+            /> */}
         
         <Grid>
             <Calendario/>

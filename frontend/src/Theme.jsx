@@ -14,16 +14,22 @@ const Theme = createTheme({
             light: '#e0aaff',
             dark: '#10002b',
         },
+        grey:{
+            main: '#b0bec5',
+            light: '#78909c',
+            dark: '#78909c'
+        },
         background: {
           default: '#F9F9FE',
-          paper: '#E6E6F5',
+          paper: '#f2f4ff',
+          
           }
     },
     components:{
         MuiCssBaseline:{
             styleOverrides:{
                 body:{
-                    background: '#f2f4ff',
+                    background: '#E6E6F5',
                 }
             }
         },
@@ -135,6 +141,28 @@ const Theme = createTheme({
                        backgroundColor:'rgba(68, 89, 147, 0.1)'
                     }
                 }
+            }
+        },
+        MuiSelect:{
+
+            styleOverrides:{
+                root:{
+                    color: "#000",
+                    backgroundColor: "#FAFAFF",
+                    borderTopLeftRadius: "15px",
+                    borderTopRightRadius: "15px",
+                    boxShadow:'0 -4px 10px -3px rgba(0, 21, 62, 0.27)',
+                    ":hover:not(.Mui-focused)": {
+                    "&:before": {
+                    borderColor: "#7986cb",
+                    },
+                    backgroundColor: "#E9EBF7"
+                    },
+                }
+            },
+            defaultProps:{
+                variant:'filled',
+                margin:'dense',
             }
         }
     }, 
