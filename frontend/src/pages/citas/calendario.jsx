@@ -44,6 +44,12 @@ export function Calendario() {
       console.error("Error creating event:", error);
     }
   }
+
+  const handleEditEvent = ()=>{
+    const payload={
+      fecha:selectedDate
+    }
+  }
     
   const getData = () =>{
     const response = data.getAll()
@@ -66,7 +72,7 @@ export function Calendario() {
     }
 
     const handleEventChange = ()=>{
-
+        
     }
 
     const handleEventClick = ()=>{
@@ -87,7 +93,7 @@ export function Calendario() {
         selectable={true}
         locale={esLocale}
         plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-        initialView='dayGridMonth'
+        initialView='timeGridWeek'
         weekends={true}
         events={calendarEvents}
         eventContent={renderEventContent}
