@@ -14,6 +14,7 @@ router.delete("/users/deletebyid/:id", users.deletebyid)
 export default router
 
 /*
+
 /users/view
 /users/create
 /users/updatebyid

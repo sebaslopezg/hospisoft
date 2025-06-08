@@ -1,6 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 import connection from './src/database/db.js'
+import authJwt from './src/middlewares/auth.js'
+
 import medicamentoRoute from './src/routes/medicamentos.js'
 import usersRoute from './src/routes/users.js'
 import citaRoute from './src/routes/citas.js'
@@ -15,6 +17,7 @@ app.use(cors())
 app.use(express.json())
 connection()
 
+//authJwt(app)
 app.use('/api', medicamentoRoute)
 app.use('/api', usersRoute)
 app.use('/api', citaRoute)
