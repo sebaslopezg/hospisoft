@@ -22,7 +22,7 @@ const view = async (req, res) => {
 const getOne = async (req, res) => {
   let id = req.params.id
   try {
-    let data = await user.findOne({_id: id}).exec();
+    let data = await user.findOne({_id: id, status:{$gt:0}}).exec();
     res.status(200).send({
       status: true,
       data,
@@ -48,7 +48,7 @@ const create = async (req, res) => {
     status: req.body.status
   }
   
-  let usuarioExiste = await user.findOne({ email: req.body.email });
+  let usuarioExiste = await user.findOne({ email: req.body.email, status:{$gt:0} });
   
   if (usuarioExiste) {
     return res.send({
@@ -101,7 +101,7 @@ const updatebyid = async(req, res)=>{
 const deletebyid = async(req, res)=>{
   let id = req.params.id
   try {
-    let query = await user.findByIdAndDelete(id).exec()
+    let query = await user.findByIdAndUpdate(id,{status:0}).exec()
     return res.send({
       status:true,
       msg:"Eliminación exitosa",
@@ -115,9 +115,50 @@ const deletebyid = async(req, res)=>{
   }
 }
 
+const uploadImage = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        estado: false,
+        mensaje: "No se ha subido ninguna imagen",
+      })
+    } 
+
+    const { originalName, filename, path } = req.file;
+    const extension = originalName.split(".").pop().toLowerCase();
+
+    const validExtensions = ["png", "jpg", "jpeg", "gif"];
+
+    if (!validExtensions.includes(extension)) {
+      fs.unlink(path)
+      return res.status(400).json({
+        estado: false,
+        mensaje: "Extensión de archivo no permitida",
+      })
+    }
+
+    const updatedUser = await user.findByIdAndUpdate(req.body.id, {
+      imagen: filename,
+    });
+
+    return res.status(200).json({
+      estado: true,
+      user: updatedUser,
+      //file: req.file,
+    });
+
+  }catch (error) {
+      return res.status(500).json({
+      estado: false,
+      nensaje: "Error al procesar la imagen",
+      error: error.message,
+    });
+  }
+}
+
 const login = async (req, res) => {
   let data = req.body.email;
-  let usuarioExiste = await user.findOne({ email: data });
+  let usuarioExiste = await user.findOne({ email: data, status:{$gt:0} });
   if (!usuarioExiste) {
     return res.send({
       status: false,
@@ -149,12 +190,29 @@ const login = async (req, res) => {
   }
 }
 
+const avatar = (req, res) => {
+  const file = req.params.file;
+  const filePath = "./uploads/usuarios/" + file;
+
+  fs.stat(filePath, (error, exists) => {
+    if (!exists) {
+      return res.status(404).send({
+        status: "error",
+        message: "No existe la imagen",
+      });
+    }
+    return res.sendFile(path.resolve(filePath));
+  })
+}
+
 export {
   view,
   getOne,
   create,
   updatebyid,
   deletebyid,
+  uploadImage,
+  avatar,
   login,
 };
   

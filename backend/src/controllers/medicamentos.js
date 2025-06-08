@@ -75,7 +75,7 @@ const getbyid = async(req, res) =>{
     let id = req.params.id
 
     try {
-        let consulta = await medicamento.find({_id: id}).exec()
+        let consulta = await medicamento.find({_id: id, status:{$gt:0}}).exec()
         return res.send({
             status:true,
             msg:"Consulta exitosa",

@@ -25,11 +25,31 @@ const pacientesSchema = Schema({
         type: String,
         required: true,
     },
+    direccion: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
     nombre: {
         type: String,
         required: true,
     },
     edad:{
+        type:String,
+        required:true
+    },
+    telefono:{
+        type:String,
+        required:true
+    },
+    eps:{
+        type:String,
+        required:true
+    },
+    alergias:{
         type:String,
         required:true
     },
@@ -46,3 +66,8 @@ const model = mongoose.model("pacientes", pacientesSchema)
 
 export const schema = model.schema;
 export default model;
+
+/*
+
+
+*/
