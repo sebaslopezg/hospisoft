@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const formulaDetalleSchema = Schema({
+const diacnosticoSchema = Schema({
     timestamps: {
         createdAt: {
             required:false,
@@ -21,24 +21,14 @@ const formulaDetalleSchema = Schema({
         type: String,
         required:false,
     },
-    formulaId: {
+    pacienteId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref:'pacientes'
+    },
+    medicoId:{
         type:Schema.Types.ObjectId,
-        required: false,
-        default:0
-    },
-    medicamentoId:{
-        type:Schema.Types.ObjectId,
-        required:true,
-        ref:'medicamento'
-    },
-    dosificacion:{
-        type:String,
-        enum:['mg', 'unds', 'ml', 'puf', 'otro'],
-        required:true
-    },
-    cantidad:{
-        type:Number,
-        required:true
+        ref:'user'
     },
     descripcion:{
         type:String,
@@ -50,10 +40,10 @@ const formulaDetalleSchema = Schema({
         default:1,
     }
 },
-{Collection:"formulaDetalle"}
+{Collection:"diacnosticoSchema"}
 )
 
-const model = mongoose.model("formulaDetalle", formulaDetalleSchema)
+const model = mongoose.model("diacnosticoSchema", diacnosticoSchema)
 
 export const schema = model.schema;
 export default model;

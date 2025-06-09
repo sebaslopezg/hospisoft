@@ -20,7 +20,7 @@ router.get("/medicamento/getlist", medicamentos.getList)
 router.get("/medicamento/getbyid/:id", medicamentos.getbyid)
 router.post("/medicamento/create", medicamentos.create)
 router.post(
-  "/medicamento/updateimage",
+  "/medicamento/uploadimage",
   uploads.single("file0"),
   medicamentos.uploadImage
 )

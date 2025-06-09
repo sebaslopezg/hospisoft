@@ -1,4 +1,7 @@
 import cita from '../models/citas.js'
+import  mongoose  from 'mongoose'
+import pacientes from '../models/pacientes.js'
+import medicos from '../models/users.js'
 
 /**
  * Función para ver los datos en la tabla a la que pertenece la función 
@@ -26,24 +29,47 @@ const view = async(req, res)=>{
 const create = async(req, res)=>{
 
     let formatDate = new Date(req.body.fecha)
+    let idPaciente
+    let idMedico
+    let paciente
+    let medico
+
+    try {
+        idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
+        idMedico = mongoose.Types.ObjectId.createFromHexString(req.body.medicoId)
+        paciente = await pacientes.findOne({_id: idPaciente, status:{$gt:0}}).exec()
+        medico = await medicos.findOne({_id: idMedico, status:{$gt:0}, rol:2}).exec()
+    } catch (error) {
+        paciente = null
+        medico = null
+    }
 
     let data = {
         createdBy:req.body.createdBy,
         updatedBy:req.body.updatedBy,
-        status:req.body.status,
+        status:1,
         fecha:formatDate,
         descripcion:req.body.descripcion,
-        pacienteId:req.body.pacienteId
+        pacienteId:req.body.pacienteId,
+        medicoId:req.body.medicoId
     }
 
     try {
-        const citaNueva = new cita(data)
-        await citaNueva.save()
+        if (paciente && medico) {
+            const newData = new cita(data)
+            await newData.save()
 
-        return res.send({
-            status:true,
-            msg:"Insercion exitosa"
-        })
+            return res.send({
+                status:true,
+                data:newData,
+                msg:"Registro creado"
+            })            
+        }else{
+            return res.send({
+                status:false,
+                msg:"Error: Paciente o medico no valido"
+            }) 
+        }
     } catch (error) {
         return res.send({
             status:false,
@@ -85,7 +111,8 @@ const updatebyid = async(req, res)=>{
         updatedBy:req.body.updatedBy,
         fecha:req.body.fecha,
         descripcion:req.body.descripcion,
-        pacienteId:req.body.pacienteId
+        pacienteId:req.body.pacienteId,
+        medicoId:req.body.medicoId
     }
 
     try {

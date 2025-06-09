@@ -37,9 +37,9 @@ const userSchema = Schema({
       type: String,
       required: true,
     },
-    passwordHash: {
+    password: {
       type: String,
-      required: false,
+      required: true,
     },
     telefono: {
       type: String,
