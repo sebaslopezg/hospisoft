@@ -14,10 +14,10 @@ export const MedicamentosCreate = () =>{
   const navigate = useNavigate();
 
 const [myData, setData] = useState({})
-const [imageInput, setImageInput] = useState()
+const [imageInput, setImageInput] = useState(null)
 
 useEffect(() => {
-
+  imageInput ? '' : ''
 },[imageInput])
 
 const cargarImagen = (data) =>{
