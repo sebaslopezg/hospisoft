@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import data from './data'
 import Stack from '@mui/material/Stack';
 import { useParams } from 'react-router';
@@ -87,17 +85,6 @@ export const FormulasDetails = () => {
                 }}
                 />
             </Stack>
-
-{/*
-
-direccion
-email
-edad
-telefono
-eps
-alergias
-*/}
-
         <Stack
             direction="row"
             spacing={2}
@@ -116,22 +103,19 @@ alergias
             />
 
             <Stack spacing={2}>
-
-                    <TextField 
-                        defaultValue={pacienteValue.email} 
-                        label="Email" 
-                        slotProps={{
-                            inputLabel:{
-                                shrink:'true'
-                            },
-                            input:{
-                                readOnly:true
-                            }
-                        }}
-                    />
+                <TextField 
+                    defaultValue={pacienteValue.email} 
+                    label="Email" 
+                    slotProps={{
+                        inputLabel:{
+                            shrink:'true'
+                        },
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
                 </Stack>
-
-
                 <TextField 
                     defaultValue={pacienteValue.edad} 
                     label="Edad" 
@@ -169,7 +153,6 @@ alergias
                     }}
                 />
             </Stack>
-
             <TextField 
                 defaultValue={pacienteValue.alergias} 
                 label="Alergias" 
@@ -182,7 +165,6 @@ alergias
                     }
                 }}
             />
-
             <TextField 
                 defaultValue={medicoValue} 
                 label="Medico" 

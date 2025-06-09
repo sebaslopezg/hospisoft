@@ -6,9 +6,11 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
 import { useParams } from 'react-router';
 import { useState, useEffect } from "react";
+import Stack from '@mui/material/Stack';
 
 export const FormulasEdit = () => {
 
+    const [dataDefaultValue, setData] = useState("")
     const notifications = useNotifications();
     const navigate = useNavigate();
     const params = useParams()
@@ -17,17 +19,27 @@ export const FormulasEdit = () => {
         numDoc: null,
     }
 
-    const [dataUser, setData] = useState("")
     useEffect(()=>{
-        !dataUser ? (
+        !dataDefaultValue ? (
+        getFormulaDetails(params.id),
         data.getOne(params.id)
         .then((res) => {
-          const dataSource = res.data.data[0]
-          dataSource ? setData(dataSource) : setData(dataPlaceholder)
+          const dataSource = res.data.data
+          dataSource ? (
+            setData('')
+        ) : setData(dataPlaceholder)
         })
         .catch(error => console.log(error))
         ) : ''      
-    },[dataUser])
+    },[dataDefaultValue])
+
+    const getFormulaDetails = (id) => {
+        const response = data.getFormulaDetalle(id)
+        response.then((res) => {setRows(res.data.data)
+            console.log(res.data.data);
+            
+        })
+    }
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -56,13 +68,158 @@ export const FormulasEdit = () => {
     }
 
     return <>
-        <form action="" onSubmit={setSubmit}>
-        <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField defaultValue={dataUser.numDoc} required name="numDoc" label="Numero de Documento"/>
-            <Box sx={{mt:1}}>
-            <Button type="submit" variant="contained">Guardar</Button>
-            </Box>
-        </Box>
+        <form action="">
+        <Stack spacing={2}>
+            <TextField 
+                defaultValue={pacienteValue.nombre} 
+                label="Paciente" 
+                slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
+                    input:{
+                        readOnly:true
+                    }
+                }}
+            />
+            <Stack spacing={2} direction="row">
+                <TextField 
+                    defaultValue={dataDefaultValue.numeroFormula} 
+                    label="Numero de Formula" 
+                    slotProps={{
+                        inputLabel:{
+                            shrink:'true'
+                        },
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
+                <TextField 
+                    defaultValue={pacienteValue.documento} 
+                    label="Documento de identidad" 
+                    slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
+                    input:{
+                        readOnly:true
+                    }
+                }}
+                />
+            </Stack>
+        <Stack
+            direction="row"
+            spacing={2}
+        >
+            <TextField 
+                defaultValue={pacienteValue.direccion} 
+                label="Dirección" 
+                slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
+                    input:{
+                        readOnly:true
+                    }
+                }}
+            />
+
+            <Stack spacing={2}>
+                <TextField 
+                    defaultValue={pacienteValue.email} 
+                    label="Email" 
+                    slotProps={{
+                        inputLabel:{
+                            shrink:'true'
+                        },
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
+                </Stack>
+                <TextField 
+                    defaultValue={pacienteValue.edad} 
+                    label="Edad" 
+                    slotProps={{
+                        inputLabel:{
+                            shrink:'true'
+                        },
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
+                <TextField 
+                    defaultValue={pacienteValue.telefono} 
+                    label="Telefono" 
+                    slotProps={{
+                        inputLabel:{
+                            shrink:'true'
+                        },
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
+                <TextField 
+                    defaultValue={pacienteValue.eps} 
+                    label="EPS" 
+                    slotProps={{
+                        inputLabel:{
+                            shrink:'true'
+                        },
+                        input:{
+                            readOnly:true
+                        }
+                    }}
+                />
+            </Stack>
+            <TextField 
+                defaultValue={pacienteValue.alergias} 
+                label="Alergias" 
+                slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
+                    input:{
+                        readOnly:true
+                    }
+                }}
+            />
+            <TextField 
+                defaultValue={medicoValue} 
+                label="Medico" 
+                slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
+                    input:{
+                        readOnly:true
+                    }
+                }}
+            />
+            <TextField 
+                defaultValue={dataDefaultValue.descripcion} 
+                label="Detalles" 
+                slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
+                    input:{
+                        readOnly:true
+                    }
+                }}
+            />
+            <Stack direction='row'>
+            </Stack>
+            <DataGrid
+                rows={rows} 
+                columns={data.MedicamentosDetails} 
+                getRowId={(dataList) => dataList._id}
+            />
+        </Stack>        
         </form>
-    </>;
+    </>
 }
