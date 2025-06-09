@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { Button, Divider, Stack, TextField, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-
+import { useParams } from 'react-router';
 import data from './data'
 import { useEffect, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
@@ -22,6 +22,7 @@ export const HistoriasView = () => {
     const [documentoPacienteValue, setdocumentoPaciente] = useState([]);
     const [PacienteDataValue, setPacienteData] = useState([]);
     const [pacienteFound, setPacienteFound] = useState(false)
+    const params = useParams()
 
     const diagnosticosColumns = [
         ...data.diagnosticosColumns
@@ -50,13 +51,15 @@ export const HistoriasView = () => {
     ]
 
      useEffect(()=>{
-            getRows()
+            pacienteFound ? getRows() : '' 
             console.log(rows);
             
-        },[])
+        },[PacienteDataValue])
     
         const getRows = () =>{
-            const response = data.getOne()
+          console.log(params);
+          
+            const response = data.getOne(PacienteDataValue._id)
             response.then((data) => {
                 const setData = data.data.data
                 setRows(setData)
