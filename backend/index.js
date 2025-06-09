@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import connection from './src/database/db.js'
 import authJwt from './src/middlewares/auth.js'
+import dotenv from 'dotenv';
 
 import medicamentoRoute from './src/routes/medicamentos.js'
 import usersRoute from './src/routes/users.js'
@@ -12,6 +13,7 @@ import formulaMaestroRoute from './src/routes/formulaMaestro.js'
 import formulaDetalleRoute from './src/routes/formulaDetalle.js'
 
 const app = express()
+dotenv.config()
 
 app.use(cors())
 app.use(express.json())
@@ -26,7 +28,7 @@ app.use('/api', pacientesRoute)
 app.use('/api', formulaMaestroRoute)
 app.use('/api', formulaDetalleRoute)
 
-const port = 4000
+const port = process.env.PORT || 3000
 app.listen(port,()=>(
     console.log(`listen ${port}`)
 ))

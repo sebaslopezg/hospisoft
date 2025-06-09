@@ -4,7 +4,7 @@ function authJwt(
     app,
     secretKey = "seCreTo",
     excludedPaths = [
-        "/api/users/login",  
+      "/api/users/login",  
     ]
 ) {
   app.use(
@@ -15,5 +15,4 @@ function authJwt(
   );
 }
 
-//module.exports = authJwt;
 export default authJwt
