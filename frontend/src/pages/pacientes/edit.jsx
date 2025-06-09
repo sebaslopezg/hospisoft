@@ -33,8 +33,13 @@ export const PacientesEdit = () => {
         let fields = e.target
     
         const payload = {
+            direccion: fields.direccion.value,
+            email: fields.email.value,
             nombre: fields.nombre.value,
             edad: fields.edad.value,
+            telefono: fields.telefono.value,
+            eps: fields.eps.value,
+            alergias: fields.alergias.value,
         }
     
         const response = data.updateOne(params.id, payload)
@@ -58,9 +63,14 @@ export const PacientesEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField defaultValue={dataDefaultValue.documento} required name="documento" label="Numero de Documento"/>
-            <TextField defaultValue={dataDefaultValue.nombre} required name="nombre" label="Nombre"/>
-            <TextField defaultValue={dataDefaultValue.edad} required name="edad" label="Edad" type='number'/>
+            <TextField defaultValue={dataDefaultValue.documento} disabled required name="documento" label="Numero de Documento" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataDefaultValue.direccion} required name="direccion" label="Direccion" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataDefaultValue.email} required name="email" label="Correo electrónico" type='email' slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataDefaultValue.nombre} required name="nombre" label="Nombre" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataDefaultValue.edad} required name="edad" label="Edad" type='number' slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataDefaultValue.telefono} required name="telefono" label="Telefono" type='number' slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataDefaultValue.eps} required name="eps" label="EPS" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataDefaultValue.alergias} required name="alergias" label="Alergias" slotProps={{inputLabel:{shrink:'true'}}}/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

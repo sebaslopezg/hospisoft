@@ -66,11 +66,11 @@ export const UsuariosEdit = () => {
     return <>
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
-            <TextField defaultValue={dataUser.numDoc} required name="numDoc" label="Numero de Documento" />
-            <TextField defaultValue={dataUser.nombre} multiline maxRows={4} required name="nombre" label="Nombre"/>
-            <TextField defaultValue={dataUser.email} required name="email" label="Email"/>
-            <TextField defaultValue={dataUser.telefono} required type="number" name="telefono" label="Telefono"/>
-            <TextField defaultValue={dataUser.direccion} required name="direccion" label="Direccion"/>
+            <TextField defaultValue={dataUser.numDoc} required name="numDoc" label="Numero de Documento" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataUser.nombre} multiline maxRows={4} required name="nombre" label="Nombre" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataUser.email} required name="email" label="Email" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataUser.telefono} required type="number" name="telefono" label="Telefono" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField defaultValue={dataUser.direccion} required name="direccion" label="Direccion" slotProps={{inputLabel:{shrink:'true'}}}/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

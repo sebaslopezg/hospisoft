@@ -50,11 +50,12 @@ export const FormulasDetails = () => {
         <form action="">
         <Stack spacing={2}>
             <TextField 
-                defaultValue={pacienteValue}
-                margin="dense" 
+                defaultValue={pacienteValue} 
                 label="Paciente" 
-                variant="outlined" 
                 slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
                     input:{
                         readOnly:true
                     }
@@ -63,10 +64,11 @@ export const FormulasDetails = () => {
             <Stack spacing={2} direction="row">
                 <TextField 
                     defaultValue={dataDefaultValue.numeroFormula} 
-                    margin="dense" 
                     label="Numero de Formula" 
-                    variant="outlined" 
                     slotProps={{
+                        inputLabel:{
+                            shrink:'true'
+                        },
                         input:{
                             readOnly:true
                         }
@@ -74,23 +76,25 @@ export const FormulasDetails = () => {
                 />
                 <TextField 
                     defaultValue={documentoValue} 
-                    margin="dense" 
                     label="Documento de identidad" 
-                    variant="outlined" 
                     slotProps={{
-                        input:{
-                            readOnly:true
-                        }
-                    }}
+                    inputLabel:{
+                        shrink:'true'
+                    },
+                    input:{
+                        readOnly:true
+                    }
+                }}
                 />
             </Stack>
 
             <TextField 
                 defaultValue={medicoValue} 
-                margin="dense" 
                 label="Medico" 
-                variant="outlined" 
                 slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
                     input:{
                         readOnly:true
                     }
@@ -98,10 +102,11 @@ export const FormulasDetails = () => {
             />
             <TextField 
                 defaultValue={dataDefaultValue.descripcion} 
-                margin="dense" 
                 label="Detalles" 
-                variant="outlined" 
                 slotProps={{
+                    inputLabel:{
+                        shrink:'true'
+                    },
                     input:{
                         readOnly:true
                     }

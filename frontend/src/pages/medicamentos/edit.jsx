@@ -67,9 +67,9 @@ export const MedicamentosEdit = () => {
   return <>
     <form action="" onSubmit={getFromData}>
       <Box sx={{display: 'flex', flexDirection:'column'}}>
-        <TextField required name="nombre" defaultValue={data.nombre} label="Nombre"/>
-        <TextField multiline maxRows={4} defaultValue={data.descripcion} required name="descripcion" label="Descripcion"/>
-        <TextField required type="number" defaultValue={data.existencia} name="existencia" label="Existencia"/>
+        <TextField required name="nombre" defaultValue={data.nombre} label="Nombre" slotProps={{inputLabel:{shrink:'true'}}}/>
+        <TextField multiline maxRows={4} defaultValue={data.descripcion} required name="descripcion" label="Descripcion" slotProps={{inputLabel:{shrink:'true'}}}/>
+        <TextField required type="number" defaultValue={data.existencia} name="existencia" label="Existencia" slotProps={{inputLabel:{shrink:'true'}}}/>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>
