@@ -59,7 +59,7 @@ import Config from '../../Config';
 const getOne = (id) => {
     return axios({
       method: 'get',
-      url: `${Config('urlRoot')}/historia/getbyid/68463ff2f02f9055be03b848`,
+      url: `${Config('urlRoot')}/historia/getbyid/${id}`,
       responseType: 'json'
     })
 }
