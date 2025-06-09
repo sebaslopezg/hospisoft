@@ -39,6 +39,10 @@ const citasSchema = Schema({
     pacienteId:{
         type:String,
         required:true,
+    },
+    medicoId:{
+        type:String,
+        required:true,
     }
 },
 {Collection:"citas"}

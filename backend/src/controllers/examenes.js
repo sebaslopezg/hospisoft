@@ -24,6 +24,7 @@ const createOne = async(req, res)=>{
     let idMedico
     let paciente
     let medico
+    let formatDate = new Date(req.body.fecha_vencimiento)
 
     try {
         idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
@@ -39,7 +40,7 @@ const createOne = async(req, res)=>{
         pacienteId: req.body.pacienteId,
         medicoId: req.body.medicoId,
         descripcion: req.body.descripcion,
-        fecha_vencimiento: req.body.fecha_vencimiento,
+        fecha_vencimiento: formatDate,
         status: 1,
     }
 
