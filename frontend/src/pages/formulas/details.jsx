@@ -29,7 +29,9 @@ export const FormulasDetails = () => {
             setData(dataSource),
             setPaciente(dataSource.pacienteId),
             setDocumento(dataSource.pacienteId.documento),
+            console.log(dataSource.medico.nombre),
             setMedico(dataSource.medico.nombre)
+
         ) : setData(dataPlaceholder)
         })
         .catch(error => console.log(error))
