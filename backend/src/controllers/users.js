@@ -35,12 +35,12 @@ const getOne = async (req, res) => {
   }
 }
 
-//passwordHash: bcrypt.hashSync(req.body.password, 10),
+//password: bcrypt.hashSync(req.body.password, 10),
 const create = async (req, res) => {
   let data = {
     nombre: req.body.nombre,
     email: req.body.email,
-    passwordHash: req.body.passwordHash,
+    password: bcrypt.hashSync(req.body.password, 10),
     telefono: req.body.telefono,
     rol: req.body.rol,
     direccion: req.body.direccion,
@@ -76,8 +76,7 @@ const updatebyid = async(req, res)=>{
   let data = {
     nombre: req.body.nombre,
     email: req.body.email,
-    //passwordHash: bcrypt.hashSync(req.body.password, 10),
-    passwordHash: req.body.passwordHash,
+    password: bcrypt.hashSync(req.body.password, 10),
     telefono: req.body.telefono,
     rol: req.body.rol,
     direccion: req.body.direccion,
@@ -157,22 +156,23 @@ const uploadImage = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  let data = req.body.email;
-  let usuarioExiste = await user.findOne({ email: data, status:{$gt:0} });
+  const { email , password} = req.body
+  let usuarioExiste = await user.findOne({email, status:{$gt:0}});
   if (!usuarioExiste) {
     return res.send({
       status: false,
       msg: "usuario no existe en la Bd !",
     })
   }
+
   if (
     usuarioExiste &&
-    bcrypt.compareSync(req.body.password, usuarioExiste.passwordHash)
+    bcrypt.compareSync(password, usuarioExiste.password)
   ) {
     const token = jwt.sign(
       {
         userId: usuarioExiste.id,
-        isAdmin: usuarioExiste.rol,
+        rol: usuarioExiste.rol,
       },
       "seCreTo",
       { expiresIn: "4h" } 

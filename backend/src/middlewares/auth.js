@@ -1,4 +1,4 @@
-import { expressjwt } from 'express-jwt'
+import { expressjwt as jwt } from 'express-jwt'
 
 function authJwt(
     app,
@@ -9,7 +9,7 @@ function authJwt(
 ) {
   app.use(
     "/api",
-    expressjwt({ secret: secretKey, algorithms: ["HS256"] }).unless({
+    jwt({ secret: secretKey, algorithms: ["HS256"] }).unless({
       path: excludedPaths,
     })
   );
