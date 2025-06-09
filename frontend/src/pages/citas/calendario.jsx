@@ -14,18 +14,30 @@ import {MenuItem} from '@mui/material'
 import InputLabel from '@mui/material/InputLabel';
 import {FormControl} from '@mui/material'
 
+import { useNotifications } from '@toolpad/core/useNotifications';
+import { useNavigate } from "react-router";
+
+import Stack from '@mui/material/Stack';
+import Tooltip from '@mui/material/Tooltip';
+
+import IconButton from '@mui/material/IconButton';
+import SearchIcon from '@mui/icons-material/Search';
+
 export function Calendario() {
     const [open, setOpen] = useState(false)
     const [calendarData, setCalendarData] = useState([])
     const [pacienteId, setPacienteId] = useState('')
     const [descripcion, setDescripcion] = useState('')
+    const [medicoId, setMedicoId] = useState('')
     const [selectedDate, setSelectedDate] = useState('')
     const [citaId, setCitaId] = useState('')
     const [isEditing, setIsEditing] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState(null);
-    const [medicoValue, setMedicoValue] = useState('');
     const [medicos, setMedicos] = useState([])
     const dialogs = useDialogs()
+    const [documentoPacienteValue, setdocumentoPaciente] = useState([]);
+    const [PacienteDataValue, setPacienteData] = useState([]);
+    const notifications = useNotifications();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -36,7 +48,7 @@ export function Calendario() {
   };
 
   const handleChange = (e) => {
-    setMedicoValue(e.target.value);
+    setMedicoId(e.target.value);
   }
   
     const getAllMedicos = () =>{
@@ -47,16 +59,40 @@ export function Calendario() {
       })
     }
 
+      const handleDocumentoPacienteValue = (value) =>{
+        setdocumentoPaciente(value)
+      }
+    
+      const handleSearchPerson = () => {
+        const response = data.getPacienteByDocument(documentoPacienteValue)
+        response.then((res) => {
+          console.log(res.data)
+          res.data.status ? (
+            setPacienteData(res.data.data),
+            notifications.show(res.data.msg, 
+            {severity: 'success',autoHideDuration: 3000,})
+          ) : (
+            notifications.show(res.data.msg, 
+            {severity: 'error',autoHideDuration: 3000,})
+          )
+        })
+        .catch((err) =>{
+        notifications.show('Error de conexión: ' + err.message, 
+          {severity: 'error',autoHideDuration: 3000,})
+        })
+      }
+
   useEffect(()=>{
     getData()
     getAllMedicos()
-  },[medicos])
+  },[])
 
   const handleAddEvent = async()=>{
     const payload={
       fecha:selectedDate,
       descripcion,
-      pacienteId
+      pacienteId: PacienteDataValue._id,
+      medicoId
     }
     try{
       const response = await data.createOne(payload)
@@ -65,6 +101,7 @@ export function Calendario() {
       setCalendarData(prevData => [...prevData, newCita]); 
       handleClose();
       setDescripcion('');
+      setMedicoId('')
       setPacienteId('');
     } catch (error) {
       console.error("Error al crear la cita:", error);
@@ -75,7 +112,8 @@ export function Calendario() {
     const payload = {
       fecha: selectedDate,
       descripcion,
-      pacienteId
+      pacienteId,
+      medicoId
     };
 
   try {
@@ -101,7 +139,8 @@ export function Calendario() {
     const payload={
       fecha: updatedEvent.startStr,
       descripcion: updatedEvent.title,
-      pacienteId: updatedEvent.extendedProps.pacienteId
+      pacienteId: updatedEvent.extendedProps.pacienteId,
+      medicoId: updatedEvent.extendedProps.medicoId
 
     }
     try{
@@ -147,7 +186,8 @@ export function Calendario() {
             title: cita.descripcion, 
             start: cita.fecha,
             extendedProps: {
-              pacienteId: cita.pacienteId
+              pacienteId: cita.pacienteId,
+              medicoId: cita.medicoId
             }
         })
     )
@@ -164,6 +204,7 @@ export function Calendario() {
 
       setDescripcion(event.title)
       setPacienteId(event.extendedProps.pacienteId);
+      setMedicoId(event.extendedProps.medicoId)
       setSelectedDate(event.startStr);
       setSelectedEvent(event)
       setCitaId(event.id)
@@ -174,6 +215,7 @@ export function Calendario() {
     const handleDateSelect = (selectInfo)=>{
       setDescripcion('');
       setPacienteId('');
+      setMedicoId('')
       setCitaId('');
       setSelectedDate(selectInfo.startStr);
       setIsEditing(false)
@@ -212,10 +254,10 @@ export function Calendario() {
           <DialogContent>
             <form>
               <FormControl>
-              <InputLabel id="ageLabel">Medico</InputLabel>
+              <InputLabel id="medicoId">Medico</InputLabel>
               <Select
-              labelId="ageLabel"
-              value={medicoValue}
+              labelId="medicoId"
+              value={medicoId}
               label="medico"
               name='medicoId'
               onChange={handleChange}
@@ -241,15 +283,19 @@ export function Calendario() {
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
-                <TextField 
-                  multiline 
-                  maxRows={4} 
-                  required 
-                  name="pacienteId" 
-                  label="Paciente"
-                  value={pacienteId}
-                  onChange={(e) => setPacienteId(e.target.value)}
-                />
+                <Stack spacing={2} direction='row'>
+          <TextField
+            required 
+            name="pacienteId" 
+            label="Documento de identidad del paciente" 
+            onChange={(e) => handleDocumentoPacienteValue(e.target.value)}
+          />
+          <Tooltip title="Buscar Usuario">
+            <IconButton onClick={(e) => handleSearchPerson()} aria-label="delete" size="large">
+              <SearchIcon fontSize="inherit" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
               </Box>
             </form>
           </DialogContent>

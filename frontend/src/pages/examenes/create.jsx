@@ -16,7 +16,12 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 
-export const DiagnosticosCreate = () => {
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+
+export const ExamenesCreate = () => {
   const notifications = useNotifications();
   const navigate = useNavigate();
   const [medicoValue, setMedicoValue] = useState('');
@@ -72,6 +77,7 @@ export const DiagnosticosCreate = () => {
       pacienteId: PacienteDataValue._id,
       medicoId: fields.medicoId.value,
       descripcion: fields.descripcion.value,
+      fecha_vencimiento: fields.fecha.value
     }
 
     const response = data.createOne(payload)
@@ -84,7 +90,7 @@ export const DiagnosticosCreate = () => {
         {severity: 'error',autoHideDuration: 3000,})
       )
     })
-    .then(navigate('/diagnosticos'))
+    .then(navigate('/examenes'))
     .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})
@@ -132,6 +138,11 @@ export const DiagnosticosCreate = () => {
           required name="descripcion" 
           label="Descripción"  
         />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={['DatePicker']}>
+            <DatePicker label="Fecha de vencimiento" name='fecha' />
+          </DemoContainer>
+        </LocalizationProvider>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>

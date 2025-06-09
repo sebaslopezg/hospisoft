@@ -45,6 +45,12 @@ import { DiagnosticosView } from '../pages/diagnosticos/view.jsx';
 import { DiagnosticosEdit } from '../pages/diagnosticos/edit.jsx';
 import { DiagnosticosCreate } from '../pages/diagnosticos/create.jsx';
 
+// examenes
+import ExamenesLayout from '../pages/examenes/index.jsx';
+import { ExamenesView } from '../pages/examenes/view.jsx';
+import { ExamenesEdit } from '../pages/examenes/edit.jsx';
+import { ExamenesCreate } from '../pages/examenes/create.jsx';
+
 // historia clinica
 import HistoriasLayout from '../pages/historias/index.jsx';
 import { HistoriasView } from '../pages/historias/view.jsx';
@@ -174,6 +180,24 @@ const router = createBrowserRouter([
               {
                 path:'edit/:id',
                 Component: DiagnosticosEdit
+              },
+            ]
+          },
+          {
+            path:'examenes',
+            Component:ExamenesLayout,
+            children:[
+              {
+                path:'',
+                Component: ExamenesView
+              },
+              {
+                path:'create',
+                Component: ExamenesCreate
+              },
+              {
+                path:'edit/:id',
+                Component: ExamenesEdit
               },
             ]
           },

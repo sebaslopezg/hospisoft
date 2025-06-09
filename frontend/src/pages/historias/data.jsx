@@ -1,75 +1,67 @@
 import axios from 'axios'
 import Config from '../../Config';
 
-  const columns = [
+  const FormulasColumns = [
   {
-    field: 'pacienteId',
-    headerName: 'ID del paciente',
+    field: 'medico',
+    headerName: 'Medico',
     type: 'text',
-    width: 200,
-  },
-  {
-    field: 'medicoId',
-    headerName: 'ID del médico',
-    type: 'text',
-    width: 200,
+    width: 300,
+    valueGetter: (row) => {return row.nombre}
   },
   {
     field: 'descripcion',
     headerName: 'Descripcion',
     type: 'text',
-    width: 400,
+    width: 500,
   },
 ];
 
-const getAll = () => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/diagnosticos/getall`,
-      responseType: 'json'
-    })
-}
+  const ExamenesColumns = [
+  {
+    field: 'medicoId',
+    headerName: 'Medico',
+    type: 'text',
+    width: 300,
+    valueGetter: (row) => {return row.nombre}
+  },
+  {
+    field: 'descripcion',
+    headerName: 'Desccripcion',
+    type: 'text',
+    width: 500,
+  },
+  {
+    field: 'fecha_vencimiento',
+    headerName: 'Fecha vence',
+    type: 'text',
+    width: 200,
+  },
+];
+
+  const diagnosticosColumns = [
+  {
+    field: 'medicoId',
+    headerName: 'Medico',
+    type: 'text',
+    width: 300,
+    valueGetter: (row) => {return row.nombre}
+    
+  },
+  {
+    field: 'descripcion',
+    headerName: 'Desccripcion',
+    type: 'text',
+    width: 500,
+  },
+];
 
 const getOne = (id) => {
     return axios({
       method: 'get',
-      url: `${Config('urlRoot')}/diagnosticos/getbyid/${id}`,
+      url: `${Config('urlRoot')}/historia/getbyid/68463ff2f02f9055be03b848`,
       responseType: 'json'
     })
-}
-
-const createOne = (payload) => {
-    return axios({
-      method: 'post',
-      url: `${Config('urlRoot')}/diagnosticos/create`,
-      data: payload,
-      responseType: 'json'
-    })
-}
-
-const updateOne = (id, payload) => {
-  return axios({
-    method: 'put',
-    url: `${Config('urlRoot')}/diagnosticos/updatebyid/${id}`,
-    data: payload,
-    responseType: 'json'
-  })
-}
-
-const deleteOne = (id) => {
-  return axios({
-    method: 'delete',
-    url: `${Config('urlRoot')}/diagnosticos/deletebyid/${id}`,
-    responseType: 'json'
-  })
-}
-
-const getMedicos = () => {
-  return axios({
-    method: 'get',
-    url: `${Config('urlRoot')}/users/getmedicos`,
-    responseType: 'json'
-  })
 }
 
 const getPacienteByDocument = (document) => {
@@ -81,12 +73,9 @@ const getPacienteByDocument = (document) => {
 }
 
 export default {
-  columns,
-  getAll,
+  FormulasColumns,
+  ExamenesColumns,
+  diagnosticosColumns,
   getOne,
-  createOne,
-  updateOne,
-  deleteOne,
-  getMedicos,
-  getPacienteByDocument
+  getPacienteByDocument,
 }

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useEffect, useState } from 'react';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import InputLabel from '@mui/material/InputLabel';
 import Stack from '@mui/material/Stack';
@@ -16,17 +16,33 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 
-export const DiagnosticosCreate = () => {
+import dayjs from 'dayjs';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+
+export const ExamenesEdit = () => {
   const notifications = useNotifications();
   const navigate = useNavigate();
   const [medicoValue, setMedicoValue] = useState('');
   const [medicos, setMedicos] = useState([]);
   const [documentoPacienteValue, setdocumentoPaciente] = useState([]);
   const [PacienteDataValue, setPacienteData] = useState([]);
+  const [dataDiagnostico, setDataDiagnostico] = useState("")
+  const params = useParams()
 
-  useEffect(()=>{
+  useEffect(()=>{    
     getAllMedicos()
-  },[medicos])
+    !dataDiagnostico ? (
+        data.getOne(params.id)
+        .then((res) => {
+          const dataSource = res.data.data
+          dataSource ? setDataDiagnostico(dataSource) : setDataDiagnostico(dataPlaceholder)
+        })
+        .catch(error => console.log(error))
+        ) : ''
+  },[medicos, dataDiagnostico])
 
   const getAllMedicos = () =>{
     const response = data.getMedicos()
@@ -72,9 +88,10 @@ export const DiagnosticosCreate = () => {
       pacienteId: PacienteDataValue._id,
       medicoId: fields.medicoId.value,
       descripcion: fields.descripcion.value,
+      fecha_vencimiento: fields.fecha.value
     }
 
-    const response = data.createOne(payload)
+    const response = data.updateOne(params.id, payload)
     response.then((res) => {
       res.data.status ? (
         notifications.show(res.data.msg, 
@@ -84,7 +101,7 @@ export const DiagnosticosCreate = () => {
         {severity: 'error',autoHideDuration: 3000,})
       )
     })
-    .then(navigate('/diagnosticos'))
+    .then(navigate('/examenes'))
     .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})
@@ -101,6 +118,8 @@ export const DiagnosticosCreate = () => {
             name="pacienteId" 
             label="Documento de identidad del paciente" 
             onChange={(e) => handleDocumentoPacienteValue(e.target.value)}
+            defaultValue={dataDiagnostico.pacienteId}
+            slotProps={{inputLabel:{shrink:'true'}}}
           />
           <Tooltip title="Buscar Usuario">
             <IconButton onClick={(e) => handleSearchPerson()} aria-label="delete" size="large">
@@ -112,7 +131,7 @@ export const DiagnosticosCreate = () => {
         <InputLabel id="ageLabel">Medico</InputLabel>
         <Select
           labelId="ageLabel"
-          value={medicoValue}
+          value={dataDiagnostico.medicoId}
           label="medico"
           name='medicoId'
           onChange={handleChange}
@@ -131,7 +150,14 @@ export const DiagnosticosCreate = () => {
         <TextField 
           required name="descripcion" 
           label="Descripción"  
+          defaultValue={dataDiagnostico.descripcion}
+          slotProps={{inputLabel:{shrink:'true'}}}
         />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={['DatePicker']}>
+            <DatePicker defaultValue={dayjs(dataDiagnostico.fecha_vencimiento)} label="Fecha de vencimiento" name='fecha' />
+          </DemoContainer>
+        </LocalizationProvider>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>
