@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 import { styled } from '@mui/material/styles';
-import { esES } from '@mui/material/locale'
 
 const Theme = createTheme({
     palette: {
@@ -167,8 +166,6 @@ const Theme = createTheme({
             }
         }
     }, 
-},
-esES,
-)
+})
 
 export default Theme

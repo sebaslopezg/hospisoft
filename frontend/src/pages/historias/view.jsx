@@ -2,13 +2,16 @@ import {DataGrid} from '@mui/x-data-grid';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { Divider, Stack, TextField, Typography } from '@mui/material';
+import { Button, Divider, Stack, TextField, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 
 import data from './data'
 import { useEffect, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '@mui/icons-material/Search';
+
+import { jsPDF } from 'jspdf'
+import { autoTable } from 'jspdf-autotable';
 
 export const HistoriasView = () => {
     const [rows, setRows] = useState([])
@@ -88,6 +91,57 @@ export const HistoriasView = () => {
     const handleDocumentoPacienteValue = (value) =>{
     setdocumentoPaciente(value)
     }
+
+const downloadPdf = () => {
+  const doc = new jsPDF();
+  doc.setFontSize(16);
+  doc.text("Reporte de Historia Clínica", 20, 20);
+
+  let finalY = 30;
+
+  const addTable = (title, columns, rows) => {
+    const tableColumns = columns
+      .filter(col => col.field !== 'actions')
+      .map(col => col.headerName);
+
+    const tableRows = rows.map(row =>
+      columns
+        .filter(col => col.field !== 'actions')
+        .map(col => {
+          const value = row[col.field];
+
+          // Handle object values (like medico: { nombre: 'Dr. X' })
+          if (typeof value === 'object' && value !== null) {
+            if (value.nombre) return value.nombre;
+            if (value.name) return value.name;
+            if (value._id) return value._id;
+            return JSON.stringify(value); // Fallback
+          }
+
+          return value ?? ''; // Avoid undefined
+        })
+    );
+
+    doc.setFontSize(12);
+    doc.text(title, 20, finalY);
+    autoTable(doc, {
+      startY: finalY + 5,
+      head: [tableColumns],
+      body: tableRows,
+      margin: { top: 10, bottom: 10 },
+      didDrawPage: (data) => {
+        finalY = data.cursor.y + 10;
+      }
+    });
+  };
+
+  // Generate all 3 sections
+  addTable("Diagnósticos", diagnosticosColumns, diagnosticosRows);
+  addTable("Exámenes", ExamenesColumns, examenesRows);
+  addTable("Fórmulas", FormulasColumns, formulasRows);
+
+  doc.save('historia_clinica.pdf');
+};
     return <>
       <Stack spacing={2} direction='row'>
           <TextField
@@ -101,6 +155,7 @@ export const HistoriasView = () => {
               <SearchIcon fontSize="inherit" />
             </IconButton>
           </Tooltip>
+          {pacienteFound ? <Button onClick={downloadPdf} variant='contained'>Descargar reporte</Button> : <></>}
         </Stack>
         {pacienteFound 
         ? <>
