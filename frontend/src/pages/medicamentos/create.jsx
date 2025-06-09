@@ -16,6 +16,13 @@ export const MedicamentosCreate = () =>{
 const [myData, setData] = useState({})
 const [imageInput, setImageInput] = useState()
 
+useEffect(() => {
+
+},[imageInput])
+
+const cargarImagen = (data) =>{
+  setImageInput(data)
+} 
 
 const setImage = async(obj) => {
   let id = obj.data.data._id
@@ -68,13 +75,17 @@ const getFromData = async(e) =>{
   })
 }
 
-    return <>
+const fileHandler = (e) =>{
+
+}
+
+return <>
     <form action="" onSubmit={getFromData}>
       <Box sx={{display: 'flex', flexDirection:'column'}}>
         <TextField required name="nombre" label="Nombre"/>
         <TextField multiline maxRows={4} required name="descripcion" label="Descripcion"/>
         <TextField required type="number" name="existencia" label="Existencia"/>
-        <TextField type='file' name="imagen" label="Imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
+        <TextField onChange={(e) => fileHandler(e)} type='file' name="imagen" label="Imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>
