@@ -21,7 +21,7 @@ router.get("/users/getMedicos", users.getMedicos)
 router.post("/users/create", users.create)
 router.post("/users/login", users.login)
 router.post(
-  "/users/updateimage",
+  "/users/uploadimage",
   uploads.single("file0"),
   users.uploadImage
 )

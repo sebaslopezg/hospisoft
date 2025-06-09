@@ -43,7 +43,7 @@ const roles = [
     renderCell: (params) => {
       console.log(params.row)
       return <>
-        <Chip label={roles[params.row.rol].name} color={roles[params.row.rol].color} variant="outlined" />
+        <Chip label={roles[params.row.rol].name} color={roles[params.row.rol].color} variant='filled' />
       </>
     }
   },

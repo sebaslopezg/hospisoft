@@ -21,8 +21,12 @@ const setImage = async(obj) => {
   let id = obj.data.data._id
   obj ? console.log(obj.data.data._id) : ''
   const form = new FormData()
-  form.append('file0',imageInput.files[0])
-  console.log(imageInput.files[0])
+  console.log(imageInput);
+  
+  const fileImage = imageInput.files[0]
+  console.log(fileImage);
+  
+  form.append('file0',fileImage)
   form.append('id',id)
   await axios({
     method:'post',
@@ -39,8 +43,7 @@ const getFromData = async(e) =>{
   e.preventDefault()
   let value = e.target
 
-  setImageInput(e.target.file0)
-
+  setImageInput(value.imagen)
   const formData = {
     nombre: value.nombre.value,
     descripcion: value.descripcion.value,
@@ -71,7 +74,7 @@ const getFromData = async(e) =>{
         <TextField required name="nombre" label="Nombre"/>
         <TextField multiline maxRows={4} required name="descripcion" label="Descripcion"/>
         <TextField required type="number" name="existencia" label="Existencia"/>
-        <TextField type='file' name="file0" label="imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
+        <TextField type='file' name="imagen" label="Imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>

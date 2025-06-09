@@ -8,6 +8,33 @@ import { useParams } from 'react-router';
 import { useState, useEffect } from "react";
 import Stack from '@mui/material/Stack';
 import { DataGrid } from '@mui/x-data-grid';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+    const medicamentosColumns = [
+        ...data.MedicamentosDetails,
+        {
+            field: "actions",
+            headerName: "Action",
+            width: 200,
+            renderCell: (params) => {
+                return <>
+                    <Tooltip title="Editar">
+                        <IconButton href={`#`}>
+                            <EditIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Eliminar">
+                        <IconButton onClick={(e) => handleDelete(params.id)}>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
+                </>
+            }
+        }
+    ]
 
 export const FormulasEdit = () => {
 
@@ -230,7 +257,7 @@ export const FormulasEdit = () => {
             </Stack>
             <DataGrid
                 rows={medicamentos} 
-                columns={data.MedicamentosDetails} 
+                columns={medicamentosColumns} 
                 getRowId={(dataList) => dataList._id}
             />
         </Stack>        
