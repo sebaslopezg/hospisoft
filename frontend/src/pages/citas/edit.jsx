@@ -41,7 +41,8 @@ export const CitasEdit = () => {
         let fields = e.target
     
         const payload = {
-            nombre: fields.nombre.value,
+          fecha: fields.fecha.value,
+          descripcion: fields.descripcion.value,
         }
     
         const response = data.updateOne(params.id, payload)

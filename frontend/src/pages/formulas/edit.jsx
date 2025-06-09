@@ -7,16 +7,21 @@ import { useNavigate } from "react-router";
 import { useParams } from 'react-router';
 import { useState, useEffect } from "react";
 import Stack from '@mui/material/Stack';
+import { DataGrid } from '@mui/x-data-grid';
 
 export const FormulasEdit = () => {
 
     const [dataDefaultValue, setData] = useState("")
+    const [pacienteValue, setPaciente] = useState({})
+    const [medicamentos, setMedicamentos] = useState({})
+ 
     const notifications = useNotifications();
     const navigate = useNavigate();
     const params = useParams()
 
     const dataPlaceholder = {
         numDoc: null,
+        medico:{nombre: ''}
     }
 
     useEffect(()=>{
@@ -24,9 +29,14 @@ export const FormulasEdit = () => {
         getFormulaDetails(params.id),
         data.getOne(params.id)
         .then((res) => {
-          const dataSource = res.data.data
-          dataSource ? (
-            setData('')
+            console.log(res)
+            
+            const dataSource = res.data.data
+            dataSource ? (
+            setData(dataSource),
+            setPaciente(dataSource.pacienteId),
+            console.log(dataSource)
+            
         ) : setData(dataPlaceholder)
         })
         .catch(error => console.log(error))
@@ -35,7 +45,7 @@ export const FormulasEdit = () => {
 
     const getFormulaDetails = (id) => {
         const response = data.getFormulaDetalle(id)
-        response.then((res) => {setRows(res.data.data)
+        response.then((res) => {setMedicamentos(res.data.data)
             console.log(res.data.data);
             
         })
@@ -66,12 +76,14 @@ export const FormulasEdit = () => {
             {severity: 'error',autoHideDuration: 3000,})
         })
     }
+    
 
     return <>
         <form action="">
         <Stack spacing={2}>
             <TextField 
-                defaultValue={pacienteValue.nombre} 
+                defaultValue={pacienteValue.nombre}
+                disabled
                 label="Paciente" 
                 slotProps={{
                     inputLabel:{
@@ -84,6 +96,7 @@ export const FormulasEdit = () => {
             />
             <Stack spacing={2} direction="row">
                 <TextField 
+                    disabled
                     defaultValue={dataDefaultValue.numeroFormula} 
                     label="Numero de Formula" 
                     slotProps={{
@@ -96,6 +109,7 @@ export const FormulasEdit = () => {
                     }}
                 />
                 <TextField 
+                    disabled
                     defaultValue={pacienteValue.documento} 
                     label="Documento de identidad" 
                     slotProps={{
@@ -113,6 +127,7 @@ export const FormulasEdit = () => {
             spacing={2}
         >
             <TextField 
+                disabled
                 defaultValue={pacienteValue.direccion} 
                 label="Dirección" 
                 slotProps={{
@@ -127,6 +142,7 @@ export const FormulasEdit = () => {
 
             <Stack spacing={2}>
                 <TextField 
+                    disabled
                     defaultValue={pacienteValue.email} 
                     label="Email" 
                     slotProps={{
@@ -140,6 +156,7 @@ export const FormulasEdit = () => {
                 />
                 </Stack>
                 <TextField 
+                    disabled
                     defaultValue={pacienteValue.edad} 
                     label="Edad" 
                     slotProps={{
@@ -152,6 +169,7 @@ export const FormulasEdit = () => {
                     }}
                 />
                 <TextField 
+                    disabled
                     defaultValue={pacienteValue.telefono} 
                     label="Telefono" 
                     slotProps={{
@@ -164,6 +182,7 @@ export const FormulasEdit = () => {
                     }}
                 />
                 <TextField 
+                    disabled
                     defaultValue={pacienteValue.eps} 
                     label="EPS" 
                     slotProps={{
@@ -177,6 +196,7 @@ export const FormulasEdit = () => {
                 />
             </Stack>
             <TextField 
+                disabled
                 defaultValue={pacienteValue.alergias} 
                 label="Alergias" 
                 slotProps={{
@@ -189,15 +209,12 @@ export const FormulasEdit = () => {
                 }}
             />
             <TextField 
-                defaultValue={medicoValue} 
+                defaultValue={null} 
                 label="Medico" 
                 slotProps={{
                     inputLabel:{
                         shrink:'true'
                     },
-                    input:{
-                        readOnly:true
-                    }
                 }}
             />
             <TextField 
@@ -207,15 +224,12 @@ export const FormulasEdit = () => {
                     inputLabel:{
                         shrink:'true'
                     },
-                    input:{
-                        readOnly:true
-                    }
                 }}
             />
             <Stack direction='row'>
             </Stack>
             <DataGrid
-                rows={rows} 
+                rows={medicamentos} 
                 columns={data.MedicamentosDetails} 
                 getRowId={(dataList) => dataList._id}
             />
