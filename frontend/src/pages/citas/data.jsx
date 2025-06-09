@@ -29,7 +29,7 @@ const createOne = (payload) => {
 const updateOne = (id, payload) => {
     return axios({
         method: 'put',
-        url: `${Config('urlRoot')}/${id}`,
+        url: `${Config('urlRoot')}/cita/updatebyid/${id}`,
         data: payload,
         responseType: 'json'
     })
