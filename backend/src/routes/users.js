@@ -26,6 +26,6 @@ router.post(
 )
 router.put("/users/updatebyid/:id", users.updatebyid)
 router.delete("/users/deletebyid/:id", users.deletebyid)
-router.get("/users/avatar/:file", users.avatar);
+router.get("/users/avatar/:file", users.avatar)
 
 export default router
