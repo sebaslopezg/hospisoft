@@ -15,6 +15,8 @@ export function Calendario() {
     const [pacienteId, setPacienteId] = useState('')
     const [descripcion, setDescripcion] = useState('')
     const [selectedDate, setSelectedDate] = useState('')
+    const [citaId, setCitaId] = useState('')
+    const [isEditing, setIsEditing] = useState(false)
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,26 +30,66 @@ export function Calendario() {
     getData()
   },[])
 
-  const handleAddEvent = ()=>{
+  const handleAddEvent = async()=>{
     const payload={
       fecha:selectedDate,
       descripcion,
       pacienteId
     }
     try{
-      const response = data.createOne(payload)
-      setCalendarData(prev => [...prev, response.data]); 
+      const response = await data.createOne(payload)
+      await getData()
+      const newCita = response.data
+      setCalendarData(prevData => [...prevData, newCita]); 
       handleClose();
       setDescripcion('');
       setPacienteId('');
     } catch (error) {
-      console.error("Error creating event:", error);
+      console.error("Error al crear la cita:", error);
     }
   }
 
-  const handleEditEvent = ()=>{
+  const handleUpdateEvent = async(changeInfo)=>{
+    const payload = {
+      fecha: selectedDate,
+      descripcion,
+      pacienteId
+    };
+
+  try {
+    const response = await data.updateOne(citaId, payload);
+    await getData()
+    const updatedCita = response.data;
+
+    setCalendarData(prev =>
+      prev.map(event => event._id === citaId ? updatedCita : event)
+    );
+
+    handleClose();
+  } catch (error) {
+    console.error("Error al editar la cita:", error);
+  }
+  }
+
+  const handleEventChange = async (changeInfo)=>{
+    const updatedEvent = changeInfo.event;
+    const id = updatedEvent.id
+    console.log(updatedEvent.startStr);
+    
     const payload={
-      fecha:selectedDate
+      fecha: updatedEvent.startStr,
+      descripcion: updatedEvent.title,
+      pacienteId: updatedEvent.extendedProps.pacienteId
+
+    }
+    try{
+      const response = await data.updateOne(id, payload)
+      await getData()
+      const updatedCita = response.data
+      setCalendarData(prev => prev.map(event => event.id === id ? updatedCita : event)); 
+    } catch (error) {
+      console.error("Error al editar la cita:", error);
+      changeInfo.revert();
     }
   }
     
@@ -59,8 +101,12 @@ export function Calendario() {
   }
     
     const calendarEvents = calendarData.map(cita=>({
+            id: cita._id,
             title: cita.descripcion, 
-            date: cita.fecha,
+            start: cita.fecha,
+            extendedProps: {
+              pacienteId: cita.pacienteId
+            }
         })
     )
 
@@ -71,16 +117,23 @@ export function Calendario() {
     </>);
     }
 
-    const handleEventChange = ()=>{
-        
-    }
+    const handleEventClick = (clickInfo)=>{
+      const event = clickInfo.event
 
-    const handleEventClick = ()=>{
-
+      setDescripcion(event.title)
+      setPacienteId(event.extendedProps.pacienteId);
+      setSelectedDate(event.startStr);
+      setCitaId(event.id)
+      setIsEditing(true)
+      handleClickOpen();
     }
 
     const handleDateSelect = (selectInfo)=>{
+      setDescripcion('');
+      setPacienteId('');
+      setCitaId('');
       setSelectedDate(selectInfo.startStr);
+      setIsEditing(false)
       handleClickOpen();
     }
 
@@ -112,7 +165,7 @@ export function Calendario() {
         maxWidth='sm'
         open={open}
         onClose={handleClose}>
-          <DialogTitle>Nueva cita</DialogTitle>
+          <DialogTitle>{isEditing ? 'Editar cita' : 'Nueva cita'}</DialogTitle>
           <DialogContent>
             <form>
               <Box sx={{display: 'flex', flexDirection:'column'}}>
@@ -139,7 +192,7 @@ export function Calendario() {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} variant='contained' color='grey'>Cerrar</Button>
-            <Button onClick={handleAddEvent} variant='contained'>Agregar</Button>
+            <Button onClick={isEditing ? handleUpdateEvent : handleAddEvent} variant='contained'>{isEditing ? 'Guardar' : 'Agregar'}</Button>
           </DialogActions>
       </Dialog>
     </div>
