@@ -27,7 +27,7 @@ import Config from '../../Config';
   },
   {
     field: 'descripcion',
-    headerName: 'Desccripcion',
+    headerName: 'Descripcion',
     type: 'text',
     width: 500,
   },
@@ -50,7 +50,7 @@ import Config from '../../Config';
   },
   {
     field: 'descripcion',
-    headerName: 'Desccripcion',
+    headerName: 'Descripcion',
     type: 'text',
     width: 500,
   },

@@ -40,7 +40,7 @@ const Theme = createTheme({
             },
             styleOverrides:{
                 root:{
-                    borderRadius:'15px',
+                    borderRadius:'10px',
                     display:'inline-block',
                     cursor:'poiner',
                     padding: '10px 12px',
@@ -83,7 +83,7 @@ const Theme = createTheme({
             styleOverrides:{
                 root:{
                     padding:'2%',
-                    borderRadius:'15px'
+                    borderRadius:'10px'
                 }
             }
         },
@@ -99,8 +99,8 @@ const Theme = createTheme({
             "& .MuiFilledInput-root": {
                 color: "#000",
                 backgroundColor: "#FAFAFF",
-                borderTopLeftRadius: "15px",
-                borderTopRightRadius: "15px",
+                borderTopLeftRadius: "10px",
+                borderTopRightRadius: "10px",
                 boxShadow:'0 -4px 10px -3px rgba(0, 21, 62, 0.27)',
             "&:before": {
               borderColor: "#ABB2D1",
@@ -153,8 +153,8 @@ const Theme = createTheme({
                 root:{
                     color: "#000",
                     backgroundColor: "#FAFAFF",
-                    borderTopLeftRadius: "15px",
-                    borderTopRightRadius: "15px",
+                    borderTopLeftRadius: "10px",
+                    borderTopRightRadius: "10px",
                     boxShadow:'0 -4px 10px -3px rgba(0, 21, 62, 0.27)',
                     ":hover:not(.Mui-focused)": {
                     "&:before": {
