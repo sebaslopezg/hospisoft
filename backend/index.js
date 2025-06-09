@@ -12,6 +12,7 @@ import pacientesRoute from './src/routes/pacientes.js'
 import formulaMaestroRoute from './src/routes/formulaMaestro.js'
 import formulaDetalleRoute from './src/routes/formulaDetalle.js'
 import diagnosticosRoute from './src/routes/diagnosticos.js'
+import examenesRoute from './src/routes/examenes.js'
 
 const app = express()
 dotenv.config()
@@ -29,6 +30,7 @@ app.use('/api', pacientesRoute)
 app.use('/api', formulaMaestroRoute)
 app.use('/api', formulaDetalleRoute)
 app.use('/api', diagnosticosRoute)
+app.use('/api', examenesRoute)
 
 const port = process.env.PORT || 3000
 app.listen(port,()=>(

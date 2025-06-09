@@ -19,6 +19,21 @@ const view = async (req, res) => {
   }
 }
 
+const getMedicos = async (req, res) => {
+  try {
+    let data = await user.find({status:{$gt:0},rol:2}).exec();
+    res.status(200).send({
+      status: true,
+      data,
+    });
+  } catch (error) {
+    res.status(500).send({
+      status: false,
+      mensaje: "Error en la consulta",
+    });
+  }
+}
+
 const getOne = async (req, res) => {
   let id = req.params.id
   try {
@@ -215,5 +230,6 @@ export {
   uploadImage,
   avatar,
   login,
+  getMedicos,
 };
   

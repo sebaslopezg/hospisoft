@@ -17,6 +17,7 @@ const uploads = multer({ storage })
 
 router.get("/users/view", users.view)
 router.get("/users/getbyid/:id", users.getOne)
+router.get("/users/getMedicos", users.getMedicos)
 router.post("/users/create", users.create)
 router.post("/users/login", users.login)
 router.post(

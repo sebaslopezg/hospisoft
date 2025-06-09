@@ -26,13 +26,17 @@ const examenSchema = Schema({
         required: true,
         ref:'pacientes'
     },
-    medico:{
+    medicoId:{
         type:Schema.Types.ObjectId,
         ref:'user'
     },
     descripcion:{
         type:String,
         required:false
+    },
+    fecha_vencimiento:{
+        type: Date,
+        required:true,
     },
     status:{
         type:Number,
