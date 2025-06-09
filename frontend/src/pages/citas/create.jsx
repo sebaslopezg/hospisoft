@@ -4,6 +4,23 @@ import TextField from '@mui/material/TextField';
 export const CitasCreate = (descripcion, pacienteId) => {
     return <>
         <form>
+          <Select
+              labelId="ageLabel"
+              value={medicoValue}
+              label="medico"
+              name='medicoId'
+              onChange={handleChange}
+            >
+              {
+                medicos ? (
+                medicos.map((medico) => {
+                return(
+                  <MenuItem value={medico._id}>{medico.nombre}</MenuItem>
+                )
+                })
+                ) : ''
+              }
+          </Select>
               <Box sx={{display: 'flex', flexDirection:'column'}}>
                 <TextField 
                   multiline 

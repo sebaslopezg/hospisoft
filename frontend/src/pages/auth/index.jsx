@@ -16,9 +16,12 @@ const providers = [{ id: 'credentials', name: 'Email' }];
 // preview-end
 
 const signIn = async (provider, formData) => {
-  data.login(formData)
+  const json = Object.fromEntries(formData.entries())
+  console.log(json);
+  
+  data.login(json)
   .then((response) => {
-    console.log(response)
+    localStorage.setItem(response.data.token)
   })  
 };
 

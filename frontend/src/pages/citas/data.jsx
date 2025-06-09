@@ -43,6 +43,13 @@ const deleteOne = (id) => {
   })
 }
 
+const getMedicos = () => {
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/users/getmedicos`,
+    responseType: 'json'
+  })
+}
 
 
 export default {
@@ -50,5 +57,6 @@ export default {
     getOne,
     createOne,
     updateOne,
-    deleteOne
+    deleteOne,
+    getMedicos
 }

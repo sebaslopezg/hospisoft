@@ -4,6 +4,8 @@ import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
 import GroupIcon from '@mui/icons-material/Group';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import DescriptionIcon from '@mui/icons-material/Description';
+import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 
 const NAVIGATION = [
    { // para darle un titulo a la barra
@@ -49,6 +51,18 @@ const NAVIGATION = [
     title: 'Medicamentos',
     icon: <MedicationIcon />,
     pattern: 'medicamentos{/:crud}*',
+  },
+  {
+    segment: 'diagnosticos',
+    title: 'Diagnosticos',
+    icon: <TroubleshootIcon />,
+    pattern: 'diagnosticos{/:crud}*',
+  },
+  {
+    segment: 'historias',
+    title: 'Historia clínica',
+    icon: <ContentPasteSearchIcon />,
+    pattern: 'historias{/:crud}*',
   },
 ]; 
 

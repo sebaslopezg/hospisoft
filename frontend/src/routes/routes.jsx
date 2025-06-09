@@ -39,6 +39,16 @@ import { FormulasEdit } from '../pages/formulas/edit.jsx';
 import { FormulasCreate } from '../pages/formulas/create.jsx';
 import { FormulasDetails } from '../pages/formulas/details.jsx';
 
+// diagnosticos
+import DiagnosticosLayout from '../pages/diagnosticos/index.jsx';
+import { DiagnosticosView } from '../pages/diagnosticos/view.jsx';
+import { DiagnosticosEdit } from '../pages/diagnosticos/edit.jsx';
+import { DiagnosticosCreate } from '../pages/diagnosticos/create.jsx';
+
+// historia clinica
+import HistoriasLayout from '../pages/historias/index.jsx';
+import { HistoriasView } from '../pages/historias/view.jsx';
+
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
@@ -146,6 +156,34 @@ const router = createBrowserRouter([
               {
                 path:'details/:id',
                 Component: FormulasDetails
+              },
+            ]
+          },
+          {
+            path:'diagnosticos',
+            Component:DiagnosticosLayout,
+            children:[
+              {
+                path:'',
+                Component: DiagnosticosView
+              },
+              {
+                path:'create',
+                Component: DiagnosticosCreate
+              },
+              {
+                path:'edit/:id',
+                Component: DiagnosticosEdit
+              },
+            ]
+          },
+          {
+            path:'historias',
+            Component:HistoriasLayout,
+            children:[
+              {
+                path:'',
+                Component: HistoriasView
               },
             ]
           },

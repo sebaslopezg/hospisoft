@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Stack from '@mui/material/Stack';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card } from '@mui/material';
 
 export const UsuariosCreate = () => {
@@ -17,10 +17,12 @@ export const UsuariosCreate = () => {
     const notifications = useNotifications()
     const navigate = useNavigate()
     const [rol, setRol] = useState('')
+    const [idPost, setIdPost] = useState('')
 
     const handleChange = (e) => {
       setRol(e.target.value);
     };
+
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -30,14 +32,38 @@ export const UsuariosCreate = () => {
           numDoc: fields.numDoc.value,
           nombre: fields.nombre.value,
           email: fields.email.value,
-          password: fields.telefono.password,
+          password: fields.password.value,
           telefono: fields.telefono.value,
           direccion: fields.direccion.value,
           rol: fields.rol.value,
         }
 
+        const imagePayload = {
+          file0: fields.file0.value,
+          id: fields.id.value
+        }
+
         const response = data.createOne(payload)
         response
+        .then((res) => {
+          console.log(res.data.data._id);
+            setIdPost(res.data.data._id)
+            res.data.status ? (
+            notifications.show(res.data.msg, 
+              {severity: 'success',autoHideDuration: 3000,})
+            ) : (
+              notifications.show(res.data.msg, 
+              {severity: 'error',autoHideDuration: 3000,})
+            )
+        })
+        .then(navigate('/usuarios'))
+        .catch((err) =>{
+        notifications.show('Error de conexión: ' + err.message, 
+      {severity: 'error',autoHideDuration: 3000,})
+        })
+
+        const responseImg = data.createOneImage(imagePayload)
+        responseImg
         .then((res) => {
             res.data.status ? (
             notifications.show(res.data.msg, 
@@ -65,7 +91,7 @@ export const UsuariosCreate = () => {
             <TextField required type="number" name="telefono" label="Telefono"/>
             <TextField required name="direccion" label="Direccion"/>
             <TextField type='file' name="file0" label="imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
-            <TextField name="id" type='hidden'/>
+            <TextField name="id" type='hidden' value={idPost}/>
             <FormControl>
             <InputLabel id="rolLabel">Rol</InputLabel>
             <Select

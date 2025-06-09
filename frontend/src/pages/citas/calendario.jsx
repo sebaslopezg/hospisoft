@@ -9,6 +9,10 @@ import { useState, useEffect } from 'react'
 import data from './data'
 import {Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material'
 import { useDialogs } from '@toolpad/core/useDialogs'
+import Select from '@mui/material/Select';
+import {MenuItem} from '@mui/material'
+import InputLabel from '@mui/material/InputLabel';
+import {FormControl} from '@mui/material'
 
 export function Calendario() {
     const [open, setOpen] = useState(false)
@@ -19,6 +23,8 @@ export function Calendario() {
     const [citaId, setCitaId] = useState('')
     const [isEditing, setIsEditing] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const [medicoValue, setMedicoValue] = useState('');
+    const [medicos, setMedicos] = useState([])
     const dialogs = useDialogs()
 
   const handleClickOpen = () => {
@@ -29,9 +35,22 @@ export function Calendario() {
     setOpen(false);
   };
 
+  const handleChange = (e) => {
+    setMedicoValue(e.target.value);
+  }
+  
+    const getAllMedicos = () =>{
+      const response = data.getMedicos()
+      response.then((res) => {
+         res.data.rol
+        setMedicos(res.data.data)
+      })
+    }
+
   useEffect(()=>{
     getData()
-  },[])
+    getAllMedicos()
+  },[medicos])
 
   const handleAddEvent = async()=>{
     const payload={
@@ -192,6 +211,26 @@ export function Calendario() {
           <DialogTitle>{isEditing ? 'Editar cita' : 'Nueva cita'}</DialogTitle>
           <DialogContent>
             <form>
+              <FormControl>
+              <InputLabel id="ageLabel">Medico</InputLabel>
+              <Select
+              labelId="ageLabel"
+              value={medicoValue}
+              label="medico"
+              name='medicoId'
+              onChange={handleChange}
+            >
+              {
+                medicos ? (
+                medicos.map((medico) => {
+                return(
+                  <MenuItem value={medico._id}>{medico.nombre}</MenuItem>
+                )
+                })
+                ) : ''
+              }
+          </Select>
+        </FormControl>
               <Box sx={{display: 'flex', flexDirection:'column'}}>
                 <TextField 
                   multiline 
