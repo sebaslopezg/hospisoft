@@ -57,6 +57,7 @@ const create = async(req, res)=>{
 
         return res.send({
             status:true,
+            data: medicamentoNuevo,
             msg:"Insercion exitosa"
         })
     } catch (error) {

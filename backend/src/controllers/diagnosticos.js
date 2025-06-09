@@ -71,7 +71,12 @@ const getbyid = async(req, res) =>{
     let id = req.params.id
 
     try {
-        let query = await diacnosticos.findOne({_id: id, status:{$gt:0}}).exec()
+        let query = await diacnosticos.findOne({_id: id, status:{$gt:0}})
+        .populate({
+            path:'medicoId',
+            select:'nombre'
+        })
+        .exec()
         return res.send({
             status:true,
             msg:"Consulta exitosa",
