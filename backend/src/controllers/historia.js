@@ -7,9 +7,24 @@ const getById = async(req, res)=>{
     const id = req.params.id
     try {
         let pacienteData = await paciente.findOne({_id:id, status:{$gt:0}}).exec()
-        let diagnosticosData = await diagnosticos.find({pacienteId:id, status:{$gt:0}}).exec()
-        let examenesData = await examenes.find({pacienteId:id, status:{$gt:0}}).exec()
-        let formulasData = await formulas.find({pacienteId:id, status:{$gt:0}}).exec()
+        let diagnosticosData = await diagnosticos.find({pacienteId:id, status:{$gt:0}})
+        .populate({
+            path:'medicoId',
+            select:'nombre'
+        })
+        .exec()
+        let examenesData = await examenes.find({pacienteId:id, status:{$gt:0}})
+        .populate({
+            path:'medicoId',
+            select:'nombre'
+        })
+        .exec()
+        let formulasData = await formulas.find({pacienteId:id, status:{$gt:0}})
+        .populate({
+            path:'medico',
+            select:'nombre'
+        })
+        .exec()
         res.status(200).send({
             status:true,
             data:{

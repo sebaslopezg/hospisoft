@@ -71,6 +71,7 @@ export const UsuariosEdit = () => {
             <TextField defaultValue={dataUser.email} required name="email" label="Email" slotProps={{inputLabel:{shrink:'true'}}}/>
             <TextField defaultValue={dataUser.telefono} required type="number" name="telefono" label="Telefono" slotProps={{inputLabel:{shrink:'true'}}}/>
             <TextField defaultValue={dataUser.direccion} required name="direccion" label="Direccion" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField type='file' name="file0" label="imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>
