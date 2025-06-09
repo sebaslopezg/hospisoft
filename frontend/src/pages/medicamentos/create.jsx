@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
 import Config from '../../Config';
+import { useEffect } from "react";
 
 export const MedicamentosCreate = () =>{ 
 
@@ -13,10 +14,32 @@ export const MedicamentosCreate = () =>{
   const navigate = useNavigate();
 
 const [myData, setData] = useState({})
+const [imageInput, setImageInput] = useState()
+
+
+const setImage = async(obj) => {
+  let id = obj.data.data._id
+  obj ? console.log(obj.data.data._id) : ''
+  const form = new FormData()
+  form.append('file0',imageInput.files[0])
+  console.log(imageInput.files[0])
+  form.append('id',id)
+  await axios({
+    method:'post',
+    url:`${Config('urlRoot')}/medicamento/uploadimage`,
+    data:form,
+    headers: { "Content-Type": "multipart/form-data"}
+  })
+  .then((res) => console.log(res)
+  )
+  .catch((err) => console.log(err))
+}
 
 const getFromData = async(e) =>{
   e.preventDefault()
   let value = e.target
+
+  setImageInput(e.target.file0)
 
   const formData = {
     nombre: value.nombre.value,
@@ -28,6 +51,7 @@ const getFromData = async(e) =>{
   .then((res) =>{
     res.data.status ? (
       notifications.show(res.data.msg, 
+        setImage(res),
         {severity: 'success',autoHideDuration: 3000,})
       ) : (
         notifications.show(res.data.msg, 
@@ -44,9 +68,10 @@ const getFromData = async(e) =>{
     return <>
     <form action="" onSubmit={getFromData}>
       <Box sx={{display: 'flex', flexDirection:'column'}}>
-        <TextField margin="dense" required name="nombre" label="Nombre" variant="outlined" />
-        <TextField multiline maxRows={4} margin="dense" required name="descripcion" label="Descripcion" variant="outlined" />
-        <TextField margin="dense" required type="number" name="existencia" label="Existencia" variant="outlined" />
+        <TextField required name="nombre" label="Nombre"/>
+        <TextField multiline maxRows={4} required name="descripcion" label="Descripcion"/>
+        <TextField required type="number" name="existencia" label="Existencia"/>
+        <TextField type='file' name="file0" label="imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>

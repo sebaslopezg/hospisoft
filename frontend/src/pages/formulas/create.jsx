@@ -31,6 +31,8 @@ export const FormulasCreate = () => {
   const [PacienteDataValue, setPacienteData] = useState([]);
 
   const [medicamentoValues, setMedicamentoValues] = useState([]);
+  const [medicamentoDosificacionValues, setMedicamentoDosificacionValues] = useState([]);
+  const [medicamentoCantidadValues, setMedicamentoCantidadValues] = useState([]);
   const [medicamentoDescripcionValues, setMedicamentoDescripcionValues] = useState([]);
 
   useEffect(()=>{
@@ -78,11 +80,21 @@ export const FormulasCreate = () => {
           />
           <TextField 
             onChange={(e) => {
+              handlerSetMedicamentoDosificacionValues(e.target.value, index);
+            }}
+            label="Dosificacion"
+          />
+          <TextField 
+            onChange={(e) => {
+              handlerSetMedicamentoCantidadValues(e.target.value, index);
+            }}
+            label="Cantidad"
+          />
+          <TextField 
+            onChange={(e) => {
               handlerSetMedicamentoDescripcionValues(e.target.value, index);
             }}
-            margin="dense" 
             label="Descripcion"
-            variant="outlined" 
           />
           <Tooltip title="Eliminar Medicamento">
             <IconButton data-key={theKey} onClick={handleDeleteInput} aria-label="delete" size="large">
@@ -113,6 +125,18 @@ export const FormulasCreate = () => {
     setMedicamentoValues(currentValue)
   }
 
+  const handlerSetMedicamentoDosificacionValues = (value, slot) => {
+    let currentValue = medicamentoDosificacionValues  
+    currentValue[slot] = value  
+    setMedicamentoDosificacionValues(currentValue)
+  }
+
+  const handlerSetMedicamentoCantidadValues = (value, slot) => {
+    let currentValue = medicamentoCantidadValues  
+    currentValue[slot] = value  
+    setMedicamentoCantidadValues(currentValue)
+  }
+
   const handlerSetMedicamentoDescripcionValues = (value, slot) => {
     let currentValue = medicamentoDescripcionValues
     currentValue[slot] = value
@@ -126,7 +150,6 @@ export const FormulasCreate = () => {
   const handleSearchPerson = () => {
     const response = data.getPacienteByDocument(documentoPacienteValue)
     response.then((res) => {
-      console.log(res.data)
       res.data.status ? (
         setPacienteData(res.data.data),
         notifications.show(res.data.msg, 
@@ -158,7 +181,7 @@ export const FormulasCreate = () => {
       descripcion: fields.descripcion.value,
     }
 
-    console.log(PacienteDataValue);
+    //console.log(PacienteDataValue);
     
     const response = data.createOne(payload)
     let saveMedicamentoStatus
@@ -185,6 +208,8 @@ export const FormulasCreate = () => {
       const payload = {
       formulaId: id,
       medicamentoId: value._id,
+      dosificacion: medicamentoDosificacionValues[index],
+      cantidad: medicamentoCantidadValues[index],
       descripcion: medicamentoDescripcionValues[index]
       }
       const response = data.createFormulaDetalle(payload)
@@ -212,11 +237,9 @@ export const FormulasCreate = () => {
       <Stack spacing={2}>
         <Stack spacing={2} direction='row'>
           <TextField
-            margin="dense" 
             required 
             name="pacienteId" 
             label="Documento de identidad del paciente" 
-            variant="outlined"
             onChange={(e) => handleDocumentoPacienteValue(e.target.value)}
           />
           <Tooltip title="Buscar Usuario">
@@ -246,12 +269,15 @@ export const FormulasCreate = () => {
         </Select>
         </FormControl>
         <TextField 
-          margin="dense" 
           required name="descripcion" 
-          label="Descripción General" 
-          variant="outlined" 
+          label="Descripción General"  
         />
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row"
+          spacing={2}
+          sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+          }}>
           <Autocomplete
             name='medicamentico'
             onChange={(e, value) => {
@@ -262,13 +288,25 @@ export const FormulasCreate = () => {
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Medicamento" />}
           />
+
+          <TextField 
+          onChange={(e) => {
+            handlerSetMedicamentoDosificacionValues(e.target.value, 0)
+          }}
+            label="Dosificacion" 
+          />
+          <TextField 
+          onChange={(e) => {
+            handlerSetMedicamentoCantidadValues(e.target.value, 0)
+          }}
+            label="Cantidad" 
+          />
+
           <TextField 
           onChange={(e) => {
             handlerSetMedicamentoDescripcionValues(e.target.value, 0)
           }}
-            margin="dense" 
-            label="Descripcion"
-            variant="outlined" 
+            label="Descripcion" 
           />
           <Tooltip title="Agregar Medicamento">
             <IconButton onClick={handleMedicamentosInputs} aria-label="delete" size="large">

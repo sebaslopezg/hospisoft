@@ -10,6 +10,7 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDialogs } from '@toolpad/core/useDialogs';
+import { Calendario } from './calendario';
 
 export const CitasView = () => {
 
@@ -78,7 +79,7 @@ export const CitasView = () => {
 
     return <>
         <Grid container direction="column" spacing={1}>
-        <Grid
+       {/* <Grid
             size={3}
         >
             <IconButton size="large" onClick={getRows}>
@@ -86,7 +87,7 @@ export const CitasView = () => {
             </IconButton>
             <Button variant="contained" href="/citas/create">Nuevo</Button>
         </Grid>
-            <DataGrid
+             <DataGrid
             getRowId={(dataList) => dataList._id}
             rows={rows}
             columns={columns}
@@ -99,7 +100,11 @@ export const CitasView = () => {
             }}
             pageSizeOptions={[5]}
             disableRowSelectionOnClick
-            />
+            /> */}
+        
+        <Grid>
+            <Calendario/>
+        </Grid>
         </Grid>
     </>;
 }

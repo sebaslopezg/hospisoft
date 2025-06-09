@@ -72,7 +72,7 @@ export const CitasEdit = () => {
                 <DatePicker defaultValue={dayjs(dataCitas.fecha)} label="Fecha de la cita" name='fecha' />
               </DemoContainer>
             </LocalizationProvider>
-            <TextField defaultValue={dataCitas.descripcion} multiline maxRows={4} margin="dense" required name="descripcion" label="Descripcion" variant="outlined" />
+            <TextField defaultValue={dataCitas.descripcion} multiline maxRows={4} required name="descripcion" label="Descripcion"/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

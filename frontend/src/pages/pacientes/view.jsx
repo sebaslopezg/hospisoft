@@ -10,6 +10,7 @@ import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useDialogs } from '@toolpad/core/useDialogs';
 
+
 export const PacientesView = () => {
 
     const columns = [
@@ -78,7 +79,7 @@ export const PacientesView = () => {
             initialState={{
                 pagination: {
                 paginationModel: {
-                    pageSize: 8,
+                    pageSize: 4,
                 },
                 },
             }}

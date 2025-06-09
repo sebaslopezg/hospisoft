@@ -31,6 +31,15 @@ const formulaDetalleSchema = Schema({
         required:true,
         ref:'medicamento'
     },
+    dosificacion:{
+        type:String,
+        enum:['mg', 'unds', 'ml', 'puf', 'otro'],
+        required:true
+    },
+    cantidad:{
+        type:Number,
+        required:true
+    },
     descripcion:{
         type:String,
         required:false

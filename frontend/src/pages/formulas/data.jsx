@@ -10,9 +10,9 @@ import Config from '../../Config';
   },
   {
     field: 'pacienteId',
-    headerName: 'Paciente',
+    headerName: 'Nombre',
     type: 'text',
-    width: 250,
+    width: 150,
     valueGetter: (row) => {return row.nombre}
   },
   {
@@ -36,6 +36,16 @@ const MedicamentosDetails = [
     headerName: 'Medicamento', 
     width: 250,
     valueGetter: (row) => {return row.nombre}
+  },
+  { 
+    field: 'dosificacion', 
+    headerName: 'Dosificacion', 
+    width: 100 
+  },
+  { 
+    field: 'cantidad', 
+    headerName: 'Cantidad', 
+    width: 100 
   },
   { 
     field: 'descripcion', 

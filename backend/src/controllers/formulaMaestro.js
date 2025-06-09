@@ -9,7 +9,7 @@ const getAll = async(req, res)=>{
         .populate('medico', 'nombre')
         .populate({
             path:'pacienteId',
-            select:'nombre'
+            select:'nombre documento'
         })
         .exec()
         res.status(200).send({
@@ -78,7 +78,6 @@ const create = async(req, res)=>{
                 msg:"Error: Paciente no válido"
             }) 
         }
-
     } catch (error) {
         return res.send({
             status:false,
@@ -95,7 +94,6 @@ const getbyid = async(req, res) =>{
         let query = await formulaMaestro.findOne({_id: id, status:{$gt:0}})
         .populate({
             path:'pacienteId',
-            select:'nombre documento'
         })
         .populate({
             path:'medico',

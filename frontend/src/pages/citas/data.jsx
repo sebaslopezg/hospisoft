@@ -43,12 +43,28 @@ const deleteOne = (id) => {
   })
 }
 
+const getMedicos = () => {
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/users/getmedicos`,
+    responseType: 'json'
+  })
+}
 
+const getPacienteByDocument = (document) => {
+  return axios({
+      method: 'get',
+      url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
+      responseType: 'json'
+  })
+}
 
 export default {
     getAll,
     getOne,
     createOne,
     updateOne,
-    deleteOne
+    deleteOne,
+    getMedicos,
+    getPacienteByDocument
 }

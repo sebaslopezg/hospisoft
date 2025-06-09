@@ -40,7 +40,7 @@ const medicamentoSchema = Schema({
     },
     imagen: {
         type: String,
-        default: "",
+        default: "no image",
     },
     existencia: {
         type: Number,

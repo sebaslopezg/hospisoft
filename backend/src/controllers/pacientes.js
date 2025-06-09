@@ -19,8 +19,13 @@ const create = async(req, res)=>{
 
     let data = {
         documento: req.body.documento,
+        direccion: req.body.direccion,
+        email: req.body.email,
         nombre: req.body.nombre,
         edad: req.body.edad,
+        telefono: req.body.telefono,
+        eps: req.body.eps,
+        alergias: req.body.alergias,
         status: 1,
     }
 
@@ -90,8 +95,13 @@ const updatebyid = async(req, res)=>{
 
     let data = {
         documento: req.body.documento,
+        direccion: req.body.direccion,
+        email: req.body.email,
         nombre: req.body.nombre,
         edad: req.body.edad,
+        telefono: req.body.telefono,
+        eps: req.body.eps,
+        alergias: req.body.alergias,
     }
 
     try {
@@ -126,7 +136,6 @@ const deletebyid = async(req, res)=>{
             msg:`Error al intentar eliminar ${error}`
         })
     }
-
 }
 
 export {

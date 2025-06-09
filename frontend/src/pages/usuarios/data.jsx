@@ -91,11 +91,21 @@ const deleteOne = (id) => {
   })
 }
 
+const createOneImage = (payload) => {
+  return axios({
+    method: 'post',
+    url: `${Config('urlRoot')}/users/uploadimage`,
+    data: payload,
+    responseType: 'json'
+  })
+}
+
 export default {
   columns,
   getAll,
   getOne,
   createOne,
   updateOne,
-  deleteOne
+  deleteOne,
+  createOneImage
 }

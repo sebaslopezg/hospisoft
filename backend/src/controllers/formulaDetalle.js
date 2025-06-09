@@ -42,6 +42,8 @@ const create = async(req, res)=>{
     let data = {
         formulaId: req.body.formulaId,
         medicamentoId: req.body.medicamentoId,
+        dosificacion: req.body.dosificacion,
+        cantidad: req.body.cantidad,
         descripcion: req.body.descripcion,
     }
 
