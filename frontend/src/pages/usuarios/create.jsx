@@ -64,6 +64,8 @@ export const UsuariosCreate = () => {
             <TextField type='password' required name="password" label="Contraseña"/>
             <TextField required type="number" name="telefono" label="Telefono"/>
             <TextField required name="direccion" label="Direccion"/>
+            <TextField type='file' name="file0" label="imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
+            <TextField name="id" type='hidden'/>
             <FormControl>
             <InputLabel id="rolLabel">Rol</InputLabel>
             <Select

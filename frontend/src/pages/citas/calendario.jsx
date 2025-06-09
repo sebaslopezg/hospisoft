@@ -8,6 +8,7 @@ import { Box, Button, Card } from '@mui/material'
 import { useState, useEffect } from 'react'
 import data from './data'
 import {Dialog, DialogActions, DialogContent, DialogTitle, TextField} from '@mui/material'
+import { useDialogs } from '@toolpad/core/useDialogs'
 
 export function Calendario() {
     const [open, setOpen] = useState(false)
@@ -17,6 +18,8 @@ export function Calendario() {
     const [selectedDate, setSelectedDate] = useState('')
     const [citaId, setCitaId] = useState('')
     const [isEditing, setIsEditing] = useState(false)
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const dialogs = useDialogs()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -92,6 +95,26 @@ export function Calendario() {
       changeInfo.revert();
     }
   }
+
+  const handleDelete = async()=>{
+    const id = selectedEvent.id;
+    const confirmed = await dialogs.confirm('¿Seguro que desea eliminar el registro?', {
+          okText: 'Si',
+          cancelText: 'No',
+          title: 'Eliminar'
+        });
+        if (confirmed) {
+          try{
+            await data.deleteOne(id)
+            setCalendarData(prev => prev.filter(event => event.id !== id))
+            getData()
+            handleClose()
+          } catch (error){
+            console.log(`Error al eliminar la cita: ${error}`);
+            
+          }
+        }
+  }
     
   const getData = () =>{
     const response = data.getAll()
@@ -123,6 +146,7 @@ export function Calendario() {
       setDescripcion(event.title)
       setPacienteId(event.extendedProps.pacienteId);
       setSelectedDate(event.startStr);
+      setSelectedEvent(event)
       setCitaId(event.id)
       setIsEditing(true)
       handleClickOpen();
@@ -191,6 +215,7 @@ export function Calendario() {
             </form>
           </DialogContent>
           <DialogActions>
+            {isEditing ? <Button onClick={handleDelete} variant='contained' color='error'>Eliminar</Button> : ''}
             <Button onClick={handleClose} variant='contained' color='grey'>Cerrar</Button>
             <Button onClick={isEditing ? handleUpdateEvent : handleAddEvent} variant='contained'>{isEditing ? 'Guardar' : 'Agregar'}</Button>
           </DialogActions>

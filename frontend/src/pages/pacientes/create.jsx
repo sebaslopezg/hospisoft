@@ -16,8 +16,13 @@ export const PacientesCreate = () => {
 
         const payload = {
           documento: fields.documento.value,
+          direccion: fields.direccion.value,
+          email: fields.email.value,
           nombre: fields.nombre.value,
           edad: fields.edad.value,
+          telefono: fields.telefono.value,
+          eps: fields.eps.value,
+          alergias: fields.alergias.value,
         }
 
         const response = data.createOne(payload)
@@ -42,8 +47,13 @@ export const PacientesCreate = () => {
         <form action="" onSubmit={setSubmit}>
         <Box sx={{display: 'flex', flexDirection:'column'}}>
             <TextField required name="documento" label="Numero de Documento"/>
+            <TextField required name="direccion" label="Direccion"/>
+            <TextField required name="email" label="Correo electrónico" type='email' />
             <TextField required name="nombre" label="Nombre"/>
             <TextField required name="edad" label="Edad" type='number' />
+            <TextField required name="telefono" label="Telefono" type='number' />
+            <TextField required name="eps" label="EPS"/>
+            <TextField required name="alergias" label="Alergias"/>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>
