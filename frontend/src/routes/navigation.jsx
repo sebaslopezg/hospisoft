@@ -6,6 +6,7 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import DescriptionIcon from '@mui/icons-material/Description';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import ScienceIcon from '@mui/icons-material/Science';
 
 const NAVIGATION = [
    { // para darle un titulo a la barra
@@ -57,6 +58,12 @@ const NAVIGATION = [
     title: 'Diagnosticos',
     icon: <TroubleshootIcon />,
     pattern: 'diagnosticos{/:crud}*',
+  },
+  {
+    segment: 'examenes',
+    title: 'Exámenes',
+    icon: <ScienceIcon />,
+    pattern: 'examenes{/:crud}*',
   },
   {
     segment: 'historias',

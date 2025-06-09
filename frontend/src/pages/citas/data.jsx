@@ -51,6 +51,13 @@ const getMedicos = () => {
   })
 }
 
+const getPacienteByDocument = (document) => {
+  return axios({
+      method: 'get',
+      url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
+      responseType: 'json'
+  })
+}
 
 export default {
     getAll,
@@ -58,5 +65,6 @@ export default {
     createOne,
     updateOne,
     deleteOne,
-    getMedicos
+    getMedicos,
+    getPacienteByDocument
 }
