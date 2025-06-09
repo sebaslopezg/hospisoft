@@ -1,5 +1,6 @@
 import medicamento from '../models/medicamentos.js'
-
+import fs from 'fs'
+import path from 'path';
 /**
  * Función para ver los medicamentos disponibles
  * @constructor
@@ -144,11 +145,69 @@ const deletebyid = async(req, res)=>{
 
 }
 
+const uploadImage = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({
+        estado: false,
+        mensaje: "No se ha subido ninguna imagen",
+      })
+    } 
+
+    const { originalname, filename, path: filePath } = req.file;
+    const extension = originalname.split(".").pop().toLowerCase();
+
+    const validExtensions = ["png", "jpg", "jpeg", "gif"];
+
+    if (!validExtensions.includes(extension)) {
+      await fs.promises.unlink(filePath)
+      return res.status(400).json({
+        estado: false,
+        mensaje: "Extensión de archivo no permitida",
+      })
+    }
+
+    const updatedData = await medicamento.findByIdAndUpdate(req.body.id, {
+      imagen: filename,
+    });
+
+    return res.status(200).json({
+      estado: true,
+      data: updatedData,
+      //file: req.file,
+    });
+
+  }catch (error) {
+      return res.status(500).json({
+      estado: false,
+      nensaje: "Error al procesar la imagen",
+      error: error.message,
+    });
+  }
+}
+
+const getImage = (req, res) => {
+  const file = req.params.file;
+  const filePath = "./src/uploads/medicamentos/" + file;
+
+  fs.stat(filePath, (error, exists) => {
+    if (!exists) {
+      return res.status(404).send({
+        status: "error",
+        message: "No existe la imagen",
+      });
+    }
+    return res.sendFile(path.resolve(filePath));
+  })
+}
+
 export {
     view,
     create,
     getbyid,
     updatebyid,
     deletebyid,
-    getList
+    getList,
+    uploadImage,
+    getImage
 }
