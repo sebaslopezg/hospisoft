@@ -53,7 +53,7 @@ const create = async (req, res) => {
   if (usuarioExiste) {
     return res.send({
       status: false,
-      msg: "el usuario ya esta registrado en el sistema",
+      msg: "el usuario ya esta registrado en el sistema"
     });
   }
   try {
@@ -62,6 +62,7 @@ const create = async (req, res) => {
     res.send({
       status: true,
       msg: "usuario creado",
+      data: usuarioNuevo
     });
   } catch (error) {
     res.send({

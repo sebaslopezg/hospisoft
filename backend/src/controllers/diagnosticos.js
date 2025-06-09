@@ -1,32 +1,11 @@
-import formulaMaestro from '../models/formulaMaestro.js'
+import diacnosticos from './../models/diagnosticos.js'
+import  mongoose  from 'mongoose'
 import pacientes from '../models/pacientes.js'
 import medicos from '../models/users.js'
-import  mongoose  from 'mongoose'
 
 const getAll = async(req, res)=>{
     try {
-        let dataPayload = await formulaMaestro.find({status:{$gt:0}})
-        .populate('medico', 'nombre')
-        .populate({
-            path:'pacienteId',
-            select:'nombre'
-        })
-        .exec()
-        res.status(200).send({
-            status:true,
-            data:dataPayload
-        })
-    } catch (error) {
-        res.status(500).send({
-            status:false,
-            msg:`Error en la consulta: ${error}`
-        })
-    }
-}
-
-const getMedicos = async(req, res)=>{
-    try {
-        let dataPayload = await medicos.find({status:{$gt:0}, rol:2}).select('nombre').exec()
+        let dataPayload = await diacnosticos.find({status:{$gt:0}}).exec()
         res.status(200).send({
             status:true,
             data:dataPayload
@@ -39,32 +18,33 @@ const getMedicos = async(req, res)=>{
     }
 }
 
-const create = async(req, res)=>{
+const createOne = async(req, res)=>{
 
-    let counter
     let idPaciente
+    let idMedico
     let paciente
+    let medico
 
     try {
         idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
+        idMedico = mongoose.Types.ObjectId.createFromHexString(req.body.medicoId)
         paciente = await pacientes.findOne({_id: idPaciente, status:{$gt:0}}).exec()
+        medico = await medicos.findOne({_id: idMedico, status:{$gt:0}, rol:2}).exec()
     } catch (error) {
         paciente = null
+        medico = null
     }
 
-    const formulaCounter = await formulaMaestro.findOne().sort({ numeroFormula: -1 }).limit(1)
-    formulaCounter ? counter = formulaCounter.numeroFormula : counter = 0
-
     let data = {
-        pacienteId: idPaciente,
-        medico: req.body.medicoId,
+        pacienteId: req.body.pacienteId,
+        medicoId: req.body.medicoId,
         descripcion: req.body.descripcion,
-        numeroFormula: counter + 1,
+        status: 1,
     }
 
     try {
-        if (paciente) {
-            const newData = new formulaMaestro(data)
+        if (paciente && medico) {
+            const newData = new diacnosticos(data)
             await newData.save()
 
             return res.send({
@@ -75,7 +55,7 @@ const create = async(req, res)=>{
         }else{
             return res.send({
                 status:false,
-                msg:"Error: Paciente no válido"
+                msg:"Error: Paciente o medico no valido"
             }) 
         }
     } catch (error) {
@@ -91,16 +71,7 @@ const getbyid = async(req, res) =>{
     let id = req.params.id
 
     try {
-        let query = await formulaMaestro.findOne({_id: id, status:{$gt:0}})
-        .populate({
-            path:'pacienteId',
-            select:'nombre documento'
-        })
-        .populate({
-            path:'medico',
-            select:'nombre'
-        })
-        .exec()
+        let query = await diacnosticos.findOne({_id: id, status:{$gt:0}}).exec()
         return res.send({
             status:true,
             msg:"Consulta exitosa",
@@ -124,7 +95,7 @@ const updatebyid = async(req, res)=>{
     }
 
     try {
-        let query = await formulaMaestro.findByIdAndUpdate(id, data).exec()
+        let query = await diacnosticos.findByIdAndUpdate(id, data).exec()
         return res.send({
             status:true,
             msg:"Se ha actualizado la nota de manera exitosa",
@@ -143,7 +114,7 @@ const deletebyid = async(req, res)=>{
     let id = req.params.id
 
     try {
-        let query = await formulaMaestro.findByIdAndUpdate(id, {status:0}).exec()
+        let query = await diacnosticos.findByIdAndUpdate(id, {status:0}).exec()
         return res.send({
             status:true,
             msg:"Eliminación exitosa",
@@ -155,14 +126,12 @@ const deletebyid = async(req, res)=>{
             msg:`Error al intentar eliminar ${error}`
         })
     }
-
 }
 
 export {
     getAll,
-    create,
+    createOne,
     getbyid,
     updatebyid,
     deletebyid,
-    getMedicos,
 }

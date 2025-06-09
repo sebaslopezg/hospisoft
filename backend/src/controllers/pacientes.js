@@ -136,7 +136,6 @@ const deletebyid = async(req, res)=>{
             msg:`Error al intentar eliminar ${error}`
         })
     }
-
 }
 
 export {
