@@ -9,10 +9,6 @@ import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import ScienceIcon from '@mui/icons-material/Science';
 
 const NAVIGATION = [
-   { // para darle un titulo a la barra
-    kind: 'header',
-    title: 'Main items',
-  }, 
   {
     title: 'Dashboard',
     icon: <DashboardIcon />,

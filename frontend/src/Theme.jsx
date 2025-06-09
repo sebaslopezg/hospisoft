@@ -29,13 +29,14 @@ const Theme = createTheme({
         MuiCssBaseline:{
             styleOverrides:{
                 body:{
-                    background: '#E6E6F5',
+
+                    background: '#E6E6F5'
                 }
             }
         },
         MuiButton:{
             defaultProps:{
-                disableRipple: true,
+                variant:'contained'
             },
             styleOverrides:{
                 root:{
@@ -51,8 +52,8 @@ const Theme = createTheme({
             styleOverrides:{
                 root:{
                     background: '#c5c5eb',
-                    background: 'linear-gradient(90deg,rgba(197, 197, 235, 1) 0%, rgba(142, 150, 195, 1) 100%)',
-                    borderBottomWidth:'0 !important',
+                    background: 'linear-gradient(90deg,rgb(147, 159, 226) 0%, rgb(106, 80, 179) 100%)',
+                    //borderBottomWidth:'0 !important',
                 }
             },
             defaultProps:{
@@ -63,15 +64,18 @@ const Theme = createTheme({
         MuiPaper:{
             styleOverrides:{
                 root:{
-                    borderRight:'0 !important',
+                    //borderRight:'0 !important',
                     boxShadow:'2px 4px 10px -3px rgba(0, 21, 62, 0.27)',
                 }
             }
         },
         MuiDrawer:{
             styleOverrides:{
+                paper:{
+                    backgroundColor: 'rgba(88, 118, 204, 0.3)'
+                },
                 root:{
-                    borderRight:'0 !important'
+                    // borderRight:'0 !important',
                 }
             }
         },
@@ -164,7 +168,7 @@ const Theme = createTheme({
                 variant:'filled',
                 margin:'dense',
             }
-        }
+        },
     }, 
 })
 
