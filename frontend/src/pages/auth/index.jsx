@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { SignInPage } from '@toolpad/core/SignInPage';
-import { createTheme, useTheme } from '@mui/material/styles';
+import { createTheme } from '@mui/material/styles';
 import data from './data'
 import Logo from '../../assets/img/logo.png';
 
@@ -12,7 +12,7 @@ const BRANDING = {
 };
 
 // preview-start
-const providers = [{ id: 'credentials', name: 'Email' }];
+const providers = [{ id: 'credentials', name: 'Email and password' }];
 // preview-end
 
 const signIn = async (provider, formData) => {
@@ -21,7 +21,9 @@ const signIn = async (provider, formData) => {
   
   data.login(json)
   .then((response) => {
-    localStorage.setItem(response.data.token)
+    console.log(response);
+    
+    localStorage.setItem('token',response.data.token)
   })  
 };
 
