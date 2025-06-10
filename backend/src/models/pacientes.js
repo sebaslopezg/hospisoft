@@ -53,6 +53,16 @@ const pacientesSchema = Schema({
         type:String,
         required:true
     },
+    grupoSanguineo:{
+        type:String,
+        enum:['A', 'B', 'AB', 'O',],
+        required:true
+    },
+    rh:{
+        type:String,
+        enum:['Positivo', 'Negativo'],
+        required:true
+    },
     status:{
         type:Number,
         required:false,
