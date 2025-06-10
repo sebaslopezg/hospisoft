@@ -28,7 +28,7 @@ const NAVIGATION = [
   {
     segment: 'pacientes',
     title: 'Pacientes',
-    icon: <SportsKabaddiIcon />,
+    icon: <SportsKabaddiIcon/>,
     pattern: 'Pacientes{/:crud}*',
   },
   {

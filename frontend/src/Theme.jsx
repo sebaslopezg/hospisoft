@@ -5,9 +5,9 @@ const Theme = createTheme({
     palette: {
         mode: 'light',
         primary:{
-            main:'#3f51b5',
-            light: '#7986cb',
-            dark: '#303f9f',
+            main:'#2B74DF',
+            light: '#36A8E5',
+            dark: '#1F39D1',
         },
         secondary:{
             main:'#7b2cbf',
@@ -20,8 +20,8 @@ const Theme = createTheme({
             dark: '#78909c'
         },
         background: {
-          default: '#F9F9FE',
-          paper: '#f2f4ff',
+          default: '#F5F6F9',
+          paper: '#FFFFFF',
           
           }
     },
@@ -30,7 +30,7 @@ const Theme = createTheme({
             styleOverrides:{
                 body:{
 
-                    background: '#E6E6F5'
+                    background: '#F5F6F9'
                 }
             }
         },
@@ -51,8 +51,7 @@ const Theme = createTheme({
         MuiAppBar:{
             styleOverrides:{
                 root:{
-                    background: '#c5c5eb',
-                    background: 'linear-gradient(90deg,rgb(147, 159, 226) 0%, rgb(106, 80, 179) 100%)',
+                    background: '#FFFFFF',
                     //borderBottomWidth:'0 !important',
                 }
             },
@@ -61,21 +60,14 @@ const Theme = createTheme({
                 
             }
         },
-        MuiPaper:{
-            styleOverrides:{
-                root:{
-                    //borderRight:'0 !important',
-                    boxShadow:'2px 4px 10px -3px rgba(0, 21, 62, 0.27)',
-                }
-            }
+        MuiPaper: {
+            styleOverrides: { root: { backgroundImage: 'unset' } },
         },
         MuiDrawer:{
             styleOverrides:{
                 paper:{
-                    backgroundColor: 'rgba(88, 118, 204, 0.3)'
-                },
-                root:{
-                    // borderRight:'0 !important',
+                    background: 'linear-gradient(160deg,rgba(69, 187, 237, 1) 0%, rgba(35, 93, 219, 1) 100%) !important',
+                    color: '#fff'      
                 }
             }
         },
@@ -142,8 +134,11 @@ const Theme = createTheme({
             styleOverrides:{
                 root:{
                     ":hover:not(.Mui-focused)": {
-                       backgroundColor:'rgba(68, 89, 147, 0.1)'
-                    }
+                        backgroundColor:'rgba(145, 221, 244, 0.48)'
+                    },
+                    "&.Mui-selected": {
+                        backgroundColor: "#F5F6F9",
+                    },
                 }
             }
         },
