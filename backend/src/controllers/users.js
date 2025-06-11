@@ -196,7 +196,8 @@ const login = async (req, res) => {
     return res.send({
       status: true,
       msg: "ingreso exitoso al sistema",
-      token,
+      token: token,
+      data: usuarioExiste,
     });
   } else {
     return res.send({
