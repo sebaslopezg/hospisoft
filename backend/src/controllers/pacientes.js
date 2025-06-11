@@ -26,6 +26,8 @@ const create = async(req, res)=>{
         telefono: req.body.telefono,
         eps: req.body.eps,
         alergias: req.body.alergias,
+        grupoSanguineo: req.body.grupoSanguineo,
+        rh: req.body.rh,
         status: 1,
     }
 
@@ -102,6 +104,8 @@ const updatebyid = async(req, res)=>{
         telefono: req.body.telefono,
         eps: req.body.eps,
         alergias: req.body.alergias,
+        grupoSanguineo: req.body.grupoSanguineo,
+        rh: req.body.rh,
     }
 
     try {
