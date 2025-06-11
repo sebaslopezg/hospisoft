@@ -2,8 +2,6 @@ import * as React from 'react';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { Account } from '@toolpad/core/Account';
 import axios from 'axios';
-import Config from '../Config';
-
 
 const demoSession = {
   user: {

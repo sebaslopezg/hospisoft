@@ -1,22 +1,31 @@
 import { PageContainer } from '@toolpad/core/PageContainer';
-import { BarChart } from '@mui/x-charts/BarChart';
-import { Card } from '@mui/material';
+import BarChartD from './dashboard/barChartD';
+import { Card, Stack } from '@mui/material';
+import PieChartD from './dashboard/pieChartD';
+import LineChartD from './dashboard/lineChartD';
 
 export default function DashboardPage() {
    
   return <PageContainer>
     <Card sx={{paddingTop:'5%'}}>
-        <BarChart
-      series={[
-        { data: [35, 44, 24, 34] },
-        { data: [51, 6, 49, 30] },
-        { data: [15, 25, 30, 50] },
-        { data: [60, 50, 15, 25] },
-      ]}
-      height={290}
-      xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'] }]}
-    />
+      <BarChartD/>
     </Card>
+    <Stack
+    direction="row"
+    spacing={2}
+    sx={{
+      mt:3,
+      justifyContent: "space-evenly",
+      alignItems: 'flex-start',
+    }}
+    >
+    <Card sx={{paddingTop:'2%', mt:2, width:'50%'}}>
+      <LineChartD/>
+    </Card>
+    <Card sx={{paddingTop:'2%', mt:2, width:'50%'}}>
+      <PieChartD/>
+    </Card>
+    </Stack>
   </PageContainer>;
   
 }
