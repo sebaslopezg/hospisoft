@@ -253,7 +253,7 @@ export function Calendario() {
           <DialogTitle>{isEditing ? 'Editar cita' : 'Nueva cita'}</DialogTitle>
           <DialogContent>
             <form>
-              <FormControl>
+              <FormControl sx={{width:'100%', mt:3}}>
               <InputLabel id="medicoId">Medico</InputLabel>
               <Select
               labelId="medicoId"
@@ -261,6 +261,7 @@ export function Calendario() {
               label="medico"
               name='medicoId'
               onChange={handleChange}
+              
             >
               {
                 medicos ? (

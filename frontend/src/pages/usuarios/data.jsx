@@ -12,6 +12,13 @@ const roles = [
 
   const columns = [
   {
+    field: 'imagen',
+    headerName: 'Imagen',
+    type: 'image',
+    width: 80,
+    renderCell: (params) => <img width="100%" height="100%" src={params.value}/>,
+  },
+  {
     field: 'nombre',
     headerName: 'Nombre',
     type: 'text',

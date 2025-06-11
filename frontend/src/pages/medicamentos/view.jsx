@@ -54,11 +54,18 @@ const medicamentoView = () => {
   }
 
   const columns = [
+    {
+    field: 'imagen',
+    headerName: 'Imagen',
+    type: 'image',
+    renderCell: (params) => <img width="100%" height="100%" src={params.value}/>,
+    width: 200,
+  },
   {
     field: 'nombre',
     headerName: 'Nombre',
     type: 'text',
-    width: 300,
+    width: 200,
   },
   {
     field: 'descripcion',
@@ -95,6 +102,7 @@ const medicamentoView = () => {
     <Button variant="contained" href="medicamentos/create">Nuevo</Button>
   </Grid>
     <DataGrid
+      rowHeight={100}
       rows={myData}
       getRowId={(dataList) => dataList._id}
       columns={columns}

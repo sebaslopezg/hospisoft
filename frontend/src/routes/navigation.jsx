@@ -7,6 +7,8 @@ import DescriptionIcon from '@mui/icons-material/Description';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import ScienceIcon from '@mui/icons-material/Science';
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import { Children } from 'react';
 
 const NAVIGATION = [
   {
@@ -38,28 +40,34 @@ const NAVIGATION = [
     pattern: 'citas{/:crud}*',
   },
   {
-    segment: 'formulas',
-    title: 'Formulas',
-    icon: <DescriptionIcon />,
-    pattern: 'formulas{/:crud}*',
-  },
-  {
     segment: 'medicamentos',
     title: 'Medicamentos',
     icon: <MedicationIcon />,
     pattern: 'medicamentos{/:crud}*',
   },
   {
-    segment: 'diagnosticos',
-    title: 'Diagnosticos',
-    icon: <TroubleshootIcon />,
-    pattern: 'diagnosticos{/:crud}*',
-  },
-  {
-    segment: 'examenes',
-    title: 'Exámenes',
-    icon: <ScienceIcon />,
-    pattern: 'examenes{/:crud}*',
+    title: 'Administrar',
+    icon: <ChecklistIcon/>,
+    children:[
+      {
+        segment: 'formulas',
+        title: 'Formulas',
+        icon: <DescriptionIcon />,
+        pattern: 'formulas{/:crud}*',
+      },
+      {
+        segment: 'diagnosticos',
+        title: 'Diagnosticos',
+        icon: <TroubleshootIcon />,
+        pattern: 'diagnosticos{/:crud}*',
+      },
+      {
+        segment: 'examenes',
+        title: 'Exámenes',
+        icon: <ScienceIcon />,
+        pattern: 'examenes{/:crud}*',
+      },
+    ]
   },
   {
     segment: 'historias',
