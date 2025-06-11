@@ -97,10 +97,35 @@ export const HistoriasView = () => {
 
 const downloadPdf = () => {
   const doc = new jsPDF();
+  var today = new Date();
+  const options = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  };
+  
+  doc.setFontSize(10)
+  var newdat = today.toLocaleDateString("es-ES", options)
+  doc.text(10,5,newdat);
+  var img = new Image()
+  img.src = '../../src/assets/img/logo.png'
+  doc.addImage(img, 'png', 10, 5, 30, 30)
   doc.setFontSize(16);
-  doc.text("Reporte de Historia Clínica", 20, 20);
+  doc.text("Reporte de Historia Clínica", 40, 20);
+  let finalY = 40;
 
-  let finalY = 30;
+  const addFooters = doc => {
+  const pageCount = doc.internal.getNumberOfPages()
+
+  doc.setFontSize(8)
+  for (var i = 1; i <= pageCount; i++) {
+    doc.setPage(i)
+    doc.text('página ' + String(i) + ' de ' + String(pageCount), doc.internal.pageSize.width / 2, 287, {
+      align: 'center'
+      })
+    }
+  }
 
   const addTable = (title, columns, rows) => {
     const tableColumns = columns
@@ -142,7 +167,7 @@ const downloadPdf = () => {
   addTable("Diagnósticos", diagnosticosColumns, diagnosticosRows);
   addTable("Exámenes", ExamenesColumns, examenesRows);
   addTable("Fórmulas", FormulasColumns, formulasRows);
-
+  addFooters(doc)
   doc.save('historia_clinica.pdf');
 };
     return <>

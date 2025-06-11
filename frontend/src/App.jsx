@@ -9,9 +9,9 @@ const BRANDING = {
   title: 'HospiSoft',
   homeUrl: '/',
 };
-const name = localStorage.getItem('nombre')
+const name = localStorage.getItem('name')
 const email = localStorage.getItem('email')
-const imageUrl = localStorage.getItem('imagen')
+const imageUrl = localStorage.getItem('imageUrl')
 const sessionData = {user: {
       name: JSON.parse(name),
       email: JSON.parse(email),

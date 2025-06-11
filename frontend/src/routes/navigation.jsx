@@ -46,7 +46,7 @@ const NAVIGATION = [
     pattern: 'medicamentos{/:crud}*',
   },
   {
-    title: 'Administrar',
+    title: 'Órdenes',
     icon: <ChecklistIcon/>,
     children:[
       {

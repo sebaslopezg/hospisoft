@@ -67,7 +67,14 @@ export const FormulasCreate = () => {
     const element = {
       id:theKey,
       component:<>
-        <Stack direction="row" spacing={2} key={theKey} className='medicamentoInputs'>
+        <Stack         
+        direction="row"
+        spacing={2}
+        sx={{
+        justifyContent: "flex-start",
+        alignItems: "center",
+        }}
+        key={theKey} className='medicamentoInputs'>
           <Autocomplete
             className="medicamentosInputs"
             disablePortal
@@ -314,7 +321,13 @@ export const FormulasCreate = () => {
             </IconButton>
           </Tooltip>
         </Stack>
-        <Stack spacing={2}>
+        <Stack    
+        direction="row"
+        spacing={2}
+        sx={{
+        justifyContent: "flex-start",
+        alignItems: "center",
+        }}>
           {medicamentosInputs ? (
             medicamentosInputs.map(input => input.component)
           ) : ''}

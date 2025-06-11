@@ -4,7 +4,7 @@ import { SignInPage } from '@toolpad/core/SignInPage';
 import { createTheme } from '@mui/material/styles';
 import data from './data'
 import Logo from '../../assets/img/logo.png';
-import { ReactRouterAppProvider } from '@toolpad/core/react-router';
+import { useSession } from '@toolpad/core'
 
 const BRANDING = {
   logo: <img src={Logo} alt="MUI logo" height={'100px'} />,
@@ -24,7 +24,7 @@ const signIn = async (provider, formData, callbackUrl) => {
   .then((response) => {
     localStorage.setItem('name', JSON.stringify(response.data.data.nombre))
     localStorage.setItem('email', JSON.stringify(response.data.data.email))
-    localStorage.setItem('imagen', JSON.stringify(response.data.data.imagen))
+    localStorage.setItem('imageUrl', JSON.stringify(response.data.data.imagen))
     localStorage.setItem('token',response.data.token)
 
      window.location.href = callbackUrl || '/'
@@ -32,6 +32,7 @@ const signIn = async (provider, formData, callbackUrl) => {
 };
 
 export default function CredentialsSignInPage() {
+  const session = useSession()
   const theme = createTheme({
     components:{
         MuiCssBaseline:{
@@ -48,7 +49,7 @@ export default function CredentialsSignInPage() {
   });
   return (
     // preview-start
-    <AppProvider theme={theme} branding={BRANDING} >
+    <AppProvider theme={theme} branding={BRANDING} session={session}>
       <SignInPage
         signIn={signIn}
         providers={providers}
