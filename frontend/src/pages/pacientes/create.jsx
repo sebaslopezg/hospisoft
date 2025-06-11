@@ -4,11 +4,23 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
+import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { useState } from 'react';
 
 export const PacientesCreate = () => {
 
     const notifications = useNotifications();
     const navigate = useNavigate();
+    const [grupo, setGrupo] = useState('')
+    const [rh, setRh] = useState('') 
+
+    const handleChangeGrupo = (e)=>{
+      setGrupo((e.target.value))
+    }
+
+    const handleChangeRh = (e)=>{
+      setRh((e.target.value))
+    }
 
     const setSubmit = (e) => {
         e.preventDefault()
@@ -23,6 +35,8 @@ export const PacientesCreate = () => {
           telefono: fields.telefono.value,
           eps: fields.eps.value,
           alergias: fields.alergias.value,
+          grupoSanguineo: fields.grupoSanguineo.value,
+          rh: fields.rh.value,
         }
 
         const response = data.createOne(payload)
@@ -54,6 +68,30 @@ export const PacientesCreate = () => {
             <TextField required name="telefono" label="Telefono" type='number' />
             <TextField required name="eps" label="EPS"/>
             <TextField required name="alergias" label="Alergias"/>
+            <InputLabel id="grupoSanguineoLabel">Grupo sanguíneo</InputLabel>
+            <Select
+              labelId="grupoSanguineoLabel"
+              value={grupo}
+              label="Grupo naguineo"
+              name='grupoSanguineo'
+              onChange={handleChangeGrupo}
+            >
+              <MenuItem value={'A'}>A</MenuItem>
+              <MenuItem value={'B'}>B</MenuItem>
+              <MenuItem value={'AB'}>AB</MenuItem>
+              <MenuItem value={'O'}>O</MenuItem>
+            </Select>
+            <InputLabel id="RHlabel">RH</InputLabel>
+            <Select
+              labelId="RHlabel"
+              value={rh}
+              label="RH"
+              name='rh'
+              onChange={handleChangeRh}
+            >
+              <MenuItem value={'positivo'}>Positivo</MenuItem>
+              <MenuItem value={'negativo'}>Negativo</MenuItem>
+            </Select>
             <Box sx={{mt:1}}>
             <Button type="submit" variant="contained">Guardar</Button>
             </Box>

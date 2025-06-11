@@ -4,6 +4,7 @@ import { SignInPage } from '@toolpad/core/SignInPage';
 import { createTheme } from '@mui/material/styles';
 import data from './data'
 import Logo from '../../assets/img/logo.png';
+import { ReactRouterAppProvider } from '@toolpad/core/react-router';
 
 const BRANDING = {
   logo: <img src={Logo} alt="MUI logo" height={'100px'} />,
@@ -15,15 +16,18 @@ const BRANDING = {
 const providers = [{ id: 'credentials', name: 'Email and password' }];
 // preview-end
 
-const signIn = async (provider, formData) => {
+const signIn = async (provider, formData, callbackUrl) => {
   const json = Object.fromEntries(formData.entries())
   console.log(json);
   
   data.login(json)
   .then((response) => {
-    console.log(response);
-    
+    localStorage.setItem('name', JSON.stringify(response.data.data.nombre))
+    localStorage.setItem('email', JSON.stringify(response.data.data.email))
+    localStorage.setItem('imagen', JSON.stringify(response.data.data.imagen))
     localStorage.setItem('token',response.data.token)
+
+     window.location.href = callbackUrl || '/'
   })  
 };
 
@@ -44,7 +48,7 @@ export default function CredentialsSignInPage() {
   });
   return (
     // preview-start
-    <AppProvider theme={theme} branding={BRANDING}>
+    <AppProvider theme={theme} branding={BRANDING} >
       <SignInPage
         signIn={signIn}
         providers={providers}

@@ -1,6 +1,6 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import MedicationIcon from '@mui/icons-material/Medication';
-import SportsKabaddiIcon from '@mui/icons-material/SportsKabaddi';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 import GroupIcon from '@mui/icons-material/Group';
 import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import DescriptionIcon from '@mui/icons-material/Description';
@@ -28,7 +28,7 @@ const NAVIGATION = [
   {
     segment: 'pacientes',
     title: 'Pacientes',
-    icon: <SportsKabaddiIcon/>,
+    icon: <Diversity3Icon/>,
     pattern: 'Pacientes{/:crud}*',
   },
   {
