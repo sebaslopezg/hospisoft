@@ -1,4 +1,5 @@
 import formulaDetalle from '../models/formulaDetalle.js'
+import formulaMaestro from '../models/formulaMaestro.js'
 
 const getAll = async(req, res)=>{
     try {
@@ -18,6 +19,32 @@ const getAll = async(req, res)=>{
 const getByFormula = async(req, res)=>{
     let idFormula = req.params.formula
     try {
+        let query = await formulaDetalle.find({formulaId: idFormula, status:{$gt:0}})
+        .populate({
+            path:'medicamentoId',
+            select:'nombre'
+        })
+        .exec()
+        return res.send({
+            status:true,
+            msg:"Consulta exitosa",
+            data:query
+        })
+    } catch (error) {
+        return res.send({
+            status:false,
+            msg:`Ha ocurrido un error en la consulta: ${error}`
+        }) 
+    }
+}
+
+const getByFormulaNumber = async(req, res)=>{
+    let numeroFormula = req.params.formulaNumber
+    let maestroFormula
+    let idFormula
+    try {
+        maestroFormula = await formulaMaestro.findOne({numeroFormula: numeroFormula, status:{$gt:0}})
+        idFormula = maestroFormula._id
         let query = await formulaDetalle.find({formulaId: idFormula, status:{$gt:0}})
         .populate({
             path:'medicamentoId',
@@ -133,4 +160,5 @@ export {
     updatebyid,
     deletebyid,
     getByFormula,
+    getByFormulaNumber
 }

@@ -1,17 +1,10 @@
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
+import { Stack, TextField, Checkbox, ListItemText, ListItemIcon, ListItem, ListItemButton, List, Typography } from '@mui/material';
 
 export const DispensarioDespachar = ()=>{
     const [checked, setChecked] = React.useState([0]);
 
-  const handleToggle = (value) => () => {
+    const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -24,18 +17,12 @@ export const DispensarioDespachar = ()=>{
     setChecked(newChecked);
   };
 
-  return (
-    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
-
-        return (
-          <ListItem
+  const CustomList = ({value, labelId})=>{
+    return <ListItem
             key={value}
             secondaryAction={
-              <IconButton edge="end" aria-label="comments">
-                <CommentIcon />
-              </IconButton>
+                <>
+                </>
             }
             disablePadding
           >
@@ -51,8 +38,31 @@ export const DispensarioDespachar = ()=>{
               <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
             </ListItemButton>
           </ListItem>
+    }
+
+  return (
+    <>
+    <Typography variant='h6' sx={{fontWeight:'bold'}}>Medicamentos</Typography>
+    <List sx={{ width: '100%', maxWidth:'50%', bgcolor: 'background.paper' }}>
+      {[0, 1, 2, 3].map((value) => {
+        const labelId = `checkbox-list-label-${value}`;
+
+        return (
+            <Stack
+                direction="row"
+                spacing={2}
+                sx={{
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                }}
+            >
+          <CustomList value={value} labelId={labelId}/>
+          <TextField label='disponible' disabled variant='outlined' size='small' type='text' sx={{width:'40%'}}></TextField>
+          <TextField label='entregar' variant='outlined' size='small' type='number' sx={{width:'40%'}}></TextField>
+          </Stack>
         );
       })}
     </List>
+    </>
   );
 }

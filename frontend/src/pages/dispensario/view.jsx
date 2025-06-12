@@ -4,7 +4,6 @@ import IconButton from '@mui/material/IconButton';
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { Button, Divider, Stack, TextField, Typography, Accordion, AccordionActions, AccordionSummary, AccordionDetails } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import { useParams } from 'react-router';
 import data from './data'
 import { useEffect, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
@@ -18,7 +17,6 @@ export const DispensarioView = () => {
     const [numeroFormulaValue, setNumeroFormula] = useState('');
     const [formulaFound, setFormulaFound] = useState(false)
     const [rows, setRows] = useState([])
-    const params = useParams()
 
     const columns = [
     ...data.columns,
@@ -38,33 +36,31 @@ export const DispensarioView = () => {
       }
     ]
 
-    const getRows = ()=>{
-      const response = data.getFormula(numeroFormulaValue)
-      console.log(rows);   
-      response.then((res) => {
-        res.data.data != null ? (
-        setRows(res.data.data)) : ''
+    const getRows = async(numeroFormula) => {
+      await data.getFormula(numeroFormula)
+      .then((res) => {
+      const data = res.data.data
+      console.log(data)
+      data != null ? (
+      setFormulaFound(true),
+      setRows(res.data.data),
+      
+      notifications.show(res.data.msg, 
+      {severity: 'success',autoHideDuration: 3000,})
+      ) : (
+      notifications.show('Formula no encontrada', 
+      {severity: 'error',autoHideDuration: 3000,})
+      )
+      })
+      .catch((err) =>{
+      notifications.show('Error de conexión: ' + err.message, 
+      {severity: 'error',autoHideDuration: 3000,})
       })
     }
     
-      const handleSearchFormula = () => {
-        const response = data.getFormula(numeroFormulaValue)
-        response.then((res) => {
-        res.data.data != null ? (
-        setFormulaFound(true),
-        setRows(res.data.data),
-        notifications.show(res.data.msg, 
-        {severity: 'success',autoHideDuration: 3000,})
-        ) : (
-        notifications.show('Formula no encontrada', 
-        {severity: 'error',autoHideDuration: 3000,})
-        )
-        })
-        .catch((err) =>{
-        notifications.show('Error de conexión: ' + err.message, 
-        {severity: 'error',autoHideDuration: 3000,})
-        })
-        }
+    const handleSearchFormula = () => {
+      getRows(numeroFormulaValue)
+    }
 
     const handleNumeroFormulaValue = (value) =>{
       setNumeroFormula(value)
@@ -96,7 +92,7 @@ export const DispensarioView = () => {
         ? <>
         <Grid container direction="column" spacing={1}>
         <Grid size={3}>
-            <IconButton size="large" onClick={getRows}>
+            <IconButton size="large" onClick={(e) => getRows(numeroFormulaValue)}>
             <RefreshIcon />
             </IconButton>
         </Grid>
