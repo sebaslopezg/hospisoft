@@ -54,7 +54,6 @@ export const HistoriasView = () => {
      useEffect(()=>{
             pacienteFound ? getRows() : '' 
             console.log(rows);
-            
         },[PacienteDataValue])
     
         const getRows = () =>{

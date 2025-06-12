@@ -63,7 +63,7 @@ export const DispensarioView = () => {
     }
 
     const handleNumeroFormulaValue = (value) =>{
-    setNumeroFormula(value)
+      setNumeroFormula(value)
     }
 
     const handleEnter = (event)=>{
@@ -73,6 +73,7 @@ export const DispensarioView = () => {
     }
 
     return <>
+    <Button href='/dispensario/despachar'>despachar</Button>
        <Stack spacing={2} direction='row' sx={{mb:3}} >
           <TextField
             required 
@@ -94,7 +95,6 @@ export const DispensarioView = () => {
             <IconButton size="large" onClick={(e) => getRows(numeroFormulaValue)}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/formulas/create">Nuevo</Button>
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}
@@ -112,10 +112,7 @@ export const DispensarioView = () => {
             />
         </Grid>
         </>
-        
         : <>
-        
         </>}
-         
     </>;
 }
