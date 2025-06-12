@@ -14,7 +14,8 @@ import formulaDetalleRoute from './src/routes/formulaDetalle.js'
 import diagnosticosRoute from './src/routes/diagnosticos.js'
 import examenesRoute from './src/routes/examenes.js'
 import historiaRoute from './src/routes/historia.js'
-import dispensarioRoute from './src/routes/dispensario.js'
+import dispensarioMaestroRoute from './src/routes/dispensarioMaestro.js'
+import dispensarioDetalleRoute from './src/routes/dispensarioDetalle.js'
 import metricsRoute from './src/routes/metrics.js'
 
 const app = express()
@@ -35,7 +36,8 @@ app.use('/api', formulaDetalleRoute)
 app.use('/api', diagnosticosRoute)
 app.use('/api', examenesRoute)
 app.use('/api', historiaRoute)
-app.use('/api', dispensarioRoute)
+app.use('/api', dispensarioMaestroRoute)
+app.use('/api', dispensarioDetalleRoute)
 app.use('/api', metricsRoute)
 
 const port = process.env.PORT || 3000
