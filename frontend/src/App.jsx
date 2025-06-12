@@ -5,7 +5,7 @@ import Navigation from './routes/navigation';
 import Logo from './assets/img/logo.png'
 import Theme from './Theme';
 const BRANDING = {
-  logo: <img src={Logo} alt="MUI logo" />,
+  logo: <img src={Logo} alt="Hospisoft logo" />,
   title: 'HospiSoft',
   homeUrl: '/',
 };
@@ -13,10 +13,10 @@ const name = localStorage.getItem('name')
 const email = localStorage.getItem('email')
 const imageUrl = localStorage.getItem('imageUrl')
 const sessionData = {user: {
-      name: JSON.parse(name),
-      email: JSON.parse(email),
-      imageUrl: JSON.parse(imageUrl),
-    }};
+  name: JSON.parse(name),
+  email: JSON.parse(email),
+  imageUrl: JSON.parse(imageUrl),
+}};
 
 function App() { 
   const navigate = useNavigate()
