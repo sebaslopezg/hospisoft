@@ -9,17 +9,36 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useDialogs } from '@toolpad/core/useDialogs';
+import InfoIcon from '@mui/icons-material/Info';
+import { Dialog, DialogActions, DialogContent } from '@mui/material';
+import { PacientesDetails } from './details';
 
 
 export const PacientesView = () => {
 
+    const [open, setOpen] = useState(false);
+    const [idPaciente, setIdPaciente] = useState('')
+
+  const handleClickOpen = (e) => {
+    setOpen(true);
+    setIdPaciente(e)
+    console.log(e);
+    
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
     const columns = [
         ...data.columns,
         {
+            width: 150,
             field: "actions",
             headerName: "Action",
             renderCell: (params) => {
                 return <>
+                    <IconButton onClick={(e)=> handleClickOpen(params.id)}><InfoIcon /></IconButton>
                     <IconButton href={`/pacientes/edit/${params.id}`}><EditIcon /></IconButton>
                     <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
                 </>
@@ -64,6 +83,12 @@ export const PacientesView = () => {
         } 
     }
 
+    const dialogueDetails = ()=>{
+        return<>
+            
+        </>
+    }
+
     return <>
         <Grid container direction="column" spacing={1}>
         <Grid size={3}>
@@ -87,5 +112,18 @@ export const PacientesView = () => {
             disableRowSelectionOnClick
             />
         </Grid>
+        <Dialog
+            open={open}
+            onClose={handleClose}
+            fullWidth
+            maxWidth='md'
+        >
+            <DialogContent sx={{ overflow: 'visible' }}>
+                <PacientesDetails idPaciente={idPaciente}/>
+            </DialogContent >
+            <DialogActions>
+                <Button onClick={handleClose}>Cerrar</Button>
+            </DialogActions>
+        </Dialog>
     </>;
 }

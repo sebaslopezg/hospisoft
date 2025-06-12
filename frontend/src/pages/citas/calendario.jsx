@@ -15,7 +15,6 @@ import InputLabel from '@mui/material/InputLabel';
 import {FormControl} from '@mui/material'
 
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { useNavigate } from "react-router";
 
 import Stack from '@mui/material/Stack';
 import Tooltip from '@mui/material/Tooltip';

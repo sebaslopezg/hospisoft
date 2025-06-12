@@ -1,10 +1,10 @@
 import { LineChart } from "@mui/x-charts"
-import { rainbowSurgePalette } from "@mui/x-charts"
+import { cheerfulFiestaPalette } from "@mui/x-charts"
 
 export default function LineChartD(){
     return <>
         <LineChart
-        colors={rainbowSurgePalette}
+        colors={cheerfulFiestaPalette}
             xAxis={[{ data: [1, 2, 3, 5, 8, 10] }]}
             series={[
                 {
