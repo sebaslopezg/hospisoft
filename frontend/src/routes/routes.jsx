@@ -61,7 +61,6 @@ import OrdenesLayout from '../pages/ordenes/index.jsx';
 // dispensario
 import DispensarioLayout from '../pages/dispensario/index.jsx';
 import { DispensarioView } from '../pages/dispensario/view.jsx';
-import { DispensarioDespachar } from '../pages/dispensario/despachar.jsx';
 
 const router = createBrowserRouter([
   {
@@ -231,10 +230,6 @@ const router = createBrowserRouter([
               path:'',
               Component: DispensarioView
             },
-            {
-              path:'despachar',
-              Component:DispensarioDespachar
-            }
           ]
           }
         ],

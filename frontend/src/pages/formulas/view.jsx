@@ -86,7 +86,7 @@ export const FormulasView = () => {
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/formulas/create">Nuevo</Button>
+            <Button variant="contained" href="/ordenes/formulas/create">Nuevo</Button>
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}
