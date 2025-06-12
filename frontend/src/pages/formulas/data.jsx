@@ -145,6 +145,31 @@ const deleteOne = (id) => {
   })
 }
 
+const deleteMedicamento = (id) => {
+    return axios({
+      method: 'delete',
+      url: `${Config('urlRoot')}/formula_d/deletebyid/${id}`,
+      responseType: 'json'
+  })
+}
+
+const getOneDetalle = (id) => {
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/formula_d/getbyid/${id}`,
+    responseType: 'json'
+  })
+}
+
+const updateOneDetalle = (id, payload) => {
+  return axios({
+    method: 'put',
+    url: `${Config('urlRoot')}/formula_d/updatebyid/${id}`,
+    data:payload,
+    responseType: 'json'
+  })
+}
+
 export default {
   columns,
   MedicamentosDetails,
@@ -159,4 +184,7 @@ export default {
   setMedicamentos,
   getPacienteByDocument,
   getFormulaDetalle,
+  deleteMedicamento,
+  updateOneDetalle,
+  getOneDetalle
 }

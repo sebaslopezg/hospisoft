@@ -60,7 +60,7 @@ const pacientesSchema = Schema({
     },
     rh:{
         type:String,
-        enum:['Positivo', 'Negativo'],
+        enum:['positivo', 'negativo'],
         required:true
     },
     status:{

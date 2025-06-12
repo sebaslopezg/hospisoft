@@ -86,7 +86,8 @@ const updatebyid = async(req, res)=>{
     let id = req.params.id
 
     let data = {
-        medicamentoId: req.body.medicamentoId,
+        dosificacion: req.body.dosificacion,
+        cantidad: req.body.cantidad,
         descripcion: req.body.descripcion,
     }
 
