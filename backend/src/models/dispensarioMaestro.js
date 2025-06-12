@@ -21,12 +21,6 @@ const dispensarioMaestroSchema = Schema({
         type: String,
         required:false,
     },
-    numeroFormula: {
-        type: Number,
-        required: false,
-        ref:'formulaMaestro',
-        default:0
-    },
     formulaId: {
         type: Schema.Types.ObjectId,
         required: true,
@@ -34,7 +28,7 @@ const dispensarioMaestroSchema = Schema({
     },
     pacienteId: {
         type: Schema.Types.ObjectId,
-        required: true,
+        required: false,
         ref:'pacientes'
     },
     nota: {
