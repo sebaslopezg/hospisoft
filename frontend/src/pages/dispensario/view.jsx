@@ -2,17 +2,29 @@ import {DataGrid} from '@mui/x-data-grid';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { Button, Divider, Stack, TextField, Typography, Accordion, AccordionActions, AccordionSummary, AccordionDetails } from '@mui/material';
+import { Button, Stack, TextField, Checkbox, ListItemText, ListItemIcon, ListItem, ListItemButton, List, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import data from './data'
 import { useEffect, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '@mui/icons-material/Search';
 
-import RefreshIcon from '@mui/icons-material/Refresh';
-import { useDialogs } from '@toolpad/core/useDialogs';
-
 export const DispensarioView = () => {
+    const [checked, setChecked] = useState([0]);
+  
+    const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+  
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+  
+      setChecked(newChecked);
+    };
+
     const notifications = useNotifications();
     const [numeroFormulaValue, setNumeroFormula] = useState('');
     const [formulaFound, setFormulaFound] = useState(false)
@@ -60,6 +72,8 @@ export const DispensarioView = () => {
     
     const handleSearchFormula = () => {
       getRows(numeroFormulaValue)
+      console.log(rows[0].medicamentoId.nombre);
+      
     }
 
     const handleNumeroFormulaValue = (value) =>{
@@ -73,7 +87,6 @@ export const DispensarioView = () => {
     }
 
     return <>
-    <Button href='/dispensario/despachar'>despachar</Button>
        <Stack spacing={2} direction='row' sx={{mb:3}} >
           <TextField
             required 
@@ -90,27 +103,46 @@ export const DispensarioView = () => {
         </Stack>
         {formulaFound 
         ? <>
-        <Grid container direction="column" spacing={1}>
-        <Grid size={3}>
-            <IconButton size="large" onClick={(e) => getRows(numeroFormulaValue)}>
-            <RefreshIcon />
-            </IconButton>
-        </Grid>
-            <DataGrid
-            getRowId={(dataList) => dataList._id}
-            rows={rows}
-            columns={columns}
-            initialState={{
-                pagination: {
-                paginationModel: {
-                    pageSize: 8,
-                },
-                },
-            }}
-            pageSizeOptions={[5]}
-            disableRowSelectionOnClick
-            />
-        </Grid>
+        <Typography variant='h6' sx={{fontWeight:'bold'}}>Medicamentos</Typography>
+    <List sx={{ width: '100%', maxWidth:'50%', bgcolor: 'background.paper' }}>
+      {rows.map((item) => {
+        const labelId = `checkbox-list-label-${item}`;
+
+        return (
+            <Stack
+                direction="row"
+                spacing={2}
+                sx={{
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                }}
+            >
+          <ListItem
+            key={item}
+            secondaryAction={
+                <>
+                </>
+            }
+            disablePadding
+          >
+            <ListItemButton role={undefined} onClick={handleToggle(item)} dense>
+              <ListItemIcon>
+                <Checkbox
+                  edge="start"
+                  checked={checked.includes(item)}
+                  tabIndex={-1}
+                  disableRipple
+                />
+              </ListItemIcon>
+              <ListItemText id={labelId} primary={item.medicamentoId.nombre} />
+            </ListItemButton>
+          </ListItem>
+          <TextField label='disponible' disabled variant='outlined' size='small' type='text' sx={{width:'40%'}} value={item.medicamentoId.existencia} slotProps={{inputLabel:{shrink:'true'}}}></TextField>
+          <TextField label='entregar' variant='outlined' size='small' type='number' sx={{width:'40%'}}></TextField>
+          </Stack>
+        );
+      })}
+    </List>
         </>
         : <>
         </>}

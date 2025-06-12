@@ -202,7 +202,7 @@ export const FormulasCreate = () => {
         {severity: 'error',autoHideDuration: 3000,})
       )
     })
-    .then(navigate('/formulas'))
+    .then(navigate('/ordenes/formulas'))
     .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})
