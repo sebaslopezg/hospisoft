@@ -40,8 +40,7 @@ export const DispensarioView = () => {
 
     const getRows = ()=>{
       const response = data.getFormula(numeroFormulaValue)
-      console.log(rows);
-      
+      console.log(rows);   
       response.then((res) => {
         res.data.data != null ? (
         setRows(res.data.data)) : ''
@@ -51,11 +50,9 @@ export const DispensarioView = () => {
       const handleSearchFormula = () => {
         const response = data.getFormula(numeroFormulaValue)
         response.then((res) => {
-          
         res.data.data != null ? (
         setFormulaFound(true),
         setRows(res.data.data),
-        
         notifications.show(res.data.msg, 
         {severity: 'success',autoHideDuration: 3000,})
         ) : (
@@ -70,7 +67,7 @@ export const DispensarioView = () => {
         }
 
     const handleNumeroFormulaValue = (value) =>{
-    setNumeroFormula(value)
+      setNumeroFormula(value)
     }
 
     const handleEnter = (event)=>{
@@ -80,6 +77,7 @@ export const DispensarioView = () => {
     }
 
     return <>
+    <Button href='/dispensario/despachar'>despachar</Button>
        <Stack spacing={2} direction='row' sx={{mb:3}} >
           <TextField
             required 
@@ -101,7 +99,6 @@ export const DispensarioView = () => {
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/formulas/create">Nuevo</Button>
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}
@@ -119,10 +116,7 @@ export const DispensarioView = () => {
             />
         </Grid>
         </>
-        
         : <>
-        
         </>}
-         
     </>;
 }
