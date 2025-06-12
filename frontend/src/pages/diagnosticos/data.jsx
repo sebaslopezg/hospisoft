@@ -7,12 +7,14 @@ import Config from '../../Config';
     headerName: 'ID del paciente',
     type: 'text',
     width: 200,
+    valueGetter: (row) => {return row.nombre}
   },
   {
     field: 'medicoId',
     headerName: 'ID del médico',
     type: 'text',
     width: 200,
+    valueGetter: (row) => {return row.nombre}
   },
   {
     field: 'descripcion',

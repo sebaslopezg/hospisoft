@@ -5,7 +5,10 @@ import medicos from '../models/users.js'
 
 const getAll = async(req, res)=>{
     try {
-        let dataPayload = await diacnosticos.find({status:{$gt:0}}).exec()
+        let dataPayload = await diacnosticos.find({status:{$gt:0}})
+        .populate('pacienteId', 'nombre')
+        .populate('medicoId', 'nombre')
+        .exec()
         res.status(200).send({
             status:true,
             data:dataPayload
