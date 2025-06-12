@@ -58,8 +58,9 @@ const medicamentoView = () => {
     field: 'imagen',
     headerName: 'Imagen',
     type: 'image',
-    renderCell: (params) => <img width="100%" height="100%" src={params.value}/>,
+    renderCell: (params) => <img width="100%" height="100%" src={`${Config('urlRoot')}/medicamento/image/${params.row.imagen}`}/>,
     width: 200,
+    
   },
   {
     field: 'nombre',
