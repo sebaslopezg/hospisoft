@@ -31,6 +31,7 @@ import PacientesLayout from '../pages/pacientes/index.jsx';
 import { PacientesView } from '../pages/pacientes/view.jsx';
 import { PacientesEdit } from '../pages/pacientes/edit.jsx';
 import { PacientesCreate } from '../pages/pacientes/create.jsx';
+import { PacientesDetails } from '../pages/pacientes/details.jsx';
 
 //formulas
 import FormulasLayout from '../pages/formulas/index.jsx';
@@ -140,6 +141,10 @@ const router = createBrowserRouter([
               {
                 path:'edit/:id',
                 Component: PacientesEdit
+              },
+              {
+                path:'details/:id',
+                Component: PacientesDetails
               },
             ]
           },

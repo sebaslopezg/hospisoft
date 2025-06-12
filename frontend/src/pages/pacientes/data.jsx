@@ -6,19 +6,31 @@ import Config from '../../Config';
     field: 'documento',
     headerName: 'Documento',
     type: 'text',
-    width: 250,
+    width: 150,
   },
   {
     field: 'nombre',
     headerName: 'Nombre',
     type: 'text',
-    width: 350,
+    width: 200,
   },
   {
     field: 'edad',
     headerName: 'Edad',
     type: 'text',
-    width: 100,
+    width: 60,
+  },
+  {
+    field: 'eps',
+    headerName: 'EPS',
+    type: 'text',
+    width: 180,
+  },
+  {
+    field: 'alergias',
+    headerName: 'Alergias',
+    type: 'text',
+    width: 250,
   },
 ];
 
