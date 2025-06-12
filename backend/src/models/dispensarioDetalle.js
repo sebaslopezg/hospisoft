@@ -35,6 +35,10 @@ const dispensarioDetalleSchema = Schema({
         type:Number,
         required:true
     },
+    nota:{
+        type:String,
+        required:false
+    },
     status:{
         type:Number,
         required:false,

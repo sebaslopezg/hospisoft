@@ -1,6 +1,7 @@
 import dispensario from '../models/dispensarioDetalle.js'
-import formulas from '../models/formulaMaestro.js'
-import pacientes from '../models/pacientes.js'
+import formulasDetalle from '../models/formulaDetalle.js'
+import medicamentos from '../models/medicamentos.js'
+import dispensarioMaestro from '../models/dispensarioMaestro.js'
 import  mongoose  from 'mongoose'
 
 const getAll = async(req, res)=>{
@@ -20,36 +21,52 @@ const getAll = async(req, res)=>{
 
 const createOne = async(req, res)=>{
 
-    let idPaciente
-    let paciente
-    let numeroFormula = req.body.numeroFormula
-    let formula
+    let idMaestro
+    let idMedicamento
+    let maestro
+    let medicamento
+    let formulaDetalle
+    let cantidadMedicamentoDisponible = 0
 
     try {
-        idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
-        paciente = await pacientes.findOne({_id: idPaciente, status:{$gt:0}}).exec()
-        formula = await formulas.findOne({numeroFormula: numeroFormula, status:{$gt:0}, pacienteId:idPaciente}).exec()
+        idMaestro = mongoose.Types.ObjectId.createFromHexString(req.body.maestroId)
+        idMedicamento = mongoose.Types.ObjectId.createFromHexString(req.body.medicamentoId)
+        maestro = await dispensarioMaestro.findOne({_id: idMaestro, status:{$gt:0}}).exec()
+        formulaDetalle = await formulasDetalle.findOne({_id: idMedicamento, status:{$gt:0}}).exec()
+        medicamento = await medicamentos.findOne({_id: idMedicamento, status:{$gt:0}}).exec()
+        cantidadMedicamentoDisponible = medicamento.existencia
     } catch (error) {
-        paciente = null
-        formula = null
+        maestro = null
+        medicamento = null
     }
 
     let data = {
-        formulaId: req.body.formulaId,
-        pacienteId: req.body.pacienteId,
-        nota: req.body.nota,
+        maestroId: req.body.maestroId,
+        medicamentoId: req.body.medicamentoId,
+        cantidad: req.body.cantidad,
     }
 
     try {
-        if (paciente && formula) {
-            const newData = new dispensario(data)
-            await newData.save()
+        if (maestro && medicamento) {
 
-            return res.send({
-                status:true,
-                data:newData,
-                msg:"Registro creado"
-            })            
+            if (data.cantidad <= cantidadMedicamentoDisponible) {  
+                let nuevoTotal = (cantidadMedicamentoDisponible - data.cantidad)
+                const newData = new dispensario(data)
+                await newData.save()
+                await medicamentos.findByIdAndUpdate(idMedicamento, {existencia:nuevoTotal}).exec()
+
+                return res.send({
+                    status:true,
+                    data:newData,
+                    msg:"Registro creado"
+                })            
+            }else{
+                return res.send({
+                    status:false,
+                    msg:"No hay suficiente medicamento en existencia"
+                })  
+            }
+
         }else{
             return res.send({
                 status:false,
@@ -70,14 +87,6 @@ const getbyid = async(req, res) =>{
 
     try {
         let query = await dispensario.findOne({_id: id, status:{$gt:0}})
-        .populate({
-            path:'formulaId',
-            select:'numeroFormula nombre medico descripcion'
-        })
-        .populate({
-            path:'pacienteId',
-            select:'documento nombre email direccion telefono'
-        })
         .exec()
         return res.send({
             status:true,
