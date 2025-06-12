@@ -48,7 +48,7 @@ const getByFormulaNumber = async(req, res)=>{
         let query = await formulaDetalle.find({formulaId: idFormula, status:{$gt:0}})
         .populate({
             path:'medicamentoId',
-            select:'nombre'
+            select:'nombre existencia'
         })
         .exec()
         return res.send({
