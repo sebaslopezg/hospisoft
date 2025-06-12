@@ -67,7 +67,10 @@ const Theme = createTheme({
             styleOverrides:{
                 paper:{
                     background: 'linear-gradient(160deg,rgba(69, 187, 237, 1) 0%, rgba(35, 93, 219, 1) 100%) !important',
-                    color: '#fff'      
+                    color: '#fff',
+                    '& .MuiSvgIcon-root': {
+                    color: 'rgb(0, 4, 126)',    
+                    }  
                 }
             }
         },
@@ -164,6 +167,23 @@ const Theme = createTheme({
                 margin:'dense',
             }
         },
+        MuiAccordion:{
+            defaultProps:{
+                disableGutters:'true',
+            },
+            styleOverrides:{
+                paper:{
+                    backgroundColor:'F5F6F9',
+                },
+                root:{
+                    borderRadius: '10px',
+                    marginTop:'3%',
+                    '&:before':{
+                        display:'none'
+                    }
+                }
+            }
+        }
     }, 
 })
 

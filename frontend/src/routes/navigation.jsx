@@ -8,7 +8,6 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import ScienceIcon from '@mui/icons-material/Science';
 import ChecklistIcon from '@mui/icons-material/Checklist';
-import { Children } from 'react';
 
 const NAVIGATION = [
   {
@@ -46,6 +45,7 @@ const NAVIGATION = [
     pattern: 'medicamentos{/:crud}*',
   },
   {
+    segment: 'ordenes',
     title: 'Órdenes',
     icon: <ChecklistIcon/>,
     children:[

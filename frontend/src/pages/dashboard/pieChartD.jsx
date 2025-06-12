@@ -11,17 +11,17 @@ export default function PieChartD(){
     const getData = ()=>{
         const resPacientes = data.getDiagnosticos()
         resPacientes.then((data)=>{
-            setDiagnosticos(parseInt(data.data.count.total))
+            setDiagnosticos(parseInt(data.data.count.active))
         })
 
         const resFormulas = data.getFormulas()
         resFormulas.then((data)=>{
-            setFormulas(parseInt(data.data.count.total))
+            setFormulas(parseInt(data.data.count.active))
         })
 
         const resExamenes = data.getExamenes()
         resExamenes.then((data)=>{          
-            setExamenes(parseInt(data.data.count.total))
+            setExamenes(parseInt(data.data.count.active))
         })
         
         

@@ -13,7 +13,7 @@ import data from './data';
 import { useEffect, useState } from 'react';
 
 export const CustomListItem = ({icon, title, info})=>{
-    return <ListItem alignItems="flex-start">
+    return <ListItem alignItems='center'>
                   <ListItemIcon sx={{mr:-3}}>
                     {icon}
                   </ListItemIcon>
@@ -50,7 +50,7 @@ export const PacientesDetails = ({idPaciente}) => {
     },[])
 
     return <>
-    <Box sx={{ flexGrow: 1, width: '100%' }}>
+    <Box alignContent='center' sx={{ flexGrow: 1, width: '100%' }}>
         <Grid sx={{mb:3}} container justifyContent='center'>
             <Typography variant="h5" component="div" sx={{fontWeight:'bold', mt:3}}>
             Detalles del paciente
