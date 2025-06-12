@@ -23,12 +23,12 @@ export const FormulasView = () => {
             renderCell: (params) => {
                 return <>
                     <Tooltip title="Ver detalles">
-                        <IconButton href={`/formulas/details/${params.id}`}>
+                        <IconButton href={`/ordenes/formulas/details/${params.id}`}>
                             <InfoIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Editar">
-                        <IconButton href={`/formulas/edit/${params.id}`}>
+                        <IconButton href={`/ordenes/formulas/edit/${params.id}`}>
                             <EditIcon />
                         </IconButton>
                     </Tooltip>

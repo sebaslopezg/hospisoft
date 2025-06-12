@@ -31,7 +31,6 @@ import PacientesLayout from '../pages/pacientes/index.jsx';
 import { PacientesView } from '../pages/pacientes/view.jsx';
 import { PacientesEdit } from '../pages/pacientes/edit.jsx';
 import { PacientesCreate } from '../pages/pacientes/create.jsx';
-import { PacientesDetails } from '../pages/pacientes/details.jsx';
 
 //formulas
 import FormulasLayout from '../pages/formulas/index.jsx';
@@ -55,6 +54,13 @@ import { ExamenesCreate } from '../pages/examenes/create.jsx';
 // historia clinica
 import HistoriasLayout from '../pages/historias/index.jsx';
 import { HistoriasView } from '../pages/historias/view.jsx';
+
+// ordenes
+import OrdenesLayout from '../pages/ordenes/index.jsx';
+
+// dispensario
+import DispensarioLayout from '../pages/dispensario/index.jsx';
+import { DispensarioView } from '../pages/dispensario/view.jsx';
 
 const router = createBrowserRouter([
   {
@@ -142,14 +148,10 @@ const router = createBrowserRouter([
                 path:'edit/:id',
                 Component: PacientesEdit
               },
-              {
-                path:'details/:id',
-                Component: PacientesDetails
-              },
             ]
           },
           {
-            path:'formulas',
+            path:'ordenes/formulas',
             Component:FormulasLayout,
             children:[
               {
@@ -171,7 +173,7 @@ const router = createBrowserRouter([
             ]
           },
           {
-            path:'diagnosticos',
+            path:'ordenes/diagnosticos',
             Component:DiagnosticosLayout,
             children:[
               {
@@ -189,7 +191,7 @@ const router = createBrowserRouter([
             ]
           },
           {
-            path:'examenes',
+            path:'ordenes/examenes',
             Component:ExamenesLayout,
             children:[
               {
@@ -216,12 +218,26 @@ const router = createBrowserRouter([
               },
             ]
           },
+          {
+          path:'ordenes',
+          Component:OrdenesLayout
+          },
+          {
+          path:'dispensario',
+          component:DispensarioLayout,
+          children:[
+            {
+              path: '',
+              component: DispensarioView
+            }
+          ]
+          }
         ],
       },
       {
         path:'/login',
         Component:CredentialsSignInPage
-      }
+      },
     ],
   },
 ]);

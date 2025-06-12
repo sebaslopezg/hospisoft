@@ -5,24 +5,24 @@ import data from './data';
 
 export default function CardsInfo(){
 
-    const [pacientes, setPacientes] = useState('')
-    const [formulas, setFormulas] = useState('')
-    const [examenes, setExamenes] = useState('')
+    const [pacientes, setPacientes] = useState(0)
+    const [formulas, setFormulas] = useState(0)
+    const [examenes, setExamenes] = useState(0)
 
     const getData = ()=>{
         const resPacientes = data.getPacientes()
         resPacientes.then((data)=>{
-            setPacientes(data.data.count.total)
+            setPacientes(data.data.count.active)
         })
 
         const resFormulas = data.getFormulas()
         resFormulas.then((data)=>{
-            setFormulas(data.data.count.total)
+            setFormulas(data.data.count.active)
         })
 
         const resExamenes = data.getExamenes()
         resExamenes.then((data)=>{
-            setExamenes(data.data.count.total)
+            setExamenes(data.data.count.active)
         })
     }
 

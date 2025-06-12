@@ -260,7 +260,6 @@ export function Calendario() {
               label="medico"
               name='medicoId'
               onChange={handleChange}
-              
             >
               {
                 medicos ? (
@@ -282,8 +281,9 @@ export function Calendario() {
                   label="Descripcion"
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
+                  sx={{mt:3}}
                 />
-                <Stack spacing={2} direction='row'>
+            <Stack spacing={2} direction='row' sx={{mt:3}}> 
           <TextField
             required 
             name="pacienteId" 

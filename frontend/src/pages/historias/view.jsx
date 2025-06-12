@@ -2,13 +2,14 @@ import {DataGrid} from '@mui/x-data-grid';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { Button, Divider, Stack, TextField, Typography } from '@mui/material';
+import { Button, Divider, Stack, TextField, Typography, Accordion, AccordionActions, AccordionSummary, AccordionDetails } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { useParams } from 'react-router';
 import data from './data'
 import { useEffect, useState } from 'react';
 import Tooltip from '@mui/material/Tooltip';
 import SearchIcon from '@mui/icons-material/Search';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { jsPDF } from 'jspdf'
 import { autoTable } from 'jspdf-autotable';
@@ -95,6 +96,12 @@ export const HistoriasView = () => {
     setdocumentoPaciente(value)
     }
 
+    const handleEnter = (event)=>{
+      if (event.key === 'Enter'){
+        handleSearchPerson()
+      }
+    }
+
 const downloadPdf = () => {
   const doc = new jsPDF();
   var today = new Date();
@@ -171,12 +178,13 @@ const downloadPdf = () => {
   doc.save('historia_clinica.pdf');
 };
     return <>
-      <Stack spacing={2} direction='row'>
+      <Stack spacing={2} direction='row' sx={{mb:3}} >
           <TextField
             required 
             name="pacienteId" 
             label="Documento del paciente" 
             onChange={(e) => handleDocumentoPacienteValue(e.target.value)}
+            onKeyDown={handleEnter}
           />
           <Tooltip title="Buscar Usuario">
             <IconButton onClick={(e) => handleSearchPerson()} aria-label="delete" size="large">
@@ -187,14 +195,22 @@ const downloadPdf = () => {
         </Stack>
         {pacienteFound 
         ? <>
-        <Grid container direction="column" spacing={1} sx={{mt:3, mb:3}}>
+        <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <Typography component='span' variant='h5'>Diagnosticos</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+                  <Grid container direction="column" spacing={1} sx={{mt:3, mb:3}}>
         <Stack direction="row"
             spacing={3}
             sx={{
                 justifyContent: "flex-start",
                 alignItems: "center",
             }}>
-            <Typography variant='h5'>Diagnosticos</Typography>
         </Stack>
             <DataGrid
             getRowId={(dataList) => dataList._id}
@@ -211,17 +227,26 @@ const downloadPdf = () => {
             disableRowSelectionOnClick
             />
         </Grid>
+        </AccordionDetails>
+      </Accordion>
 
-        <Divider/>
-
-        <Grid container direction="column" spacing={1} sx={{mt:3, mb:3}}>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <Typography component='span' variant='h5'>Exámenes</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+                  <Grid container direction="column" spacing={1} sx={{mt:3, mb:3}}>
         <Stack direction="row"
             spacing={3}
             sx={{
                 justifyContent: "flex-start",
                 alignItems: "center",
             }}>
-            <Typography variant='h5'>Exámenes</Typography>
+            
         </Stack>
             <DataGrid
             getRowId={(dataList) => dataList._id}
@@ -238,17 +263,26 @@ const downloadPdf = () => {
             disableRowSelectionOnClick
             />
         </Grid>
+        </AccordionDetails>
+      </Accordion>
 
-        <Divider/>
-        
-        <Grid container direction="column" spacing={1} sx={{mt:3, mb:3}}>
+              <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1-content"
+          id="panel1-header"
+        >
+          <Typography component='span' variant='h5'>Fórmulas</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Grid container direction="column" spacing={1} sx={{mt:3, mb:3}}>
         <Stack direction="row"
             spacing={3}
             sx={{
                 justifyContent: "flex-start",
                 alignItems: "center",
             }}>
-            <Typography variant='h5'>Fórmulas</Typography>
+            
         </Stack>
             <DataGrid
             getRowId={(dataList) => dataList._id}
@@ -265,6 +299,8 @@ const downloadPdf = () => {
             disableRowSelectionOnClick
             />
         </Grid>
+        </AccordionDetails>
+      </Accordion>
         </> 
         
         : <>

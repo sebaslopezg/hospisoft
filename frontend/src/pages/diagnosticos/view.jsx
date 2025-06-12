@@ -20,7 +20,7 @@ export const DiagnosticosView = () => {
             headerName: "Action",
             renderCell: (params) => {
                 return <>
-                    <IconButton href={`/diagnosticos/edit/${params.id}`}><EditIcon /></IconButton>
+                    <IconButton href={`/ordenes/diagnosticos/edit/${params.id}`}><EditIcon /></IconButton>
                     <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
                 </>
             }
