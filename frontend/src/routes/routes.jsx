@@ -58,6 +58,10 @@ import { HistoriasView } from '../pages/historias/view.jsx';
 // ordenes
 import OrdenesLayout from '../pages/ordenes/index.jsx';
 
+// dispensario
+import DispensarioLayout from '../pages/dispensario/index.jsx';
+import { DispensarioView } from '../pages/dispensario/view.jsx';
+
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
@@ -217,7 +221,17 @@ const router = createBrowserRouter([
           {
           path:'ordenes',
           Component:OrdenesLayout
-        }
+          },
+          {
+          path:'dispensario',
+          component:DispensarioLayout,
+          children:[
+            {
+              path: '',
+              component: DispensarioView
+            }
+          ]
+          }
         ],
       },
       {
