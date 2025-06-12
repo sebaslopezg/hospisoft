@@ -16,7 +16,7 @@ const roles = [
     headerName: 'Imagen',
     type: 'image',
     width: 80,
-    renderCell: (params) => <img width="100%" height="100%" src={params.value}/>,
+    renderCell: (params) => <img width="100%" height="100%" src={`${Config('urlRoot')}/users/avatar/${params.row.imagen}`}/>,
   },
   {
     field: 'nombre',
