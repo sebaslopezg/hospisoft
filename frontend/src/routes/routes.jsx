@@ -224,11 +224,11 @@ const router = createBrowserRouter([
           },
           {
           path:'dispensario',
-          component:DispensarioLayout,
+          Component:DispensarioLayout,
           children:[
             {
-              path: '',
-              component: DispensarioView
+              path:'',
+              Component: DispensarioView
             }
           ]
           }
