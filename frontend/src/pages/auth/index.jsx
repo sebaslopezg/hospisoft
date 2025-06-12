@@ -5,6 +5,7 @@ import { createTheme } from '@mui/material/styles';
 import data from './data'
 import Logo from '../../assets/img/logo.png';
 import { useSession } from '@toolpad/core'
+import Config from '../../Config';
 
 const BRANDING = {
   logo: <img src={Logo} alt="MUI logo" height={'100px'} />,
@@ -22,9 +23,11 @@ const signIn = async (provider, formData, callbackUrl) => {
   
   data.login(json)
   .then((response) => {
+    let imagen = response.data.data.imagen
+    let imagenUrl = `${Config('urlRoot')}/users/avatar/${imagen}`
     localStorage.setItem('name', JSON.stringify(response.data.data.nombre))
     localStorage.setItem('email', JSON.stringify(response.data.data.email))
-    localStorage.setItem('imageUrl', JSON.stringify(response.data.data.imagen))
+    localStorage.setItem('imageUrl', JSON.stringify(imagenUrl))
     localStorage.setItem('token',response.data.token)
 
      window.location.href = callbackUrl || '/'
