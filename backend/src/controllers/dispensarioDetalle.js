@@ -1,14 +1,11 @@
-import diacnosticos from './../models/diagnosticos.js'
-import  mongoose  from 'mongoose'
+import dispensario from '../models/dispensarioDetalle.js'
+import formulas from '../models/formulaMaestro.js'
 import pacientes from '../models/pacientes.js'
-import medicos from '../models/users.js'
+import  mongoose  from 'mongoose'
 
 const getAll = async(req, res)=>{
     try {
-        let dataPayload = await diacnosticos.find({status:{$gt:0}})
-        .populate('pacienteId', 'nombre')
-        .populate('medicoId', 'nombre')
-        .exec()
+        let dataPayload = await dispensario.find({status:{$gt:0}}).exec()
         res.status(200).send({
             status:true,
             data:dataPayload
@@ -24,30 +21,28 @@ const getAll = async(req, res)=>{
 const createOne = async(req, res)=>{
 
     let idPaciente
-    let idMedico
     let paciente
-    let medico
+    let numeroFormula = req.body.numeroFormula
+    let formula
 
     try {
         idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
-        idMedico = mongoose.Types.ObjectId.createFromHexString(req.body.medicoId)
         paciente = await pacientes.findOne({_id: idPaciente, status:{$gt:0}}).exec()
-        medico = await medicos.findOne({_id: idMedico, status:{$gt:0}, rol:2}).exec()
+        formula = await formulas.findOne({numeroFormula: numeroFormula, status:{$gt:0}, pacienteId:idPaciente}).exec()
     } catch (error) {
         paciente = null
-        medico = null
+        formula = null
     }
 
     let data = {
+        formulaId: req.body.formulaId,
         pacienteId: req.body.pacienteId,
-        medicoId: req.body.medicoId,
-        descripcion: req.body.descripcion,
-        status: 1,
+        nota: req.body.nota,
     }
 
     try {
-        if (paciente && medico) {
-            const newData = new diacnosticos(data)
+        if (paciente && formula) {
+            const newData = new dispensario(data)
             await newData.save()
 
             return res.send({
@@ -59,7 +54,7 @@ const createOne = async(req, res)=>{
             return res.send({
                 status:false,
                 msg:"Error: Paciente o medico no valido"
-            }) 
+            })
         }
     } catch (error) {
         return res.send({
@@ -74,10 +69,14 @@ const getbyid = async(req, res) =>{
     let id = req.params.id
 
     try {
-        let query = await diacnosticos.findOne({_id: id, status:{$gt:0}})
+        let query = await dispensario.findOne({_id: id, status:{$gt:0}})
         .populate({
-            path:'medicoId',
-            select:'nombre'
+            path:'formulaId',
+            select:'numeroFormula nombre medico descripcion'
+        })
+        .populate({
+            path:'pacienteId',
+            select:'documento nombre email direccion telefono'
         })
         .exec()
         return res.send({
@@ -97,13 +96,11 @@ const updatebyid = async(req, res)=>{
     let id = req.params.id
 
     let data = {
-        pacienteId: req.body.pacienteId,
-        medicoId: req.body.medicoId,
-        descripcion: req.body.descripcion,
+        nota: req.body.nota,
     }
 
     try {
-        let query = await diacnosticos.findByIdAndUpdate(id, data).exec()
+        let query = await dispensario.findByIdAndUpdate(id, data).exec()
         return res.send({
             status:true,
             msg:"Se ha actualizado la nota de manera exitosa",
@@ -122,7 +119,7 @@ const deletebyid = async(req, res)=>{
     let id = req.params.id
 
     try {
-        let query = await diacnosticos.findByIdAndUpdate(id, {status:0}).exec()
+        let query = await dispensario.findByIdAndUpdate(id, {status:0}).exec()
         return res.send({
             status:true,
             msg:"Eliminación exitosa",
@@ -136,7 +133,7 @@ const deletebyid = async(req, res)=>{
     }
 }
 
-export {
+export{
     getAll,
     createOne,
     getbyid,

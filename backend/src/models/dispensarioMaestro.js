@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const dispensarioSchema = Schema({
+const dispensarioMaestroSchema = Schema({
     timestamps: {
         createdAt: {
             required:false,
@@ -42,16 +42,26 @@ const dispensarioSchema = Schema({
         required: false,
         default:''
     },
+    totalUnidades:{
+        type: Number,
+        required: false,
+        default:0
+    },
+    totalMedicamentos:{
+        type: Number,
+        required: false,
+        default:0
+    },
     status:{
         type:Number,
         required:false,
         default:1,
     }
 },
-{Collection:"dispensarioSchema"}
+{Collection:"dispensarioMaestroSchema"}
 )
 
-const model = mongoose.model("dispensarioSchema", dispensarioSchema)
+const model = mongoose.model("dispensarioMaestroSchema", dispensarioMaestroSchema)
 
 export const schema = model.schema;
 export default model;

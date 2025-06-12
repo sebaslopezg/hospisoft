@@ -4,15 +4,17 @@ import Config from '../../Config';
   const columns = [
   {
     field: 'pacienteId',
-    headerName: 'ID del paciente',
+    headerName: 'Paciente',
     type: 'text',
     width: 200,
+    valueGetter: (row) => {return row.nombre}
   },
   {
     field: 'medicoId',
-    headerName: 'ID del médico',
+    headerName: 'Médico',
     type: 'text',
     width: 200,
+    valueGetter: (row) => {return row.nombre}
   },
   {
     field: 'descripcion',
