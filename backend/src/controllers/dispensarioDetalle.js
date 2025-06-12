@@ -20,28 +20,29 @@ const getAll = async(req, res)=>{
 
 const createOne = async(req, res)=>{
 
-    let idPaciente
-    let paciente
-    let numeroFormula = req.body.numeroFormula
-    let formula
+    let idMaestro
+    let idMedicamento
+    let maestro
+    let medicamento
 
     try {
-        idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
-        paciente = await pacientes.findOne({_id: idPaciente, status:{$gt:0}}).exec()
-        formula = await formulas.findOne({numeroFormula: numeroFormula, status:{$gt:0}, pacienteId:idPaciente}).exec()
+        idMaestro = mongoose.Types.ObjectId.createFromHexString(req.body.maestroId)
+        idMedicamento = mongoose.Types.ObjectId.createFromHexString(req.body.medicamentoId)
+        maestro = await pacientes.findOne({_id: idMaestro, status:{$gt:0}}).exec()
+        medicamento = await formulas.findOne({_id: idMedicamento, status:{$gt:0}}).exec()
     } catch (error) {
-        paciente = null
-        formula = null
+        maestro = null
+        medicamento = null
     }
 
     let data = {
-        formulaId: req.body.formulaId,
-        pacienteId: req.body.pacienteId,
-        nota: req.body.nota,
+        maestroId: req.body.maestroId,
+        medicamentoId: req.body.medicamentoId,
+        cantidad: req.body.cantidad,
     }
 
     try {
-        if (paciente && formula) {
+        if (maestro && medicamento) {
             const newData = new dispensario(data)
             await newData.save()
 
@@ -70,14 +71,6 @@ const getbyid = async(req, res) =>{
 
     try {
         let query = await dispensario.findOne({_id: id, status:{$gt:0}})
-        .populate({
-            path:'formulaId',
-            select:'numeroFormula nombre medico descripcion'
-        })
-        .populate({
-            path:'pacienteId',
-            select:'documento nombre email direccion telefono'
-        })
         .exec()
         return res.send({
             status:true,

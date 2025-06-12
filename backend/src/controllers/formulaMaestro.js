@@ -113,6 +113,33 @@ const getbyid = async(req, res) =>{
     }
 }
 
+const getbyFormulaNumber = async(req, res) =>{
+
+    let numero = req.params.numero
+
+    try {
+        let query = await formulaMaestro.findOne({numeroFormula: numero, status:{$gt:0}})
+        .populate({
+            path:'pacienteId',
+        })
+        .populate({
+            path:'medico',
+            select:'nombre'
+        })
+        .exec()
+        return res.send({
+            status:true,
+            msg:"Consulta exitosa",
+            data:query
+        })
+    } catch (error) {
+        return res.send({
+            status:false,
+            msg:`Ha ocurrido un error en la consulta: ${error}`
+        }) 
+    }
+}
+
 const updatebyid = async(req, res)=>{
     let id = req.params.id
 
@@ -164,4 +191,5 @@ export {
     updatebyid,
     deletebyid,
     getMedicos,
+    getbyFormulaNumber,
 }
