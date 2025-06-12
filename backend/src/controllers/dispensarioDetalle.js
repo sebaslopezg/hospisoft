@@ -1,6 +1,7 @@
 import dispensario from '../models/dispensarioDetalle.js'
-import formulas from '../models/formulaMaestro.js'
-import pacientes from '../models/pacientes.js'
+import formulasDetalle from '../models/formulaDetalle.js'
+import medicamentos from '../models/medicamentos.js'
+import dispensarioMaestro from '../models/dispensarioMaestro.js'
 import  mongoose  from 'mongoose'
 
 const getAll = async(req, res)=>{
@@ -24,12 +25,16 @@ const createOne = async(req, res)=>{
     let idMedicamento
     let maestro
     let medicamento
+    let formulaDetalle
+    let cantidadMedicamentoDisponible = 0
 
     try {
         idMaestro = mongoose.Types.ObjectId.createFromHexString(req.body.maestroId)
         idMedicamento = mongoose.Types.ObjectId.createFromHexString(req.body.medicamentoId)
-        maestro = await pacientes.findOne({_id: idMaestro, status:{$gt:0}}).exec()
-        medicamento = await formulas.findOne({_id: idMedicamento, status:{$gt:0}}).exec()
+        maestro = await dispensarioMaestro.findOne({_id: idMaestro, status:{$gt:0}}).exec()
+        formulaDetalle = await formulasDetalle.findOne({_id: idMedicamento, status:{$gt:0}}).exec()
+        medicamento = await medicamentos.findOne({_id: idMedicamento, status:{$gt:0}}).exec()
+        cantidadMedicamentoDisponible = medicamento.existencia
     } catch (error) {
         maestro = null
         medicamento = null
@@ -43,14 +48,25 @@ const createOne = async(req, res)=>{
 
     try {
         if (maestro && medicamento) {
-            const newData = new dispensario(data)
-            await newData.save()
 
-            return res.send({
-                status:true,
-                data:newData,
-                msg:"Registro creado"
-            })            
+            if (data.cantidad <= cantidadMedicamentoDisponible) {  
+                let nuevoTotal = (cantidadMedicamentoDisponible - data.cantidad)
+                const newData = new dispensario(data)
+                await newData.save()
+                await medicamentos.findByIdAndUpdate(idMedicamento, {existencia:nuevoTotal}).exec()
+
+                return res.send({
+                    status:true,
+                    data:newData,
+                    msg:"Registro creado"
+                })            
+            }else{
+                return res.send({
+                    status:false,
+                    msg:"No hay suficiente medicamento en existencia"
+                })  
+            }
+
         }else{
             return res.send({
                 status:false,
