@@ -42,7 +42,7 @@ export const UsuariosEdit = () => {
         ) : ''      
     },[dataUser])
 
-    const setSubmit = (e) => {
+    const setSubmit = async(e) => {
         e.preventDefault()
         let fields = e.target
     
@@ -55,9 +55,12 @@ export const UsuariosEdit = () => {
             direccion: fields.direccion.value,
             rol: fields.rol.value,
         }
+
+        let formImage = new FormData()
+        formImage.append('file0', fields.file0.files[0])
+        formImage.append('id', params.id)
     
-        const response = data.updateOne(params.id, payload)
-        response
+        await data.updateOne(params.id, payload)
         .then((res) => {
             res.data.status ? (
             notifications.show(res.data.msg, 
@@ -71,6 +74,23 @@ export const UsuariosEdit = () => {
         .catch((err) =>{
             notifications.show('Error de conexión: ' + err.message, 
             {severity: 'error',autoHideDuration: 3000,})
+        })
+
+
+        await data.createOneImage(formImage)
+        .then((res) => {
+            res.data.status ? (
+            notifications.show(res.data.msg, 
+              {severity: 'success',autoHideDuration: 3000,})
+            ) : (
+              notifications.show(res.data.msg, 
+              {severity: 'error',autoHideDuration: 3000,})
+            )
+        })
+        .then(navigate('/usuarios'))
+        .catch((err) =>{
+        notifications.show('Error de conexión: ' + err.message, 
+      {severity: 'error',autoHideDuration: 3000,})
         })
     }
 

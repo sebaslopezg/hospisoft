@@ -11,92 +11,29 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import TocIcon from '@mui/icons-material/Toc';
+import * as menus from './authRoutes.jsx'
 
-const NAVIGATION = [
-  {
-    title: 'Dashboard',
-    icon: <DashboardIcon />,
-  },
-/*   {
-    segment: 'notes',
-    title: 'Noticas',
-    icon: <EditNoteIcon />,
-    pattern: 'notes{/:noteId}*',
-  }, */
-  {
-    segment: 'usuarios',
-    title: 'Usuarios',
-    icon: <GroupIcon />,
-    pattern: 'usuarios{/:crud}*',
-  },
-  {
-    segment: 'pacientes',
-    title: 'Pacientes',
-    icon: <Diversity3Icon/>,
-    pattern: 'Pacientes{/:crud}*',
-  },
-  {
-    segment: 'citas',
-    title: 'Citas',
-    icon: <EventAvailableIcon />,
-    pattern: 'citas{/:crud}*',
-  },
-  {
-    segment: 'medicamentos',
-    title: 'Medicamentos',
-    icon: <MedicationIcon />,
-    pattern: 'medicamentos{/:crud}*',
-  },
-  {
-    segment: 'ordenes',
-    title: 'Órdenes',
-    icon: <ChecklistIcon/>,
-    children:[
-      {
-        segment: 'formulas',
-        title: 'Formulas',
-        icon: <DescriptionIcon />,
-        pattern: 'formulas{/:crud}*',
-      },
-      {
-        segment: 'diagnosticos',
-        title: 'Diagnosticos',
-        icon: <TroubleshootIcon />,
-        pattern: 'diagnosticos{/:crud}*',
-      },
-      {
-        segment: 'examenes',
-        title: 'Exámenes',
-        icon: <ScienceIcon />,
-        pattern: 'examenes{/:crud}*',
-      },
-    ]
-  },
-  {
-    segment: 'dispensario',
-    title: 'Dispensario',
-    icon: <MedicalInformationIcon />,
-    children:[
-      {
-        segment: 'despachar',
-        title: 'Despachar',
-        icon: <AssignmentTurnedInIcon/>,
-        pattern: 'dispensario{/:crud}*'
-      },
-      {
-        segment: 'ver',
-        title: 'Ver reportes',
-        icon: <TocIcon/>,
-        pattern: 'dispensario{/:crud}*'
-      }
-    ]
-  },
-  {
-    segment: 'historias',
-    title: 'Historia clínica',
-    icon: <ContentPasteSearchIcon />,
-    pattern: 'historias{/:crud}*',
-  },
-]; 
+const rol = localStorage.getItem('rol')
+let menu
+switch (rol) {
+  case '1':
+    menu = menus.admin
+    break;
+  case '2':
+    menu = menus.medico
+    break;
+  case '3':
+    menu = menus.secretario
+    break;
+  case '4':
+    menu = menus.visitante
+    break;
+
+  default:
+    menu = menus.visitante
+    break;
+}
+
+const NAVIGATION = menu
 
 export default NAVIGATION

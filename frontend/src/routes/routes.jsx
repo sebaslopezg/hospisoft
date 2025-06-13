@@ -63,13 +63,18 @@ import DispensarioLayout from '../pages/dispensario/index.jsx';
 import { DispensarioView } from '../pages/dispensario/view.jsx';
 import { DispensarioDespachar } from '../pages/dispensario/despachar.jsx';
 
+  const token = localStorage.getItem('token')
+  let componentRenderer 
+  token ? componentRenderer = Layout : componentRenderer = CredentialsSignInPage
+  //CredentialsSignInPage
+
 const router = createBrowserRouter([
   {
     Component: App, // root layout route
     children: [
       {
         path: '/',
-        Component: Layout,
+        Component: componentRenderer,
         children: [
           {
             path: '',

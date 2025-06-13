@@ -12,11 +12,12 @@ const BRANDING = {
 const name = localStorage.getItem('name')
 const email = localStorage.getItem('email')
 const imageUrl = localStorage.getItem('imageUrl')
+
 const sessionData = {
   user: {
   name: JSON.parse(name),
   email: JSON.parse(email),
-  imageUrl: JSON.parse(imageUrl),
+  image: JSON.parse(imageUrl),
 }
 };
 

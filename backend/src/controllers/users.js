@@ -134,8 +134,8 @@ const uploadImage = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
-        estado: false,
-        mensaje: "No se ha subido ninguna imagen",
+        status: false,
+        msg: "No se ha subido ninguna imagen",
       })
     } 
 
@@ -147,8 +147,8 @@ const uploadImage = async (req, res) => {
     if (!validExtensions.includes(extension)) {
       await fs.promises.unlink(filePath)
       return res.status(400).json({
-        estado: false,
-        mensaje: "Extensión de archivo no permitida",
+        status: false,
+        msg: "Extensión de archivo no permitida",
       })
     }
 
@@ -157,15 +157,16 @@ const uploadImage = async (req, res) => {
     });
 
     return res.status(200).json({
-      estado: true,
+      status: true,
       user: updatedUser,
+      msg:'Imagen actualizada de manera exitosa'
       //file: req.file,
     });
 
   }catch (error) {
       return res.status(500).json({
-      estado: false,
-      nensaje: "Error al procesar la imagen",
+      status: false,
+      msg: "Error al procesar la imagen",
       error: error.message,
     });
   }

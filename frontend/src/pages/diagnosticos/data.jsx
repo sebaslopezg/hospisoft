@@ -25,32 +25,44 @@ import Config from '../../Config';
 ];
 
 const getAll = () => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/diagnosticos/getall`,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/diagnosticos/getall`,
+    responseType: 'json'
+  })
 }
 
 const getOne = (id) => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/diagnosticos/getbyid/${id}`,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/diagnosticos/getbyid/${id}`,
+    responseType: 'json'
+  })
 }
 
 const createOne = (payload) => {
-    return axios({
-      method: 'post',
-      url: `${Config('urlRoot')}/diagnosticos/create`,
-      data: payload,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'post',
+    url: `${Config('urlRoot')}/diagnosticos/create`,
+    data: payload,
+    responseType: 'json'
+  })
 }
 
 const updateOne = (id, payload) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'put',
     url: `${Config('urlRoot')}/diagnosticos/updatebyid/${id}`,
     data: payload,
@@ -60,6 +72,9 @@ const updateOne = (id, payload) => {
 
 const deleteOne = (id) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'delete',
     url: `${Config('urlRoot')}/diagnosticos/deletebyid/${id}`,
     responseType: 'json'
@@ -68,6 +83,9 @@ const deleteOne = (id) => {
 
 const getMedicos = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/users/getmedicos`,
     responseType: 'json'
@@ -76,9 +94,12 @@ const getMedicos = () => {
 
 const getPacienteByDocument = (document) => {
   return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
+    responseType: 'json'
   })
 }
 
