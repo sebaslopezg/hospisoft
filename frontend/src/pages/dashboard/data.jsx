@@ -3,6 +3,9 @@ import Config from '../../Config';
 
 const getPacientes = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
       method: 'get',
       url: `${Config('urlRoot')}/metrics/getpacientes`,
       responseType: 'json'
@@ -11,6 +14,9 @@ const getPacientes = () => {
 
 const getFormulas = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
       method: 'get',
       url: `${Config('urlRoot')}/metrics/getformulas`,
       responseType: 'json'
@@ -19,6 +25,9 @@ const getFormulas = () => {
 
 const getExamenes = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
       method: 'get',
       url: `${Config('urlRoot')}/metrics/getexamenes`,
       responseType: 'json'
@@ -27,6 +36,9 @@ const getExamenes = () => {
 
 const getDiagnosticos = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
       method: 'get',
       url: `${Config('urlRoot')}/metrics/getdiagnosticos`,
       responseType: 'json'
@@ -35,6 +47,9 @@ const getDiagnosticos = () => {
 
 const getDispensario = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
       method: 'get',
       url: `${Config('urlRoot')}/metrics/getdispensario`,
       responseType: 'json'

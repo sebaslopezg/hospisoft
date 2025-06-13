@@ -4,15 +4,16 @@ import data from "./data"
 import { useEffect, useState } from "react"
 
 export default function BarChartD(){
-  const [dispensario, setDispensario] = useState([])
-  const [formula, setFormula] = useState([])
+  const [entregado, setEntregado] = useState(0)
+  const [formulado, setFormulado] = useState(0)
+  const [dispensario, setDispensario] = useState(0)
       const getData = ()=>{
           const resPacientes = data.getDispensario()
           resPacientes.then((data)=>{
-            console.log(data);
-            
-              setDispensario(parseInt(data.data.count.totalEntregado.cantidad))
-              setFormula(parseInt(data.data.count.totalFormulado.cantidad))
+            console.log(data);  
+              setEntregado(parseInt(data.data.count.totalEntregado[0].cantidad))
+              setFormulado(parseInt(data.data.count.totalFormulado[0].cantidad))
+              setDispensario(parseInt(data.data.count.maestro))
           })
       }
       useEffect(()=>{
@@ -22,11 +23,10 @@ export default function BarChartD(){
         <BarChart
         colors={cheerfulFiestaPalette}
       series={[
-        { data: dispensario },
-        { data: formula },
+        { data: [formulado, entregado, dispensario] },
       ]}
       height={290}
-      xAxis={[{ data: ['Q1', 'Q2', 'Q3', 'Q4'] }]}
+      xAxis={[{ data: ['Medicamentos formulados', 'Medicamentos entregados', 'formulas despachadas'] }]}
     />
     </>
 }
