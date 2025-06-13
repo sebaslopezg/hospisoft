@@ -7,5 +7,6 @@ router.get("/metrics/getformulas", metrics.getFormulas)
 router.get("/metrics/getpacientes", metrics.getPacientes)
 router.get("/metrics/getdiagnosticos", metrics.getDiagnosticos)
 router.get("/metrics/getexamenes", metrics.getExamenes)
+router.get("/metrics/getdispensario", metrics.getDispensario)
 
 export default router

@@ -24,7 +24,7 @@ export const UsuariosCreate = () => {
     };
 
 
-    const setSubmit = (e) => {
+    const setSubmit = async(e) => {
         e.preventDefault()
         let fields = e.target
 
@@ -38,16 +38,13 @@ export const UsuariosCreate = () => {
           rol: fields.rol.value,
         }
 
-        const imagePayload = {
-          file0: fields.file0.value,
-          id: fields.id.value
-        }
+        var idImageUser
 
-        const response = data.createOne(payload)
-        response
+        await data.createOne(payload)
         .then((res) => {
           console.log(res.data.data._id);
             setIdPost(res.data.data._id)
+            idImageUser = res.data.data._id
             res.data.status ? (
             notifications.show(res.data.msg, 
               {severity: 'success',autoHideDuration: 3000,})
@@ -61,9 +58,13 @@ export const UsuariosCreate = () => {
         notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})
         })
+        console.log(idPost);
+        
+        let formImage = new FormData()
+        formImage.append('file0', fields.file0.files[0])
+        formImage.append('id', idImageUser)
 
-        const responseImg = data.createOneImage(imagePayload)
-        responseImg
+        await data.createOneImage(formImage)
         .then((res) => {
             res.data.status ? (
             notifications.show(res.data.msg, 

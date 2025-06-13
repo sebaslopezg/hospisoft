@@ -34,8 +34,6 @@ switch (rol) {
     break;
 }
 
-console.log(menu)
-
 const NAVIGATION = menu
 
 export default NAVIGATION

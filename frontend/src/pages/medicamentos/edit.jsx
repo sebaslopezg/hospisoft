@@ -46,6 +46,29 @@ export const MedicamentosEdit = () => {
     descripcion: value.descripcion.value,
     existencia: value.existencia.value,
   }
+
+  let formImage = new FormData()
+  formImage.append('file0', value.file0.files[0])
+  formImage.append('id', params.id)
+
+  await axios.post(`${Config('urlRoot')}/medicamento/uploadimage`,formImage)
+  .then((res) =>{
+    console.log(res)
+    res.data.status ? (
+      notifications.show(res.data.msg, 
+        {severity: 'success',autoHideDuration: 3000,})
+      ) : (
+        notifications.show(res.data.msg, 
+        {severity: 'error',autoHideDuration: 3000,})
+      )
+  })
+  .then(navigate('/medicamentos'))
+  .catch((err) =>{
+    notifications.show('Error de conexión: ' + err.message, 
+      {severity: 'error',autoHideDuration: 3000,})
+  })
+
+
   await axios.put(`${Config('urlRoot')}/medicamento/updatebyid/${params.id}`,formData)
   .then((res) =>{
     console.log(res)

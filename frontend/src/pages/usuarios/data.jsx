@@ -48,7 +48,6 @@ const roles = [
     type: 'text',
     width: 200,
     renderCell: (params) => {
-      console.log(params.row)
       return <>
         <Chip label={roles[params.row.rol].name} color={roles[params.row.rol].color} variant='filled' />
       </>
@@ -99,12 +98,13 @@ const deleteOne = (id) => {
 }
 
 const createOneImage = (payload) => {
-  return axios({
+  return axios.post(`${Config('urlRoot')}/users/uploadimage`, payload)
+/*   return axios({
     method: 'post',
     url: `${Config('urlRoot')}/users/uploadimage`,
     data: payload,
     responseType: 'json'
-  })
+  }) */
 }
 
 export default {
