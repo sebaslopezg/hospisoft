@@ -44,6 +44,7 @@ const createOne = async(req, res)=>{
         maestroId: req.body.maestroId,
         medicamentoId: req.body.medicamentoId,
         cantidad: req.body.cantidad,
+        nota: req.body.nota,
     }
 
     try {
