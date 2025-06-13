@@ -32,13 +32,15 @@ export const DispensarioDespachar = () => {
     const [formulaId, setFormulaId] = useState('')
     const [entregarValue, setEntregarValue] = useState([])
     const [notaValue, setNotaValue] = useState([])
+    const [medicamentosFound, setMedicamentosFound] = useState([])
 
   const handlerSetEntregarValue = (value, slot) => {
     let currentValue = [...entregarValue]
     let currentErrors = [...inputErrors]
     let validCantidad = 0
     let requiredCantidad = 0
-    console.log(rows);
+
+    
 
     if(formulaFound ){
       if(rows[slot] != undefined){
@@ -47,7 +49,7 @@ export const DispensarioDespachar = () => {
       }
       
     if(validCantidad >= value){
-      if(requiredCantidad <= value){
+      if(value <= requiredCantidad){
         currentErrors[slot] = false
       } else {
         currentErrors[slot] = true;
@@ -60,9 +62,9 @@ export const DispensarioDespachar = () => {
       {severity: 'error',autoHideDuration: 3000,}) 
     }
     setInputErrors(currentErrors);
+    }
     currentValue[slot] = value
     setEntregarValue(currentValue) 
-    }
   }
 
     const handlerSetNotaValue = (value, slot) => {
@@ -88,17 +90,29 @@ export const DispensarioDespachar = () => {
         }
       }
     ]
-
+    const findMedicamentos = (data)=>{
+      if (rows.length === 0) {
+        
+      } else{
+        
+      }
+    }
     const getRows = async(numeroFormula) => {
       await data.getFormula(numeroFormula)
       .then((res) => {
       const data = res.data.data
       data != null ? (
-      setFormulaFound(true),
-      setRows(res.data.data),
-      setFormulaId(res.data.data[0].formulaId),
-      notifications.show(res.data.msg, 
-      {severity: 'success',autoHideDuration: 3000,})
+        data != 0 ? (
+          setFormulaId(data[0].formulaId),
+          setFormulaFound(true),
+          findMedicamentos(data),
+          setRows(data),
+          notifications.show(res.data.msg, 
+          {severity: 'success',autoHideDuration: 3000,})
+        ) : (
+          notifications.show('Error: La formula no contiene medicamentos', 
+          {severity: 'error',autoHideDuration: 3000,})
+        )
       ) : (
       notifications.show('Formula no encontrada', 
       {severity: 'error',autoHideDuration: 3000,})
@@ -111,6 +125,8 @@ export const DispensarioDespachar = () => {
     }
     
     const handleSearchFormula = () => {
+      
+      totales()
       getRows(numeroFormulaValue)
     }
 
@@ -124,15 +140,25 @@ export const DispensarioDespachar = () => {
       }
     }
 
+    const totales = ()=>{
+      let totalEntregar = 0
+      for (let i = 0; i < entregarValue.length; i++) {
+        totalEntregar += parseInt(entregarValue[i])
+      }
+      console.log(checked.length);
+      console.log(totalEntregar);
+      
+      
+    }
+
     const setSubmit = (e)=>{
       
-      
       e.preventDefault()
-      let fields = e.target
-
       const payload = {
       formulaId: formulaId,
       nota: notaValue[0],
+      totalUnidades: totalUnidades,
+      totalMedicamentos: totalEntregar,
       }
 
     const response = data.createOne(payload)
@@ -157,12 +183,11 @@ export const DispensarioDespachar = () => {
     const saveMedicamentos = (id) => {
     let responseStatus = false
     checked.forEach((item, index) => {
-      console.log(item);
-      
     const payload = {
       maestroId: id,
       medicamentoId: item.medicamentoId._id,
-      cantidad: entregarValue[index]
+      cantidad: entregarValue[index],
+      nota: notaValue[index],
     };
       const response = data.createDispensarioDetalle(payload)
       response.then((res) =>{
@@ -273,12 +298,13 @@ export const DispensarioDespachar = () => {
           variant='outlined' 
           size='small' 
           type='number' 
+          defaultValue={0}
           sx={{width:'40%'}}
           value={entregarValue[index]}
           onChange={(e)=>handlerSetEntregarValue(e.target.value, index)}
           inputProps={{
-            min:0,
-            max: item.medicamentoId.existencia && item.cantidad
+            min:1,
+            max: item.medicamentoId.existencia || item.cantidad
           }}
           disabled={!checked.includes(item)}
           slotProps={{

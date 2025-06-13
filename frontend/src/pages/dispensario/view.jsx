@@ -21,8 +21,6 @@ export const DispensarioView = () => {
         const response = data.getAll()
         response.then((data) => {
             setRows(data.data.data)
-            console.log(data.data.data);
-            
         })
     }
 

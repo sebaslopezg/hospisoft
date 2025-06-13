@@ -33,9 +33,18 @@ const getDiagnosticos = () => {
   })
 }
 
+const getDispensario = () => {
+  return axios({
+      method: 'get',
+      url: `${Config('urlRoot')}/metrics/getdispensario`,
+      responseType: 'json'
+  })
+}
+
 export default {
     getPacientes,
     getFormulas,
     getExamenes,
     getDiagnosticos,
+    getDispensario,
 }
