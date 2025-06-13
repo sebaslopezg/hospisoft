@@ -3,23 +3,29 @@ import Config from "../../Config";
 
   const columns = [
   {
-    field: 'medicamentoId',
-    headerName: 'Medicamento',
+    field: '_id',
+    headerName: 'ID',
     type: 'text',
-    width: 250,
-    valueGetter: (row) => {return row.nombre}
+    width: 150,
   },
   {
-    field: 'dosificacion',
-    headerName: 'Dosificacion',
+    field: 'formulaId',
+    headerName: 'Numero formula',
     type: 'text',
-    width: 250,
+    width: 200,
+    valueGetter: (row) => {return row.numeroFormula}
   },
   {
-    field: 'cantidad',
-    headerName: 'Cantidad',
+    field: 'nota',
+    headerName: 'Nota',
     type: 'text',
-    width: 250,
+    width: 500,
+  },
+  {
+    field: 'totalMedicamentos',
+    headerName: 'Total medicamentos',
+    type: 'text',
+    width: 200,
   },
 ];
 
@@ -31,7 +37,36 @@ const getFormula = (numero) => {
     })
 }
 
+const createOne = (payload)=>{
+  return axios({
+    method: 'post',
+    url: `${Config('urlRoot')}/dispensario_m/create`,
+    data: payload,
+    responseType: 'json'
+  })
+}
+
+const createDispensarioDetalle = (payload)=>{
+  return axios({
+    method: 'post',
+    url: `${Config('urlRoot')}/dispensario_d/create`,
+    data: payload,
+    responseType: 'json'
+  })
+}
+
+const getAll = ()=>{
+  return axios({
+    method: 'get',
+    url: `${Config('urlRoot')}/dispensario_m/getall`,
+    responseType: 'json'
+  })
+}
+
 export default {
   columns,
-  getFormula
+  getFormula,
+  createOne,
+  createDispensarioDetalle,
+  getAll
 }

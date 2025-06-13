@@ -9,6 +9,8 @@ import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
 import ScienceIcon from '@mui/icons-material/Science';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import TocIcon from '@mui/icons-material/Toc';
 
 const NAVIGATION = [
   {
@@ -74,7 +76,20 @@ const NAVIGATION = [
     segment: 'dispensario',
     title: 'Dispensario',
     icon: <MedicalInformationIcon />,
-    pattern: 'dispensario{/:crud}*',
+    children:[
+      {
+        segment: 'despachar',
+        title: 'Despachar',
+        icon: <AssignmentTurnedInIcon/>,
+        pattern: 'dispensario{/:crud}*'
+      },
+      {
+        segment: 'ver',
+        title: 'Ver reportes',
+        icon: <TocIcon/>,
+        pattern: 'dispensario{/:crud}*'
+      }
+    ]
   },
   {
     segment: 'historias',
