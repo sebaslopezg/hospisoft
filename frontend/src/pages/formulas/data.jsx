@@ -56,22 +56,31 @@ const MedicamentosDetails = [
 
 const getAll = () => {
   return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/formula_m/getall`,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/formula_m/getall`,
+    responseType: 'json'
   })
 }
 
 const getPacienteByDocument = (document) => {
   return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
+    responseType: 'json'
   })
 }
 
 const getMedicos = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/formula_m/getmedicos`,
     responseType: 'json'
@@ -80,6 +89,9 @@ const getMedicos = () => {
 
 const getMedicamentos = () => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/medicamento/getlist`,
     responseType: 'json'
@@ -88,6 +100,9 @@ const getMedicamentos = () => {
 
 const setMedicamentos = (id) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/formula_m/setmedicamento/${id}`,
     responseType: 'json'
@@ -96,6 +111,9 @@ const setMedicamentos = (id) => {
 
 const getOne = (id) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/formula_m/getbyid/${id}`,
     responseType: 'json'
@@ -104,24 +122,33 @@ const getOne = (id) => {
 
 const createOne = (payload) => {
   return axios({
-      method: 'post',
-      url: `${Config('urlRoot')}/formula_m/create`,
-      data: payload,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'post',
+    url: `${Config('urlRoot')}/formula_m/create`,
+    data: payload,
+    responseType: 'json'
   })
 }
 
 const createFormulaDetalle = (payload) => {
   return axios({
-      method: 'post',
-      url: `${Config('urlRoot')}/formula_d/create`,
-      data: payload,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'post',
+    url: `${Config('urlRoot')}/formula_d/create`,
+    data: payload,
+    responseType: 'json'
   })
 }
 
 const getFormulaDetalle = (id) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/formula_d/getByFormula/${id}`,
     responseType: 'json'
@@ -130,31 +157,43 @@ const getFormulaDetalle = (id) => {
 
 const updateOne = (id, payload) => {
   return axios({
-      method: 'put',
-      url: `${Config('urlRoot')}/formula_m/updatebyid/${id}`,
-      data: payload,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'put',
+    url: `${Config('urlRoot')}/formula_m/updatebyid/${id}`,
+    data: payload,
+    responseType: 'json'
   })
 }
 
 const deleteOne = (id) => {
   return axios({
-      method: 'delete',
-      url: `${Config('urlRoot')}/formula_m/deletebyid/${id}`,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'delete',
+    url: `${Config('urlRoot')}/formula_m/deletebyid/${id}`,
+    responseType: 'json'
   })
 }
 
 const deleteMedicamento = (id) => {
-    return axios({
-      method: 'delete',
-      url: `${Config('urlRoot')}/formula_d/deletebyid/${id}`,
-      responseType: 'json'
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'delete',
+    url: `${Config('urlRoot')}/formula_d/deletebyid/${id}`,
+    responseType: 'json'
   })
 }
 
 const getOneDetalle = (id) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/formula_d/getbyid/${id}`,
     responseType: 'json'
@@ -163,6 +202,9 @@ const getOneDetalle = (id) => {
 
 const updateOneDetalle = (id, payload) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'put',
     url: `${Config('urlRoot')}/formula_d/updatebyid/${id}`,
     data:payload,

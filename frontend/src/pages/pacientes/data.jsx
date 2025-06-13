@@ -35,32 +35,44 @@ import Config from '../../Config';
 ];
 
 const getAll = () => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/pacientes/getall`,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/pacientes/getall`,
+    responseType: 'json'
+  })
 }
 
 const getOne = (id) => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/pacientes/getbyid/${id}`,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/pacientes/getbyid/${id}`,
+    responseType: 'json'
+  })
 }
 
 const createOne = (payload) => {
-    return axios({
-      method: 'post',
-      url: `${Config('urlRoot')}/pacientes/create`,
-      data: payload,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'post',
+    url: `${Config('urlRoot')}/pacientes/create`,
+    data: payload,
+    responseType: 'json'
+  })
 }
 
 const updateOne = (id, payload) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'put',
     url: `${Config('urlRoot')}/pacientes/updatebyid/${id}`,
     data: payload,
@@ -70,6 +82,9 @@ const updateOne = (id, payload) => {
 
 const deleteOne = (id) => {
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'delete',
     url: `${Config('urlRoot')}/pacientes/deletebyid/${id}`,
     responseType: 'json'

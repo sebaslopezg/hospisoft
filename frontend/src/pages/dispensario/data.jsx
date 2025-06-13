@@ -30,15 +30,21 @@ import Config from "../../Config";
 ];
 
 const getFormula = (numero) => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/formula_d/getByFormulaNumber/${numero}`,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/formula_d/getByFormulaNumber/${numero}`,
+    responseType: 'json'
+  })
 }
 
 const createOne = (payload)=>{
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'post',
     url: `${Config('urlRoot')}/dispensario_m/create`,
     data: payload,
@@ -48,6 +54,9 @@ const createOne = (payload)=>{
 
 const createDispensarioDetalle = (payload)=>{
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'post',
     url: `${Config('urlRoot')}/dispensario_d/create`,
     data: payload,
@@ -57,6 +66,9 @@ const createDispensarioDetalle = (payload)=>{
 
 const getAll = ()=>{
   return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'get',
     url: `${Config('urlRoot')}/dispensario_m/getall`,
     responseType: 'json'

@@ -25,7 +25,7 @@ app.use(cors())
 app.use(express.json())
 connection()
 
-//authJwt(app)
+authJwt(app)
 app.use('/api', medicamentoRoute)
 app.use('/api', usersRoute)
 app.use('/api', citaRoute)

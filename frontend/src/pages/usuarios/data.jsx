@@ -59,7 +59,10 @@ const getAll = () => {
     return axios({
         method: 'get',
         url: `${Config('urlRoot')}/users/view`,
-        responseType: 'json'
+        responseType: 'json',
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
     })
 }
 
@@ -67,12 +70,18 @@ const getOne = (id) => {
     return axios({
         method: 'get',
         url: `${Config('urlRoot')}/users/getbyid/${id}`,
-        responseType: 'json'
+        responseType: 'json',
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
     })
 }
 
 const createOne = (payload) => {
     return axios({
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
         method: 'post',
         url: `${Config('urlRoot')}/users/create`,
         data: payload,
@@ -82,6 +91,9 @@ const createOne = (payload) => {
 
 const updateOne = (id, payload) => {
   return axios({
+      headers:{
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
       method: 'put',
       url: `${Config('urlRoot')}/users/updatebyid/${id}`,
       data: payload,
@@ -91,6 +103,9 @@ const updateOne = (id, payload) => {
 
 const deleteOne = (id) => {
   return axios({
+      headers:{
+        Authorization: `Bearer ${localStorage.getItem('token')}`
+      },
       method: 'delete',
       url: `${Config('urlRoot')}/users/deletebyid/${id}`,
       responseType: 'json'
@@ -98,13 +113,16 @@ const deleteOne = (id) => {
 }
 
 const createOneImage = (payload) => {
-  return axios.post(`${Config('urlRoot')}/users/uploadimage`, payload)
-/*   return axios({
+  //return axios.post(`${Config('urlRoot')}/users/uploadimage`, payload)
+    return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
     method: 'post',
     url: `${Config('urlRoot')}/users/uploadimage`,
     data: payload,
     responseType: 'json'
-  }) */
+  }) 
 }
 
 export default {

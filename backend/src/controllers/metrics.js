@@ -1,4 +1,5 @@
 import formulas from '../models/formulaMaestro.js'
+import formulasDetalle from '../models/formulaDetalle.js'
 import pacientes from '../models/pacientes.js'
 import diagnosticos from '../models/diagnosticos.js'
 import examenes from '../models/examenes.js'
@@ -105,6 +106,10 @@ const getDispensario = async(req, res)=>{
             { $match: { status:{$gt:0} } },          
             { $group: { _id: null, cantidad: {$sum: "$cantidad"} } }
         ])
+        let countTotalFormulas = await formulasDetalle.aggregate([  
+            { $match: { status:{$gt:0} } },          
+            { $group: { _id: null, cantidad: {$sum: "$cantidad"} } }
+        ])
 
         .exec()
         res.status(200).send({
@@ -112,7 +117,8 @@ const getDispensario = async(req, res)=>{
             count:{
                 maestro:countMaestro,
                 detalle:countDetalle,
-                total:countTotal
+                totalEntregado:countTotal,
+                totalFormulado:countTotalFormulas,
             },
         })
     } catch (error) {

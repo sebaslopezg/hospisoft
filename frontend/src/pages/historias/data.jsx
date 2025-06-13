@@ -57,18 +57,24 @@ import Config from '../../Config';
 ];
 
 const getOne = (id) => {
-    return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/historia/getbyid/${id}`,
-      responseType: 'json'
-    })
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/historia/getbyid/${id}`,
+    responseType: 'json'
+  })
 }
 
 const getPacienteByDocument = (document) => {
   return axios({
-      method: 'get',
-      url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
-      responseType: 'json'
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/pacientes/getbydocument/${document}`,
+    responseType: 'json'
   })
 }
 
