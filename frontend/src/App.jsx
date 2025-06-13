@@ -8,15 +8,17 @@ const BRANDING = {
   logo: <img src={Logo} alt="Hospisoft logo" />,
   title: 'HospiSoft',
   homeUrl: '/',
-};
+}
 const name = localStorage.getItem('name')
 const email = localStorage.getItem('email')
 const imageUrl = localStorage.getItem('imageUrl')
-const sessionData = {user: {
+const sessionData = {
+  user: {
   name: JSON.parse(name),
   email: JSON.parse(email),
   imageUrl: JSON.parse(imageUrl),
-}};
+}
+};
 
 function App() { 
   const navigate = useNavigate()

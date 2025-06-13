@@ -28,6 +28,7 @@ const signIn = async (provider, formData, callbackUrl) => {
     localStorage.setItem('name', JSON.stringify(response.data.data.nombre))
     localStorage.setItem('email', JSON.stringify(response.data.data.email))
     localStorage.setItem('imageUrl', JSON.stringify(imagenUrl))
+    localStorage.setItem('rol', JSON.stringify(response.data.data.rol))
     localStorage.setItem('token',response.data.token)
 
      window.location.href = callbackUrl || '/'
