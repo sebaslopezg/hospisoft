@@ -1,8 +1,6 @@
-import {DataGrid} from '@mui/x-data-grid';
-import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { Button, Stack, TextField, Checkbox, ListItemText, ListItemIcon, ListItem, ListItemButton, List, Typography } from '@mui/material';
+import { Stack, TextField, Checkbox, ListItemText, ListItemIcon, ListItem, ListItemButton, List, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import data from './data'
 import { useEffect, useState } from 'react';
@@ -30,6 +28,20 @@ export const DispensarioView = () => {
     const [formulaFound, setFormulaFound] = useState(false)
     const [rows, setRows] = useState([])
 
+    const [entregar, setEntregar] = useState(0)
+    const [entregarValue, setEntregarValue] = useState([])
+
+  const handlerSetEntregarValue = (value, slot) => {
+    let currentValue = entregarValue
+    currentValue[slot] = value
+    setEntregarValue(currentValue)
+  }
+
+  useEffect(()=>{
+    handlerSetEntregarValue()
+  },[entregarValue])
+
+
     const columns = [
     ...data.columns,
         {
@@ -52,7 +64,6 @@ export const DispensarioView = () => {
       await data.getFormula(numeroFormula)
       .then((res) => {
       const data = res.data.data
-      console.log(data)
       data != null ? (
       setFormulaFound(true),
       setRows(res.data.data),
@@ -72,8 +83,6 @@ export const DispensarioView = () => {
     
     const handleSearchFormula = () => {
       getRows(numeroFormulaValue)
-      console.log(rows[0].medicamentoId.nombre);
-      
     }
 
     const handleNumeroFormulaValue = (value) =>{
@@ -102,20 +111,21 @@ export const DispensarioView = () => {
           </Tooltip>
         </Stack>
         {formulaFound 
-        ? <>
+        ? <> <form>
         <Typography variant='h6' sx={{fontWeight:'bold'}}>Medicamentos</Typography>
-    <List sx={{ width: '100%', maxWidth:'50%', bgcolor: 'background.paper' }}>
-      {rows.map((item) => {
+    <List sx={{ width: '100%', maxWidth:'80%', bgcolor: 'background.paper' }}>
+      {rows.map((item, index) => {
         const labelId = `checkbox-list-label-${item}`;
 
         return (
             <Stack
-                direction="row"
-                spacing={2}
-                sx={{
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                }}
+              key={index}
+              direction="row"
+              spacing={2}
+              sx={{
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+              }}
             >
           <ListItem
             key={item}
@@ -137,13 +147,69 @@ export const DispensarioView = () => {
               <ListItemText id={labelId} primary={item.medicamentoId.nombre} />
             </ListItemButton>
           </ListItem>
-          <TextField label='disponible' disabled variant='outlined' size='small' type='text' sx={{width:'40%'}} value={item.medicamentoId.existencia} slotProps={{inputLabel:{shrink:'true'}}}></TextField>
-          <TextField label='entregar' variant='outlined' size='small' type='number' sx={{width:'40%'}}></TextField>
+          <TextField 
+          name='existencia'
+          label='disponible' 
+          disabled 
+          variant='outlined' 
+          size='small' 
+          type='text' sx={{width:'40%'}} 
+          value={item.medicamentoId.existencia} 
+          slotProps={{
+            inputLabel:{
+              shrink:'true'
+              }
+            }}
+          />
+          <TextField 
+          name='requerida'
+          label='requerida' 
+          disabled 
+          variant='outlined' 
+          size='small' 
+          type='text' sx={{width:'40%'}} 
+          value={item.cantidad} 
+          slotProps={{
+            inputLabel:{
+              shrink:'true'
+              }
+            }}
+          />
+          <TextField 
+          label='Entregar' 
+          name='cantidad'
+          variant='outlined' 
+          size='small' 
+          type='number' 
+          sx={{width:'40%'}}
+          value={entregarValue.index}
+          onChange={(e)=>handlerSetEntregarValue(e.target.value, index)}
+          inputProps={{
+            min:0,
+            max: item.medicamentoId.existencia && item.cantidad
+          }}
+          onKeyDown={(e)=>e.preventDefault()}
+          disabled={!checked.includes(item)}
+          slotProps={{
+            inputLabel:{
+              shrink:'true'
+              }
+            }}
+          />
+          <TextField 
+          name='nota'
+          label='Nota' 
+          variant='outlined' 
+          size='small' 
+          type='text' sx={{width:'100%'}}  
+          disabled={!checked.includes(item)}
+          multiline
+          />
           </Stack>
         );
       })}
     </List>
-        </>
+       </form> </>
         : <>
         </>}
     </>;
