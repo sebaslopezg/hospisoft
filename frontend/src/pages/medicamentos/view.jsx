@@ -2,6 +2,7 @@ import {
   DataGrid,
 } from '@mui/x-data-grid';
 import axios from 'axios'
+import data from './data.jsx'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -11,25 +12,21 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { useState, useEffect } from "react";
 import Config from '../../Config';
 import medicamentoDelete from './delete'
-
 import { useNotifications } from '@toolpad/core/useNotifications';
-import { useNavigate } from "react-router";
 
 const medicamentoView = () => {
 
   const notifications = useNotifications();
   const [myData, setData] = useState([])
 
-
   useEffect(()=>{
     loadData()
   },[])
 
-  const loadData = () =>{
+  const loadData = async() =>{
     setData([])
     myData.length === 0 ? (
-      console.log('carga desde el server'),
-      axios.get(`${Config('urlRoot')}/medicamento/view`)
+      await data.getAll()
       .then((res) => {
         setData(res.data.data)
       })
@@ -54,31 +51,7 @@ const medicamentoView = () => {
   }
 
   const columns = [
-    {
-    field: 'imagen',
-    headerName: 'Imagen',
-    type: 'image',
-    renderCell: (params) => <img width="100%" height="100%" src={`${Config('urlRoot')}/medicamento/image/${params.row.imagen}`}/>,
-    width: 200,
-    
-  },
-  {
-    field: 'nombre',
-    headerName: 'Nombre',
-    type: 'text',
-    width: 200,
-  },
-  {
-    field: 'descripcion',
-    headerName: 'Descripción',
-    width: 400,
-  },
-  {
-    field: 'existencia',
-    headerName: 'Existencia',
-    width: 150,
-    type:'number'
-  },
+  ...data.columns,
   {
     field: "actions",
     headerName: "Action",

@@ -4,7 +4,9 @@ function authJwt(
     app,
     secretKey = "seCreTo",
     excludedPaths = [
-      "/api/users/login",  
+      "/api/users/login",     
+      /^\/api\/users\/avatar\/.*/,   
+      /^\/api\/medicamento\/image\/.*/,   
     ]
 ) {
   app.use(

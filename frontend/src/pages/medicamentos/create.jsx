@@ -7,6 +7,7 @@ import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
 import Config from '../../Config';
 import { useEffect } from "react";
+import data from './data.jsx'
 
 export const MedicamentosCreate = () =>{ 
 
@@ -20,18 +21,12 @@ useEffect(() => {
   imageInput ? '' : ''
 },[imageInput])
 
-const cargarImagen = (data) =>{
-  setImageInput(data)
-} 
-
 const setImage = async(obj) => {
   let id = obj.data.data._id
   obj ? console.log(obj.data.data._id) : ''
   const form = new FormData()
-  console.log(imageInput);
   
   const fileImage = imageInput.files[0]
-  console.log(fileImage);
   
   form.append('file0',fileImage)
   form.append('id',id)
@@ -57,7 +52,7 @@ const getFromData = async(e) =>{
     existencia: value.existencia.value,
   }
   setData(formData)
-  await axios.post(`${Config('urlRoot')}/medicamento/create`,formData)
+  await data.createOne(formData)
   .then((res) =>{
     res.data.status ? (
       notifications.show(res.data.msg, 
