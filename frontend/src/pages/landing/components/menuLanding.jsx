@@ -14,68 +14,124 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import imageLogo from '../../../assets/img/logo.png'
 import { Stack } from '@mui/material';
+import { Link, useNavigate } from 'react-router';
 
-const pages = ['Acerca de', 'Nuestro equipo', 'Servicios', 'Contáctanos'];
+export default function MenuLanding({ handleScrollTo }) {
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-export default function MenuLanding({handleScrollTo}) {
+  const pages = [
+    { label: 'Home', target: '#main' },
+    { label: 'Acerca de', target: '#about' },
+    { label: 'Servicios', target: '#servicios' },
+    { label: 'Contáctanos', target: '#contactanos' },
+  ];
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleCloseNavMenu = (target) => {
+    setAnchorElNav(null);
+    if (target) {
+      handleScrollTo(target);
+    }
+  };
+
+  const navigate = useNavigate()
+
+  const handleNavigate = ()=>{
+    navigate('/admin')
+  }
 
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Box sx={{ display: 'flex', flexGrow: 1, pl:5, width:'40'}}>
-            <Stack
-              direction="row"
-              spacing={2}
-              sx={{
-              justifyContent: 'flex-start',
-              alignItems: "center",
-              }}
-            >
-            <img src={imageLogo} alt="" width='8%'/>
+
+          {/* Logo and Title */}
+          <Box sx={{ display: 'flex', flexGrow: 1, pl: 5, alignItems: 'center' }}>
+            <img src={imageLogo} alt="logo" width="40" />
             <Typography
               variant="h6"
               noWrap
               component="a"
-              href="#app-bar-with-responsive-menu"
-            sx={{
-              ml: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              href="/"
+              sx={{
+                ml: 2,
+                display: { xs: 'none', md: 'flex' },
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
             >
               HospiSoft
             </Typography>
-            </Stack>
           </Box>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', pr:15, width:'100%' }}>
-              <Button onClick={()=>handleScrollTo('#main')}
-                sx={{ my: 2, mx:3 ,color: 'white', display: 'block', fontSize:'2vh', fontWeight:'bold', width:'40%'}}
+
+          {/* Mobile menu button */}
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 2 }}>
+            <IconButton
+              size="large"
+              aria-label="menu"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={() => handleCloseNavMenu(null)}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {pages.map(({ label, target }) => (
+                <MenuItem
+                  key={label}
+                  onClick={() => handleCloseNavMenu(target)}
+                >
+                  <Typography textAlign="center">{label}</Typography>
+                </MenuItem>
+              ))}
+                <MenuItem
+                  key='Administrar'
+                  onClick={handleNavigate}
+                >
+                  <Typography textAlign="center">Administrar</Typography>
+                </MenuItem>
+            </Menu>
+          </Box>
+
+          {/* Desktop menu buttons */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, pr: 15, width: '100%', justifyContent: 'flex-end' }}>
+            {pages.map(({ label, target }) => (
+              <Button
+                key={label}
+                onClick={() => handleScrollTo(target)}
+                sx={{ my: 2, mx: 3, color: 'white', fontSize: '2vh', fontWeight: 'bold', width: 'auto' }}
               >
-                Home
+                {label}
               </Button>
-              <Button onClick={()=>handleScrollTo('#about')}
-                sx={{ my: 2, mx:3 ,color: 'white', display: 'block', fontSize:'2vh', fontWeight:'bold', width:'40%'}}
+            ))}
+              <Button
+                key='Administrar'
+                onClick={handleNavigate}
+                sx={{ my: 2, mx: 3, color: 'white', fontSize: '2vh', fontWeight: 'bold', width: 'auto' }}
               >
-                Acerca de
-              </Button>
-              <Button onClick={()=>handleScrollTo('#team')}
-                sx={{ my: 2, mx:3 ,color: 'white', display: 'block', fontSize:'2vh', fontWeight:'bold', width:'40%'}}
-              >
-                Nuestro equipo
-              </Button>
-              <Button onClick={()=>handleScrollTo('#servicios')}
-                sx={{ my: 2, mx:3 ,color: 'white', display: 'block', fontSize:'2vh', fontWeight:'bold', width:'40%'}}
-              >
-                Servicios
-              </Button>
-              <Button onClick={()=>handleScrollTo('#contactanos')}
-                sx={{ my: 2, mx:3 ,color: 'white', display: 'block', fontSize:'2vh', fontWeight:'bold', width:'40%'}}
-              >
-                Contáctanos
+                Administrar
               </Button>
           </Box>
         </Toolbar>

@@ -74,7 +74,7 @@ const router = createBrowserRouter([
     Component: App, // root layout route
     children: [
       {
-        path: '/',
+        path: '/admin',
         Component: componentRenderer,
         children: [
           {
@@ -254,7 +254,7 @@ const router = createBrowserRouter([
         Component:CredentialsSignInPage
       },
       {
-        path: '/landing',
+        path: '',
         Component:LandingLayout
       }
     ],
