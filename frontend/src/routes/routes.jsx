@@ -62,6 +62,7 @@ import OrdenesLayout from '../pages/ordenes/index.jsx';
 import DispensarioLayout from '../pages/dispensario/index.jsx';
 import { DispensarioView } from '../pages/dispensario/view.jsx';
 import { DispensarioDespachar } from '../pages/dispensario/despachar.jsx';
+import LandingLayout from '../pages/landing/index.jsx';
 
   const token = localStorage.getItem('token')
   let componentRenderer 
@@ -252,6 +253,10 @@ const router = createBrowserRouter([
         path:'/login',
         Component:CredentialsSignInPage
       },
+      {
+        path: '/landing',
+        Component:LandingLayout
+      }
     ],
   },
 ]);

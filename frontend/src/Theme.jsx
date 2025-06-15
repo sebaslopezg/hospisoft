@@ -26,14 +26,6 @@ const Theme = createTheme({
           }
     },
     components:{
-        MuiCssBaseline:{
-            styleOverrides:{
-                body:{
-
-                    background: '#F5F6F9'
-                }
-            }
-        },
         MuiButton:{
             defaultProps:{
                 variant:'contained'
