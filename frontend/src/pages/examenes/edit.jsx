@@ -101,7 +101,7 @@ export const ExamenesEdit = () => {
         {severity: 'error',autoHideDuration: 3000,})
       )
     })
-    .then(navigate('/examenes'))
+    .then(navigate('/admin/ordenes/examenes'))
     .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})

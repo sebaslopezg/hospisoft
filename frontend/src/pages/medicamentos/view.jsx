@@ -57,7 +57,7 @@ const medicamentoView = () => {
     headerName: "Action",
     renderCell: (params) => {
       return <>
-        <IconButton href={`/medicamentos/edit/${params.id}`}><EditIcon /></IconButton>
+        <IconButton href={`/admin/medicamentos/edit/${params.id}`}><EditIcon /></IconButton>
         <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
       </>
     }
@@ -73,7 +73,7 @@ const medicamentoView = () => {
     <IconButton aria-label="delete" size="large" onClick={loadData}>
       <RefreshIcon />
     </IconButton>
-    <Button variant="contained" href="medicamentos/create">Nuevo</Button>
+    <Button variant="contained" href="/admin/medicamentos/create">Nuevo</Button>
   </Grid>
     <DataGrid
       rowHeight={100}

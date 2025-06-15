@@ -73,7 +73,7 @@ export const PacientesEdit = () => {
               {severity: 'error',autoHideDuration: 3000,})
             )
         })
-        .then(navigate('/pacientes'))
+        .then(navigate('/admin/pacientes'))
         .catch((err) =>{
             notifications.show('Error de conexión: ' + err.message, 
             {severity: 'error',autoHideDuration: 3000,})

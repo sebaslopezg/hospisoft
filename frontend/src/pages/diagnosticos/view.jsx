@@ -20,7 +20,7 @@ export const DiagnosticosView = () => {
             headerName: "Action",
             renderCell: (params) => {
                 return <>
-                    <IconButton href={`/ordenes/diagnosticos/edit/${params.id}`}><EditIcon /></IconButton>
+                    <IconButton href={`/admin/ordenes/diagnosticos/edit/${params.id}`}><EditIcon /></IconButton>
                     <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
                 </>
             }
@@ -70,7 +70,7 @@ export const DiagnosticosView = () => {
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/diagnosticos/create">Nuevo</Button>
+            <Button variant="contained" href="/admin/ordenes/diagnosticos/create">Nuevo</Button>
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}

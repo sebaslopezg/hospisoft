@@ -20,7 +20,7 @@ export const UsuariosView = () => {
             headerName: "Action",
             renderCell: (params) => {
                 return <>
-                    <IconButton href={`/usuarios/edit/${params.id}`}><EditIcon /></IconButton>
+                    <IconButton href={`/admin/usuarios/edit/${params.id}`}><EditIcon /></IconButton>
                     <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
                 </>
             }
@@ -70,7 +70,7 @@ export const UsuariosView = () => {
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/usuarios/create">Nuevo</Button>
+            <Button variant="contained" href="/admin/usuarios/create">Nuevo</Button>
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}
