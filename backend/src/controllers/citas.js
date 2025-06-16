@@ -57,8 +57,8 @@ const create = async(req, res)=>{
         status:1,
         fecha:formatDate,
         descripcion:req.body.descripcion,
-        pacienteId:req.body.pacienteId,
-        medicoId:req.body.medicoId
+        pacienteId:idPaciente,
+        medicoId:idMedico
     }
 
     try {
