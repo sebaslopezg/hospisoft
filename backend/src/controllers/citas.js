@@ -33,6 +33,7 @@ const create = async(req, res)=>{
     let idMedico
     let paciente
     let medico
+    let displayError
 
     try {
         idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
@@ -47,6 +48,7 @@ const create = async(req, res)=>{
     } catch (error) {
         paciente = null
         medico = null
+        displayError = error 
     }
 
     let data = {
@@ -72,7 +74,7 @@ const create = async(req, res)=>{
         }else{
             return res.send({
                 status:false,
-                msg:"Error: Paciente o medico no valido"
+                msg:`Error: Paciente o medico no valido: ${displayError}`
             }) 
         }
     } catch (error) {
