@@ -1,0 +1,14 @@
+```toml
+# netlify.toml
+[[redirects]]
+  from = "/api/*"
+  to = "http://187.33.157.164:4000/api/:splat" # Your API's full HTTP URL
+  status = 200
+  force = true
+  # Add `headers = {X-From-Netlify-Proxy = "true"}` if you want to identify proxy requests on your API
+```
+
+* `from = "/api/*"`: This means any request your frontend makes that starts with `/api/` (e.g., `/api/users/login`) will be intercepted.
+* `to = "http://187.33.157.164:4000/api/:splat"`: This is your actual API endpoint. `:splat` is a placeholder that captures whatever comes after `/api/` in the `from` path and appends it to the `to` path.
+* `status = 200`: Ensures a successful proxy.
+* `force = true`: Makes sure the redirect happens before any other Netlify processing.
