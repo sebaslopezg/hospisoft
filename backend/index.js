@@ -37,7 +37,12 @@ const sslCertPath = process.env.SSL_CERT_PATH
 const app = express()
 dotenv.config()
 
-app.use(cors())
+app.use(cors({
+    origin: 'https://reliable-hotteok-ca06f7.netlify.app/', // Replace with your actual Netlify domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Or whatever methods your API uses
+    allowedHeaders: ['Content-Type', 'Authorization'], // Add any custom headers you're sending
+}))
+
 app.use(express.json())
 
 
