@@ -17,6 +17,7 @@ import historiaRoute from './src/routes/historia.js'
 import dispensarioMaestroRoute from './src/routes/dispensarioMaestro.js'
 import dispensarioDetalleRoute from './src/routes/dispensarioDetalle.js'
 import metricsRoute from './src/routes/metrics.js'
+import messagesRoute from './src/routes/messages.js'
 
 const app = express()
 dotenv.config()
@@ -25,7 +26,7 @@ app.use(cors())
 app.use(express.json())
 connection()
 
-authJwt(app)
+//authJwt(app)
 app.use('/api', medicamentoRoute)
 app.use('/api', usersRoute)
 app.use('/api', citaRoute)
@@ -39,6 +40,7 @@ app.use('/api', historiaRoute)
 app.use('/api', dispensarioMaestroRoute)
 app.use('/api', dispensarioDetalleRoute)
 app.use('/api', metricsRoute)
+app.use('/api', messagesRoute)
 
 const port = process.env.PORT || 3000
 app.listen(port,()=>(
