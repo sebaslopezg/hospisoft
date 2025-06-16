@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import { useState, useEffect } from "react";
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
-import dataAxios from './data.js'
+import dataAxios from './data.jsx'
 
 export const MedicamentosEdit = () => {
 
