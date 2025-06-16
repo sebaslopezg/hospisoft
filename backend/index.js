@@ -38,7 +38,7 @@ const app = express()
 dotenv.config()
 
 app.use(cors({
-    origin: 'https://reliable-hotteok-ca06f7.netlify.app/', // Replace with your actual Netlify domain
+origin: ['https://reliable-hotteok-ca06f7.netlify.app/', 'http://localhost:4000'], // For local development as well
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // Or whatever methods your API uses
     allowedHeaders: ['Content-Type', 'Authorization'], // Add any custom headers you're sending
 }))
