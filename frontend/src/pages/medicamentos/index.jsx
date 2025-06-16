@@ -6,7 +6,7 @@ import { PermissionWarning } from '../../components/permissionWarning';
 export default function MedicamentosLayout() {
 
   const rol = localStorage.getItem('rol')
-  const permiso = (rol == 1 || rol == 3)
+  const permiso = (rol == 1 || rol == 3 || rol == 5)
 
   return permiso ? (
     <PageContainer>

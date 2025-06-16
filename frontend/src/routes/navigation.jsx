@@ -28,6 +28,9 @@ switch (rol) {
   case '4':
     menu = menus.visitante
     break;
+  case '5':
+    menu = menus.dispensario
+    break;
 
   default:
     menu = menus.visitante
