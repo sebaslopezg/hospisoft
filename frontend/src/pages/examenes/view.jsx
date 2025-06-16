@@ -9,7 +9,7 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useDialogs } from '@toolpad/core/useDialogs';
-import * as XLSX from 'xlsx';
+import ExcelExportButton from '../../components/excelButton';
 
 export const ExamenesView = () => {
 
@@ -64,16 +64,6 @@ export const ExamenesView = () => {
         } 
     }
 
-    const handleExport = () => {
-    // Convert rows to worksheet
-    const worksheet = XLSX.utils.json_to_sheet(rows);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Data');
-
-    // Download Excel file
-    XLSX.writeFile(workbook, 'Reporte_examenes.xlsx');
-    };
-
     return <>
         <Grid container direction="column" spacing={1}>
         <Grid container direction='row' sx={{
@@ -84,9 +74,7 @@ export const ExamenesView = () => {
             <RefreshIcon />
             </IconButton>
             <Button variant="contained" href="/admin/ordenes/examenes/create">Nuevo</Button>
-            <Button variant="contained" color="secondary" onClick={handleExport}>
-            Descargar excel
-            </Button>
+             <ExcelExportButton rows={rows} columns={columns} fileName="resporete_examenes" />
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}
