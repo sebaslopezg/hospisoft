@@ -71,7 +71,7 @@ const handleExport = async () => {
 
   return (
     <Button variant="contained" color='secondary' onClick={handleExport}>
-      Download Excel
+      Descargar reporte
     </Button>
   );
 };

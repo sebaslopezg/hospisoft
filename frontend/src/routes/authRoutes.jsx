@@ -14,6 +14,7 @@ import TocIcon from '@mui/icons-material/Toc';
 
 const admin = [
   {
+    segment:'admin',
     title: 'Dashboard',
     icon: <DashboardIcon />,
   },

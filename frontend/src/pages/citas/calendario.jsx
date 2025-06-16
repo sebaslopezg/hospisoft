@@ -37,6 +37,7 @@ export function Calendario() {
     const [documentoPacienteValue, setdocumentoPaciente] = useState([]);
     const [PacienteDataValue, setPacienteData] = useState([]);
     const notifications = useNotifications();
+    const [pacienteEmailId, setPacienteEmailId] = useState('')
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,7 +66,6 @@ export function Calendario() {
       const handleSearchPerson = () => {
         const response = data.getPacienteByDocument(documentoPacienteValue)
         response.then((res) => {
-          console.log(res.data)
           res.data.status ? (
             setPacienteData(res.data.data),
             notifications.show(res.data.msg, 
@@ -86,26 +86,71 @@ export function Calendario() {
     getAllMedicos()
   },[])
 
-  const handleAddEvent = async()=>{
-    const payload={
-      fecha:selectedDate,
-      descripcion,
-      pacienteId: PacienteDataValue._id,
-      medicoId
-    }
-    try{
-      const response = await data.createOne(payload)
-      await getData()
-      const newCita = response.data
-      setCalendarData(prevData => [...prevData, newCita]); 
-      handleClose();
-      setDescripcion('');
-      setMedicoId('')
-      setPacienteId('');
-    } catch (error) {
-      console.error("Error al crear la cita:", error);
-    }
+const handleAddEvent = async () => {
+  const payload = {
+    fecha: selectedDate,
+    descripcion,
+    pacienteId: PacienteDataValue._id,
+    medicoId,
+  };
+
+  try {
+    const response = await data.createOne(payload);
+    await getData();
+    const newCita = response.data;
+    setCalendarData((prevData) => [...prevData, newCita]);
+    handleClose();
+    setDescripcion('');
+    setMedicoId('');
+    setPacienteId('');
+  } catch (error) {
+    console.error('Error al crear la cita:', error);
   }
+};
+
+const handleSendEmail = async () => {
+  const email = await getPacienteEmail(pacienteId);
+  const payload = {
+    to: email,
+    from: 'sebaslg96@gmail.com',
+    subject: 'Información de su cita',
+    text: 'Información',
+    html: `<strong>Apreciado paciente, Hospisoft le informa que su cita quedó agendada para la siguiente fecha: ${selectedDate}</strong>`,
+  };
+
+  data.sendMail(payload).then((res) => {
+    console.log(res.data.msg);
+    if (res.data.status) {
+      setPacienteData(res.data.data);
+      notifications.show('se ha enviado el mensaje al paciente', {
+        severity: 'success',
+        autoHideDuration: 3000,
+      });
+    } else {
+      notifications.show('no se pudo enviar el mensaje, el email es invalido', {
+        severity: 'error',
+        autoHideDuration: 3000,
+      });
+    }
+  }).catch((error) => {
+    console.log(error);
+    notifications.show(error, {
+      severity: 'error',
+      autoHideDuration: 3000,
+    });
+  });
+};
+
+const getPacienteEmail = async (id) => {
+  try {
+    const response = await data.getOnePaciente(id);
+    return response.data.data.email;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 
   const handleUpdateEvent = async(changeInfo)=>{
     const payload = {
@@ -134,6 +179,7 @@ export function Calendario() {
     const updatedEvent = changeInfo.event;
     const id = updatedEvent.id
     console.log(updatedEvent.startStr);
+    console.log(changeInfo);
     
     const payload={
       fecha: updatedEvent.startStr,
@@ -301,7 +347,7 @@ export function Calendario() {
           </DialogContent>
           <DialogActions>
             {isEditing ? <Button onClick={handleDelete} variant='contained' color='error'>Eliminar</Button> : ''}
-            <Button onClick={handleClose} variant='contained' color='grey'>Cerrar</Button>
+            {isEditing ? <Button onClick={handleSendEmail} color='secondary' sx={{color:'white'}}>Enviar correo al paciente</Button> : ''}
             <Button onClick={isEditing ? handleUpdateEvent : handleAddEvent} variant='contained'>{isEditing ? 'Guardar' : 'Agregar'}</Button>
           </DialogActions>
       </Dialog>

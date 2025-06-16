@@ -10,6 +10,7 @@ import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useDialogs } from '@toolpad/core/useDialogs';
 import { Card } from '@mui/material';
+import ExcelExportButton from '../../components/excelButton';
 
 export const UsuariosView = () => {
 
@@ -66,11 +67,15 @@ export const UsuariosView = () => {
 
     return <>
         <Grid container direction="column" spacing={1}>
-        <Grid size={3}>
+        <Grid container direction='row' sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+            }}>
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
             <Button variant="contained" href="/admin/usuarios/create">Nuevo</Button>
+            <ExcelExportButton rows={rows} columns={columns} fileName="reporte_usuarios" />
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}

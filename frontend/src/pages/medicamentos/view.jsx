@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import Config from '../../Config';
 import medicamentoDelete from './delete'
 import { useNotifications } from '@toolpad/core/useNotifications';
+import ExcelExportButton from '../../components/excelButton';
 
 const medicamentoView = () => {
 
@@ -67,13 +68,15 @@ const medicamentoView = () => {
   return <>
 
   <Grid container direction="column" spacing={1}>
-  <Grid
-    size={3}
-  >
+  <Grid container direction='row' sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+            }}>
     <IconButton aria-label="delete" size="large" onClick={loadData}>
       <RefreshIcon />
     </IconButton>
     <Button variant="contained" href="/admin/medicamentos/create">Nuevo</Button>
+    <ExcelExportButton rows={myData} columns={columns} fileName="reporte_medicamentos" />
   </Grid>
     <DataGrid
       rowHeight={100}

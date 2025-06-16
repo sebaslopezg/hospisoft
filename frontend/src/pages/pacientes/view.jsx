@@ -12,7 +12,7 @@ import { useDialogs } from '@toolpad/core/useDialogs';
 import InfoIcon from '@mui/icons-material/Info';
 import { Dialog, DialogActions, DialogContent } from '@mui/material';
 import { PacientesDetails } from './details';
-
+import ExcelExportButton from '../../components/excelButton';
 
 export const PacientesView = () => {
 
@@ -91,11 +91,15 @@ export const PacientesView = () => {
 
     return <>
         <Grid container direction="column" spacing={1}>
-        <Grid size={3}>
+        <Grid container direction='row' sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+            }}>
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
             <Button variant="contained" href="/admin/pacientes/create">Nuevo</Button>
+            <ExcelExportButton rows={rows} columns={columns} fileName="reporte_pacientes" />
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}
