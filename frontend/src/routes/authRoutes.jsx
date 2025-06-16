@@ -11,6 +11,7 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import TocIcon from '@mui/icons-material/Toc';
+import CampaignIcon from '@mui/icons-material/Campaign';
 
 const admin = [
   {
@@ -92,6 +93,12 @@ const admin = [
     icon: <ContentPasteSearchIcon />,
     pattern: 'historias{/:crud}*',
   },
+    {
+    segment: 'admin/eventos',
+    title: 'Campañas',
+    icon: <CampaignIcon/>,
+    pattern: 'eventos{/:crud}*'
+  },
 ]; 
 
 const medico = [
@@ -136,6 +143,12 @@ const medico = [
     icon: <ContentPasteSearchIcon />,
     pattern: 'historias{/:crud}*',
   },
+    {
+    segment: 'admin/eventos',
+    title: 'Campañas',
+    icon: <CampaignIcon/>,
+    pattern: 'eventos{/:crud}*'
+  },
 ]; 
 
 const secretario = [
@@ -156,60 +169,10 @@ const secretario = [
     pattern: 'citas{/:crud}*',
   },
   {
-    segment: 'medicamentos',
-    title: 'Medicamentos',
-    icon: <MedicationIcon />,
-    pattern: 'medicamentos{/:crud}*',
-  },
-  {
-    segment: 'ordenes',
-    title: 'Órdenes',
-    icon: <ChecklistIcon/>,
-    children:[
-      {
-        segment: 'formulas',
-        title: 'Formulas',
-        icon: <DescriptionIcon />,
-        pattern: 'formulas{/:crud}*',
-      },
-      {
-        segment: 'diagnosticos',
-        title: 'Diagnosticos',
-        icon: <TroubleshootIcon />,
-        pattern: 'diagnosticos{/:crud}*',
-      },
-      {
-        segment: 'examenes',
-        title: 'Exámenes',
-        icon: <ScienceIcon />,
-        pattern: 'examenes{/:crud}*',
-      },
-    ]
-  },
-  {
-    segment: 'dispensario',
-    title: 'Dispensario',
-    icon: <MedicalInformationIcon />,
-    children:[
-      {
-        segment: 'despachar',
-        title: 'Despachar',
-        icon: <AssignmentTurnedInIcon/>,
-        pattern: 'dispensario{/:crud}*'
-      },
-      {
-        segment: 'ver',
-        title: 'Ver reportes',
-        icon: <TocIcon/>,
-        pattern: 'dispensario{/:crud}*'
-      }
-    ]
-  },
-  {
-    segment: 'historias',
-    title: 'Historia clínica',
-    icon: <ContentPasteSearchIcon />,
-    pattern: 'historias{/:crud}*',
+    segment: 'admin/eventos',
+    title: 'Campañas',
+    icon: <CampaignIcon/>,
+    pattern: 'eventos{/:crud}*'
   },
 ]; 
 
