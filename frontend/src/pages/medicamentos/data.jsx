@@ -6,7 +6,7 @@ const columns = [
     field: 'imagen',
     headerName: 'Imagen',
     type: 'image',
-    renderCell: (params) => <img width="100%" height="100%" src={`${Config('urlRoot')}/medicamentos/image/${params.row.imagen}`}/>,
+    renderCell: (params) => <img width="100%" height="100%" src={`${Config('urlRoot')}/medicamento/image/${params.row.imagen}`}/>,
     width: 200,
     
   },
