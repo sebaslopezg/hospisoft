@@ -37,11 +37,9 @@ const sslCertPath = process.env.SSL_CERT_PATH
 const app = express()
 dotenv.config()
 
-app.use(cors({
-origin: ['https://reliable-hotteok-ca06f7.netlify.app/', 'http://localhost:4000'], // For local development as well
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Or whatever methods your API uses
-    allowedHeaders: ['Content-Type', 'Authorization'], // Add any custom headers you're sending
-}))
+
+
+app.use(cors())
 
 app.use(express.json())
 
@@ -70,7 +68,7 @@ const serverDevMode = async() =>{
     await connection()
 
     app.listen(port,()=>(
-        console.log(`listen ${port}`)
+        console.log(`listening ${port}`)
     ))
 
 }
