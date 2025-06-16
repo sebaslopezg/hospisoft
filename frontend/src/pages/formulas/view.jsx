@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import data from './data'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useDialogs } from '@toolpad/core/useDialogs';
+import ExcelExportButton from '../../components/excelButton';
 
 export const FormulasView = () => {
 
@@ -23,12 +24,12 @@ export const FormulasView = () => {
             renderCell: (params) => {
                 return <>
                     <Tooltip title="Ver detalles">
-                        <IconButton href={`/ordenes/formulas/details/${params.id}`}>
+                        <IconButton href={`/admin/ordenes/formulas/details/${params.id}`}>
                             <InfoIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Editar">
-                        <IconButton href={`/ordenes/formulas/edit/${params.id}`}>
+                        <IconButton href={`/admin/ordenes/formulas/edit/${params.id}`}>
                             <EditIcon />
                         </IconButton>
                     </Tooltip>
@@ -82,11 +83,15 @@ export const FormulasView = () => {
 
     return <>
         <Grid container direction="column" spacing={1}>
-        <Grid size={3}>
+        <Grid container direction='row' sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+            }}>
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/ordenes/formulas/create">Nuevo</Button>
+            <Button variant="contained" href="/admin/ordenes/formulas/create">Nuevo</Button>
+            <ExcelExportButton rows={rows} columns={columns} fileName="reporte_formulas" />
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}

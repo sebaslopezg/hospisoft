@@ -63,7 +63,7 @@ const getFromData = async(e) =>{
         {severity: 'error',autoHideDuration: 3000,})
       )
   })
-  .then(navigate('/medicamentos'))
+  .then(navigate('/admin/medicamentos'))
   .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})

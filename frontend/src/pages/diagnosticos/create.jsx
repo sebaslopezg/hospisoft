@@ -84,7 +84,7 @@ export const DiagnosticosCreate = () => {
         {severity: 'error',autoHideDuration: 3000,})
       )
     })
-    .then(navigate('/diagnosticos'))
+    .then(navigate('/admin/ordenes/diagnosticos'))
     .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})

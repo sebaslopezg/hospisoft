@@ -53,7 +53,7 @@ export const UsuariosCreate = () => {
               {severity: 'error',autoHideDuration: 3000,})
             )
         })
-        .then(navigate('/usuarios'))
+        .then(navigate('/admin/usuarios'))
         .catch((err) =>{
         notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})
@@ -74,7 +74,7 @@ export const UsuariosCreate = () => {
               {severity: 'error',autoHideDuration: 3000,})
             )
         })
-        .then(navigate('/usuarios'))
+        .then(navigate('/admin/usuarios'))
         .catch((err) =>{
         notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})

@@ -6,6 +6,7 @@ import data from './data'
 import Logo from '../../assets/img/logo.png';
 import { useSession } from '@toolpad/core'
 import Config from '../../Config';
+import { esES } from '@mui/material/locale';
 
 const BRANDING = {
   logo: <img src={Logo} alt="MUI logo" height={'100px'} />,
@@ -50,14 +51,28 @@ export default function CredentialsSignInPage() {
             }
         }
       }
-  });
+  },
+esES
+);
   return (
     // preview-start
     <AppProvider theme={theme} branding={BRANDING} session={session}>
       <SignInPage
         signIn={signIn}
         providers={providers}
-        slotProps={{ emailField: { autoFocus: false }, form: { noValidate: true } }} 
+        slotProps={{
+          submitButton: {
+            children: 'Iniciar sesión con correo y contraseña',
+          },
+          emailField: { label: 'Correo electrónico' },
+          passwordField: { label: 'Contraseña' },
+          submitButton: { children: 'Iniciar sesión' },
+          form: { noValidate: true },
+        }}
+        localeText={{
+          signInTitle: 'Iniciar sesión',
+          signInSubtitle: 'Bienvenido, por favor inicia sesión para continuar.',
+      }}
       />
     </AppProvider>
     // preview-end

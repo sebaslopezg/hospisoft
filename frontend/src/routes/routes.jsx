@@ -62,6 +62,11 @@ import OrdenesLayout from '../pages/ordenes/index.jsx';
 import DispensarioLayout from '../pages/dispensario/index.jsx';
 import { DispensarioView } from '../pages/dispensario/view.jsx';
 import { DispensarioDespachar } from '../pages/dispensario/despachar.jsx';
+import LandingLayout from '../pages/landing/index.jsx';
+
+// eventos
+import EventosLayout from '../pages/eventos/index.jsx';
+import EventosView from '../pages/eventos/view.jsx';
 
   const token = localStorage.getItem('token')
   let componentRenderer 
@@ -73,7 +78,7 @@ const router = createBrowserRouter([
     Component: App, // root layout route
     children: [
       {
-        path: '/',
+        path: '/admin',
         Component: componentRenderer,
         children: [
           {
@@ -245,6 +250,16 @@ const router = createBrowserRouter([
               Component: DispensarioView
             }
           ]
+          },
+          {
+            path: 'eventos',
+            Component: EventosLayout,
+            children:[
+              {
+                path:'',
+                Component: EventosView
+              }
+            ]
           }
         ],
       },
@@ -252,6 +267,10 @@ const router = createBrowserRouter([
         path:'/login',
         Component:CredentialsSignInPage
       },
+      {
+        path: '',
+        Component:LandingLayout
+      }
     ],
   },
 ]);

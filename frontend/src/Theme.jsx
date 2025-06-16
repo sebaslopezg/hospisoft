@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { styled } from '@mui/material/styles';
+import { esES } from '@mui/material/locale';
 
 const Theme = createTheme({
     palette: {
@@ -10,9 +10,9 @@ const Theme = createTheme({
             dark: '#2055d6',
         },
         secondary:{
-            main:'#7b2cbf',
-            light: '#e0aaff',
-            dark: '#10002b',
+            main:'#eea733',
+            light: '#f1b73b',
+            dark: '#dc8524',
         },
         grey:{
             main: '#b0bec5',
@@ -26,14 +26,6 @@ const Theme = createTheme({
           }
     },
     components:{
-        MuiCssBaseline:{
-            styleOverrides:{
-                body:{
-
-                    background: '#F5F6F9'
-                }
-            }
-        },
         MuiButton:{
             defaultProps:{
                 variant:'contained'
@@ -185,6 +177,8 @@ const Theme = createTheme({
             }
         }
     }, 
-})
+},
+esES
+)
 
 export default Theme

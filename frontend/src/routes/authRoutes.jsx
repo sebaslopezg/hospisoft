@@ -11,38 +11,40 @@ import ChecklistIcon from '@mui/icons-material/Checklist';
 import MedicalInformationIcon from '@mui/icons-material/MedicalInformation';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import TocIcon from '@mui/icons-material/Toc';
+import CampaignIcon from '@mui/icons-material/Campaign';
 
 const admin = [
   {
+    segment:'admin',
     title: 'Dashboard',
     icon: <DashboardIcon />,
   },
   {
-    segment: 'usuarios',
+    segment: 'admin/usuarios',
     title: 'Usuarios',
     icon: <GroupIcon />,
     pattern: 'usuarios{/:crud}*',
   },
   {
-    segment: 'pacientes',
+    segment: 'admin/pacientes',
     title: 'Pacientes',
     icon: <Diversity3Icon/>,
     pattern: 'Pacientes{/:crud}*',
   },
   {
-    segment: 'citas',
+    segment: 'admin/citas',
     title: 'Citas',
     icon: <EventAvailableIcon />,
     pattern: 'citas{/:crud}*',
   },
   {
-    segment: 'medicamentos',
+    segment: 'admin/medicamentos',
     title: 'Medicamentos',
     icon: <MedicationIcon />,
     pattern: 'medicamentos{/:crud}*',
   },
   {
-    segment: 'ordenes',
+    segment: 'admin/ordenes',
     title: 'Órdenes',
     icon: <ChecklistIcon/>,
     children:[
@@ -67,7 +69,7 @@ const admin = [
     ]
   },
   {
-    segment: 'dispensario',
+    segment: 'admin/dispensario',
     title: 'Dispensario',
     icon: <MedicalInformationIcon />,
     children:[
@@ -86,10 +88,16 @@ const admin = [
     ]
   },
   {
-    segment: 'historias',
+    segment: 'admin/historias',
     title: 'Historia clínica',
     icon: <ContentPasteSearchIcon />,
     pattern: 'historias{/:crud}*',
+  },
+    {
+    segment: 'admin/eventos',
+    title: 'Campañas',
+    icon: <CampaignIcon/>,
+    pattern: 'eventos{/:crud}*'
   },
 ]; 
 
@@ -135,6 +143,12 @@ const medico = [
     icon: <ContentPasteSearchIcon />,
     pattern: 'historias{/:crud}*',
   },
+    {
+    segment: 'admin/eventos',
+    title: 'Campañas',
+    icon: <CampaignIcon/>,
+    pattern: 'eventos{/:crud}*'
+  },
 ]; 
 
 const secretario = [
@@ -155,60 +169,10 @@ const secretario = [
     pattern: 'citas{/:crud}*',
   },
   {
-    segment: 'medicamentos',
-    title: 'Medicamentos',
-    icon: <MedicationIcon />,
-    pattern: 'medicamentos{/:crud}*',
-  },
-  {
-    segment: 'ordenes',
-    title: 'Órdenes',
-    icon: <ChecklistIcon/>,
-    children:[
-      {
-        segment: 'formulas',
-        title: 'Formulas',
-        icon: <DescriptionIcon />,
-        pattern: 'formulas{/:crud}*',
-      },
-      {
-        segment: 'diagnosticos',
-        title: 'Diagnosticos',
-        icon: <TroubleshootIcon />,
-        pattern: 'diagnosticos{/:crud}*',
-      },
-      {
-        segment: 'examenes',
-        title: 'Exámenes',
-        icon: <ScienceIcon />,
-        pattern: 'examenes{/:crud}*',
-      },
-    ]
-  },
-  {
-    segment: 'dispensario',
-    title: 'Dispensario',
-    icon: <MedicalInformationIcon />,
-    children:[
-      {
-        segment: 'despachar',
-        title: 'Despachar',
-        icon: <AssignmentTurnedInIcon/>,
-        pattern: 'dispensario{/:crud}*'
-      },
-      {
-        segment: 'ver',
-        title: 'Ver reportes',
-        icon: <TocIcon/>,
-        pattern: 'dispensario{/:crud}*'
-      }
-    ]
-  },
-  {
-    segment: 'historias',
-    title: 'Historia clínica',
-    icon: <ContentPasteSearchIcon />,
-    pattern: 'historias{/:crud}*',
+    segment: 'admin/eventos',
+    title: 'Campañas',
+    icon: <CampaignIcon/>,
+    pattern: 'eventos{/:crud}*'
   },
 ]; 
 

@@ -80,6 +80,29 @@ const getPacienteByDocument = (document) => {
   })
 }
 
+const sendMail = (payload)=>{
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'post',
+    url: `${Config('urlRoot')}/messages/sendmail`,
+    data: payload,
+    responseType: 'json'
+  })
+}
+
+const getOnePaciente = (id) => {
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/pacientes/getbyid/${id}`,
+    responseType: 'json'
+  })
+}
+
 export default {
     getAll,
     getOne,
@@ -87,5 +110,7 @@ export default {
     updateOne,
     deleteOne,
     getMedicos,
-    getPacienteByDocument
+    getPacienteByDocument,
+    sendMail,
+    getOnePaciente
 }

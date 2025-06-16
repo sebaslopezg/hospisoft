@@ -12,7 +12,7 @@ import { useDialogs } from '@toolpad/core/useDialogs';
 import InfoIcon from '@mui/icons-material/Info';
 import { Dialog, DialogActions, DialogContent } from '@mui/material';
 import { PacientesDetails } from './details';
-
+import ExcelExportButton from '../../components/excelButton';
 
 export const PacientesView = () => {
 
@@ -39,7 +39,7 @@ export const PacientesView = () => {
             renderCell: (params) => {
                 return <>
                     <IconButton onClick={(e)=> handleClickOpen(params.id)}><InfoIcon /></IconButton>
-                    <IconButton href={`/pacientes/edit/${params.id}`}><EditIcon /></IconButton>
+                    <IconButton href={`/admin/pacientes/edit/${params.id}`}><EditIcon /></IconButton>
                     <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
                 </>
             }
@@ -91,11 +91,15 @@ export const PacientesView = () => {
 
     return <>
         <Grid container direction="column" spacing={1}>
-        <Grid size={3}>
+        <Grid container direction='row' sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+            }}>
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/pacientes/create">Nuevo</Button>
+            <Button variant="contained" href="/admin/pacientes/create">Nuevo</Button>
+            <ExcelExportButton rows={rows} columns={columns} fileName="reporte_pacientes" />
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}

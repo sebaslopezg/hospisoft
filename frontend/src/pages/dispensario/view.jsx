@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useState, useEffect } from "react";
 import data from './data'
+import ExcelExportButton from '../../components/excelButton';
 
 export const DispensarioView = () => {
 
@@ -26,10 +27,14 @@ export const DispensarioView = () => {
 
     return <>
         <Grid container direction="column" spacing={1}>
-        <Grid size={3}>
+        <Grid container direction='row' sx={{
+            justifyContent: "flex-start",
+            alignItems: "center",
+            }}>
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
+            <ExcelExportButton rows={rows} columns={columns} fileName="reporte_dispensario" />
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}
