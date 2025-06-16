@@ -23,12 +23,12 @@ export const FormulasView = () => {
             renderCell: (params) => {
                 return <>
                     <Tooltip title="Ver detalles">
-                        <IconButton href={`/ordenes/formulas/details/${params.id}`}>
+                        <IconButton href={`/admin/ordenes/formulas/details/${params.id}`}>
                             <InfoIcon />
                         </IconButton>
                     </Tooltip>
                     <Tooltip title="Editar">
-                        <IconButton href={`/ordenes/formulas/edit/${params.id}`}>
+                        <IconButton href={`/admin/ordenes/formulas/edit/${params.id}`}>
                             <EditIcon />
                         </IconButton>
                     </Tooltip>
@@ -86,7 +86,7 @@ export const FormulasView = () => {
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/ordenes/formulas/create">Nuevo</Button>
+            <Button variant="contained" href="/admin/ordenes/formulas/create">Nuevo</Button>
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}

@@ -18,31 +18,31 @@ const admin = [
     icon: <DashboardIcon />,
   },
   {
-    segment: 'usuarios',
+    segment: 'admin/usuarios',
     title: 'Usuarios',
     icon: <GroupIcon />,
     pattern: 'usuarios{/:crud}*',
   },
   {
-    segment: 'pacientes',
+    segment: 'admin/pacientes',
     title: 'Pacientes',
     icon: <Diversity3Icon/>,
     pattern: 'Pacientes{/:crud}*',
   },
   {
-    segment: 'citas',
+    segment: 'admin/citas',
     title: 'Citas',
     icon: <EventAvailableIcon />,
     pattern: 'citas{/:crud}*',
   },
   {
-    segment: 'medicamentos',
+    segment: 'admin/medicamentos',
     title: 'Medicamentos',
     icon: <MedicationIcon />,
     pattern: 'medicamentos{/:crud}*',
   },
   {
-    segment: 'ordenes',
+    segment: 'admin/ordenes',
     title: 'Órdenes',
     icon: <ChecklistIcon/>,
     children:[
@@ -67,7 +67,7 @@ const admin = [
     ]
   },
   {
-    segment: 'dispensario',
+    segment: 'admin/dispensario',
     title: 'Dispensario',
     icon: <MedicalInformationIcon />,
     children:[
@@ -86,7 +86,7 @@ const admin = [
     ]
   },
   {
-    segment: 'historias',
+    segment: 'admin/historias',
     title: 'Historia clínica',
     icon: <ContentPasteSearchIcon />,
     pattern: 'historias{/:crud}*',

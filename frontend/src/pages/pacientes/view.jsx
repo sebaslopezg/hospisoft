@@ -39,7 +39,7 @@ export const PacientesView = () => {
             renderCell: (params) => {
                 return <>
                     <IconButton onClick={(e)=> handleClickOpen(params.id)}><InfoIcon /></IconButton>
-                    <IconButton href={`/pacientes/edit/${params.id}`}><EditIcon /></IconButton>
+                    <IconButton href={`/admin/pacientes/edit/${params.id}`}><EditIcon /></IconButton>
                     <IconButton onClick={(e) => handleDelete(params.id)}><DeleteIcon /></IconButton>
                 </>
             }
@@ -95,7 +95,7 @@ export const PacientesView = () => {
             <IconButton size="large" onClick={getRows}>
             <RefreshIcon />
             </IconButton>
-            <Button variant="contained" href="/pacientes/create">Nuevo</Button>
+            <Button variant="contained" href="/admin/pacientes/create">Nuevo</Button>
         </Grid>
             <DataGrid
             getRowId={(dataList) => dataList._id}

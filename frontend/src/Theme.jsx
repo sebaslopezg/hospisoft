@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles';
-import { styled } from '@mui/material/styles';
 
 const Theme = createTheme({
     palette: {
@@ -10,9 +9,9 @@ const Theme = createTheme({
             dark: '#2055d6',
         },
         secondary:{
-            main:'#7b2cbf',
-            light: '#e0aaff',
-            dark: '#10002b',
+            main:'#eea733',
+            light: '#f1b73b',
+            dark: '#dc8524',
         },
         grey:{
             main: '#b0bec5',

@@ -153,7 +153,7 @@ export const FormulasEdit = () => {
               {severity: 'error',autoHideDuration: 3000,})
             )
         })
-        //.then(navigate('/ordenes/formulas'))
+        //.then(navigate('/admin/ordenes/formulas'))
         .catch((err) =>{
             notifications.show('Error de conexión: ' + err.message, 
             {severity: 'error',autoHideDuration: 3000,})
