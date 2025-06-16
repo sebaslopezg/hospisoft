@@ -21,9 +21,7 @@ export default function DashboardPage() {
       alignItems: 'flex-start',
     }}
     >
-    <Card sx={{paddingTop:'2%', mt:2, width:'50%'}}>
-      <LineChartD/>
-    </Card>
+
     <Card 
     sx={{paddingTop:'2%', mt:2, width:'50%'}}
     >

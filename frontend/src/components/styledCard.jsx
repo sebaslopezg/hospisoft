@@ -1,6 +1,5 @@
 import { createTheme, ThemeProvider, Card, Typography } from "@mui/material"
 
-const imgURL = '../../src/assets/svg/'
 
 const ThemeCard = createTheme({
     components:{
@@ -23,7 +22,7 @@ export default function StyledCard({svgVariation, title, content}){
     <ThemeProvider theme={ThemeCard}>
     <Card 
     sx={{
-        backgroundImage:`url(${imgURL}${svgVariation})`
+        backgroundImage:`url(/svg/${svgVariation})`
     }}>
         <Typography variant='h5' sx={{mt:3, ml:3, color:'white'}}>{title}</Typography>
         <Typography variant='h3' sx={{mt:3, ml:3, color:'white'}}>{content}</Typography>
