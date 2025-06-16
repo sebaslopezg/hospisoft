@@ -1,7 +1,6 @@
 import axios from 'axios'
 import Config from '../../Config';
 
-
 const columns = [
     {
     field: 'imagen',
@@ -53,8 +52,57 @@ const createOne = (payload) => {
   })
 }
 
+const getOne = (id) => {
+  return  axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'get',
+    url: `${Config('urlRoot')}/medicamento/getbyid/${id}`,
+    responseType: 'json'
+  })
+}
+
+const setDelete = (id) => {
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method: 'delete',
+    url: `${Config('urlRoot')}/medicamento/deletebyid/${id}`,
+    responseType: 'json'
+  })
+}
+
+const setImage = (payload) => {
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method:'post',
+    url: `${Config('urlRoot')}/medicamento/uploadimage`,
+    data: payload,
+    responseType: 'json'
+  })
+}
+
+const updateOne = (id, payload) => {
+  return axios({
+    headers:{
+      Authorization: `Bearer ${localStorage.getItem('token')}`
+    },
+    method:'put',
+    url:`${Config('urlRoot')}/medicamento/updatebyid/${id}`,
+    data:payload
+  })
+}
+
 export default {
-    columns,
-    getAll,
-    createOne,
+  columns,
+  getAll,
+  createOne,
+  setDelete,
+  getOne,
+  setImage,
+  updateOne
 }
