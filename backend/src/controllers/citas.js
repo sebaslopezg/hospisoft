@@ -38,7 +38,10 @@ const create = async(req, res)=>{
         idPaciente = mongoose.Types.ObjectId.createFromHexString(req.body.pacienteId)
         idMedico = mongoose.Types.ObjectId.createFromHexString(req.body.medicoId)
         paciente = await pacientes.findOne({_id: idPaciente, status:{$gt:0}})
-        .populate('email')
+        .populate({
+            path:'pacienteId',
+            select:'email'
+        })
         .exec()
         medico = await medicos.findOne({_id: idMedico, status:{$gt:0}, rol:2}).exec()
     } catch (error) {
