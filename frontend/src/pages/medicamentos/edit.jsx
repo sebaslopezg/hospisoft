@@ -3,10 +3,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useParams } from 'react-router';
 import { useState, useEffect } from "react";
-import axios from 'axios'
-import Config from '../../Config';
 import { useNotifications } from '@toolpad/core/useNotifications';
 import { useNavigate } from "react-router";
+import dataAxios from './data.js'
 
 export const MedicamentosEdit = () => {
 
@@ -22,20 +21,18 @@ export const MedicamentosEdit = () => {
 
   const [data, setData] = useState("")
   useEffect(()=>{
-    !data ? (
-      axios({
-        method: 'get',
-        url: `${Config('urlRoot')}/medicamento/getbyid/${params.id}`,
-        responseType: 'json'
-      })
-      .then((res) => {
-        const dataSource = res.data.data[0]
-        dataSource ? setData(dataSource) : setData(dataPlaceholder)
-      })
-      .catch(error => console.log(error))
-     ) : ''      
+    !data ? getData() : ''      
 
   },[data])
+
+  const getData = async() =>{
+    await dataAxios.getOne(params.id)
+    .then((res) => {
+      const dataSource = res.data.data[0]
+      dataSource ? setData(dataSource) : setData(dataPlaceholder)
+    })
+    .catch(error => console.log(error))
+  }
 
   const getFromData = async(e) =>{
   e.preventDefault()
@@ -51,7 +48,7 @@ export const MedicamentosEdit = () => {
   formImage.append('file0', value.file0.files[0])
   formImage.append('id', params.id)
 
-  await axios.post(`${Config('urlRoot')}/medicamento/uploadimage`,formImage)
+  await dataAxios.setImage(formImage)
   .then((res) =>{
     console.log(res)
     res.data.status ? (
@@ -69,7 +66,7 @@ export const MedicamentosEdit = () => {
   })
 
 
-  await axios.put(`${Config('urlRoot')}/medicamento/updatebyid/${params.id}`,formData)
+  await dataAxios.updateOne(params.id, formData)
   .then((res) =>{
     console.log(res)
     res.data.status ? (
