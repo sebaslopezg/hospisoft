@@ -1,7 +1,6 @@
 import { 
   DataGrid,
 } from '@mui/x-data-grid';
-import axios from 'axios'
 import data from './data.jsx'
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
@@ -10,8 +9,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useState, useEffect } from "react";
-import Config from '../../Config';
-import medicamentoDelete from './delete'
 import { useNotifications } from '@toolpad/core/useNotifications';
 import ExcelExportButton from '../../components/excelButton';
 
@@ -35,9 +32,8 @@ const medicamentoView = () => {
     ) : ''
   }
 
-  const handleDelete = (id) => {
-    const setDelete = medicamentoDelete.setDelete(id)
-    setDelete
+  const handleDelete = async(id) => {
+    await data.setDelete(id)
     .then((response) => {
       console.log(response)
       response.data.status ? (

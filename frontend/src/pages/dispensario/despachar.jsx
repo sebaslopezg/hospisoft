@@ -144,11 +144,7 @@ export const DispensarioDespachar = () => {
       let totalEntregar = 0
       for (let i = 0; i < entregarValue.length; i++) {
         totalEntregar += parseInt(entregarValue[i])
-      }
-      console.log(checked.length);
-      console.log(totalEntregar);
-      
-      
+      }   
     }
 
     const setSubmit = (e)=>{
@@ -157,7 +153,7 @@ export const DispensarioDespachar = () => {
       const payload = {
       formulaId: formulaId,
       nota: notaValue[0],
-      totalUnidades: totalUnidades,
+      totalUnidades: '',
       totalMedicamentos: totalEntregar,
       }
 

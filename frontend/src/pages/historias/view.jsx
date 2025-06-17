@@ -115,7 +115,7 @@ const downloadPdf = () => {
   var newdat = today.toLocaleDateString("es-ES", options)
   doc.text(10,5,newdat);
   var img = new Image()
-  img.src = '../../src/assets/img/logo.png'
+  img.src = 'url(/logo.png)'
   doc.addImage(img, 'png', 10, 5, 30, 30)
   doc.setFontSize(16);
   doc.text("Reporte de Historia Clínica", 40, 20);

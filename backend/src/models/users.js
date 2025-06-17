@@ -50,7 +50,7 @@ const userSchema = Schema({
       required: true,
       default:4,
       min:1,
-      max:4,
+      max:5,
     },
     direccion: {
       type: String,

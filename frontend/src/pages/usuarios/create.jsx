@@ -106,6 +106,7 @@ export const UsuariosCreate = () => {
               <MenuItem value={2}>Medico</MenuItem>
               <MenuItem value={3}>Secretario</MenuItem>
               <MenuItem value={4}>Visitante</MenuItem>
+              <MenuItem value={5}>Dispensario</MenuItem>
             </Select>
             </FormControl>
             <Box sx={{mt:1}}>
