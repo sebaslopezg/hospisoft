@@ -33,6 +33,7 @@ export const DispensarioDespachar = () => {
     const [entregarValue, setEntregarValue] = useState([])
     const [notaValue, setNotaValue] = useState([])
     const [medicamentosFound, setMedicamentosFound] = useState([])
+    const [totalEntregado, setTotalEntregado] = useState(0)
 
   const handlerSetEntregarValue = (value, slot) => {
     let currentValue = [...entregarValue]
@@ -145,6 +146,7 @@ export const DispensarioDespachar = () => {
       for (let i = 0; i < entregarValue.length; i++) {
         totalEntregar += parseInt(entregarValue[i])
       }   
+      setTotalEntregado(totalEntregar)
     }
 
     const setSubmit = (e)=>{
@@ -153,8 +155,7 @@ export const DispensarioDespachar = () => {
       const payload = {
       formulaId: formulaId,
       nota: notaValue[0],
-      totalUnidades: '',
-      totalMedicamentos: totalEntregar,
+      totalMedicamentos: totalEntregado,
       }
 
     const response = data.createOne(payload)
