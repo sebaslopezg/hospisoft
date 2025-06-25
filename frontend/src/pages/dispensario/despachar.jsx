@@ -170,7 +170,7 @@ export const DispensarioDespachar = () => {
         {severity: 'error',autoHideDuration: 3000,})
       )
     })
-    .then(navigate('/dispensario'))
+    .then(navigate('/admin/dispensario/ver'))
     .catch((err) =>{
     notifications.show('Error de conexión: ' + err.message, 
       {severity: 'error',autoHideDuration: 3000,})

@@ -5,6 +5,7 @@ import diagnosticos from '../models/diagnosticos.js'
 import examenes from '../models/examenes.js'
 import dispensarioMaestro from '../models/dispensarioMaestro.js'
 import dispensarioDetalle from '../models/dispensarioDetalle.js'
+import users from '../models/users.js'
 
 /**
  * medicamentos entregados (pendiente)
@@ -129,10 +130,30 @@ const getDispensario = async(req, res)=>{
     }
 }
 
+const getMedicos = async(req, res)=>{
+    try {
+        let medicos = await users.countDocuments({status:{$gt:0}})
+
+        .exec()
+        res.status(200).send({
+            status:true,
+            count:{
+                medico:medicos,
+            },
+        })
+    } catch (error) {
+        res.status(500).send({
+            status:false,
+            msg:"Error en la consulta" +error
+        })
+    }
+}
+
 export{
     getFormulas,
     getPacientes,
     getDiagnosticos,
     getExamenes,
-    getDispensario
+    getDispensario,
+    getMedicos
 }
