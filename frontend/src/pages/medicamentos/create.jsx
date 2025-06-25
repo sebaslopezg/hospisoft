@@ -45,7 +45,7 @@ const getFromData = async(e) =>{
   e.preventDefault()
   let value = e.target
 
-  setImageInput(value.imagen)
+  setImageInput(value.file0)
   const formData = {
     nombre: value.nombre.value,
     descripcion: value.descripcion.value,
@@ -80,7 +80,7 @@ return <>
         <TextField required name="nombre" label="Nombre"/>
         <TextField multiline maxRows={4} required name="descripcion" label="Descripcion"/>
         <TextField required type="number" name="existencia" label="Existencia"/>
-        <TextField onChange={(e) => fileHandler(e)} type='file' name="imagen" label="Imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
+        <TextField onChange={(e) => fileHandler(e)} type='file' name="file0" label="Imagen" slotProps={{inputLabel:{shrink:'true'}}}/>
         <Box>
           <Button type="submit" variant="contained">Guardar</Button>
         </Box>

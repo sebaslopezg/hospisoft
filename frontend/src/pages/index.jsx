@@ -2,16 +2,12 @@ import { PageContainer } from '@toolpad/core/PageContainer';
 import BarChartD from './dashboard/barChartD';
 import { Card, Stack, Typography } from '@mui/material';
 import PieChartD from './dashboard/pieChartD';
-import LineChartD from './dashboard/lineChartD';
 import CardsInfo from './dashboard/cardsInfo';
 
 export default function DashboardPage() {
    
   return <PageContainer>
     <CardsInfo/>
-    <Card sx={{paddingTop:'5%', minHeight:'50%'}}>
-      <BarChartD/>
-    </Card>
     <Stack
     direction="row"
     spacing={2}
@@ -22,10 +18,14 @@ export default function DashboardPage() {
     }}
     >
 
+    <Card sx={{paddingTop:'5%', width:'50%', height:'100%'}}>
+      <BarChartD/>
+    </Card>
+
     <Card 
-    sx={{paddingTop:'2%', mt:2, width:'50%'}}
+    sx={{paddingTop:'2%', mt:2, width:'50%', height:'100%'}}
     >
-      <Typography variant='h6' sx={{mb:4}}>
+      <Typography variant='h6' sx={{mb:'10%', mt:2}}>
         Comparación entre órdenes creadas:
       </Typography>
       <PieChartD/>

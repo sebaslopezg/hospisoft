@@ -23,12 +23,12 @@ export default function BarChartD(){
         <BarChart
         colors={cheerfulFiestaPalette}
       series={[
-        { data: [formulado] },
-        { data: [entregado] },
-        { data: [dispensario] },
+        { data: [formulado], label: ['formulado'] },
+        { data: [entregado], label: ['entregado'] },
+        { data: [dispensario], label: ['dispensado'] },
       ]}
       height={290}
-      xAxis={[{ data: ['Medicamentos formulados', 'Medicamentos entregados', 'formulas despachadas'] }]}
+      xAxis={[{ data: ['Órdenes creadas'] }]}
     />
     </>
 }

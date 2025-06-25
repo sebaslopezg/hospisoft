@@ -101,39 +101,76 @@ export const HistoriasView = () => {
       }
     }
 
-const downloadPdf = () => {
+const getImageAsBase64 = (url) => {
+  return fetch(url)
+    .then(response => response.blob())
+    .then(blob => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    }));
+};
+
+const downloadPdf = async () => {
   const doc = new jsPDF();
-  var today = new Date();
+  const today = new Date();
   const options = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
-  
-  doc.setFontSize(10)
-  var newdat = today.toLocaleDateString("es-ES", options)
-  doc.text(10,5,newdat);
-  var img = new Image()
-  img.src = '/logo.png'
-  img.onload = function () {
-  doc.addImage(img, 'png', 10, 5, 30, 30)
+  const newdat = today.toLocaleDateString("es-ES", options);
+  doc.setFontSize(10);
+  doc.text(10, 5, newdat);
+
+  // Dynamically load and scale the image
+  try {
+    const imageData = await getImageAsBase64('/logo.png');
+
+    const img = new Image();
+    img.src = imageData;
+
+    await new Promise((resolve, reject) => {
+      img.onload = () => {
+        // Natural image dimensions
+        const imgWidth = img.width;
+        const imgHeight = img.height;
+
+        // Max dimensions for the PDF
+        const maxWidth = 50; // mm
+        const maxHeight = 30; // mm
+
+        // Calculate scale to fit inside the max box
+        const scale = Math.min(maxWidth / imgWidth, maxHeight / imgHeight);
+        const scaledWidth = imgWidth * scale;
+        const scaledHeight = imgHeight * scale;
+
+        // Draw image at top-left
+        doc.addImage(imageData, 'PNG', 10, 10, scaledWidth, scaledHeight);
+        resolve();
+      };
+      img.onerror = reject;
+    });
+  } catch (error) {
+    console.error('Image load failed:', error);
   }
+
   doc.setFontSize(16);
-  doc.text("Reporte de Historia Clínica", 40, 20);
-  let finalY = 40;
+  doc.text("Reporte de Historia Clínica", 70, 25); // Adjust if needed based on image
+  let finalY = 50; // Adjust based on image height
 
-  const addFooters = doc => {
-  const pageCount = doc.internal.getNumberOfPages()
-
-  doc.setFontSize(8)
-  for (var i = 1; i <= pageCount; i++) {
-    doc.setPage(i)
-    doc.text('página ' + String(i) + ' de ' + String(pageCount), doc.internal.pageSize.width / 2, 287, {
-      align: 'center'
-      })
+  const addFooters = (doc) => {
+    const pageCount = doc.internal.getNumberOfPages();
+    doc.setFontSize(8);
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.text('página ' + i + ' de ' + pageCount, doc.internal.pageSize.width / 2, 287, {
+        align: 'center'
+      });
     }
-  }
+  };
 
   const addTable = (title, columns, rows) => {
     const tableColumns = columns
@@ -145,16 +182,13 @@ const downloadPdf = () => {
         .filter(col => col.field !== 'actions')
         .map(col => {
           const value = row[col.field];
-
-          // Handle object values (like medico: { nombre: 'Dr. X' })
           if (typeof value === 'object' && value !== null) {
             if (value.nombre) return value.nombre;
             if (value.name) return value.name;
             if (value._id) return value._id;
-            return JSON.stringify(value); // Fallback
+            return JSON.stringify(value);
           }
-
-          return value ?? ''; // Avoid undefined
+          return value ?? '';
         })
     );
 
@@ -171,13 +205,14 @@ const downloadPdf = () => {
     });
   };
 
-  // Generate all 3 sections
   addTable("Diagnósticos", diagnosticosColumns, diagnosticosRows);
   addTable("Exámenes", ExamenesColumns, examenesRows);
   addTable("Fórmulas", FormulasColumns, formulasRows);
-  addFooters(doc)
+  addFooters(doc);
   doc.save('historia_clinica.pdf');
 };
+
+
     return <>
       <Stack spacing={2} direction='row' sx={{mb:3}} >
           <TextField
