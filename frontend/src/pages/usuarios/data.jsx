@@ -8,6 +8,7 @@ const roles = [
   {name:'Medico', color:'success'},
   {name:'Secretario', color:'warning'},
   {name:'Visitante', color:''},
+  {name:'Dispensario', color:'info'}
 ]
 
   const columns = [
